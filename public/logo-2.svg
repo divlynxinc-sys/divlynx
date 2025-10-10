@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Transparent background (no rect) -->
+
+  <!-- Tilted bold white D -->
+  <g transform="rotate(-12 32 32)">
+    <path d="M20 16 H38 C50 16 56 22 56 32 C56 42 50 48 38 48 H20 V16 Z" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M24 22 H36 C44 22 48 26 48 32 C48 38 44 42 36 42 H24" fill="none" stroke="#000000" stroke-opacity="0" stroke-width="8"/>
+  </g>
+
+  <!-- Orange pixel squares breaking outward -->
+  <rect x="44" y="8" width="10" height="10" fill="#FF8C00" rx="1"/>
+  <rect x="52" y="18" width="9" height="9" fill="#FFA31A" rx="1"/>
+  <rect x="38" y="4" width="8" height="8" fill="#FF7A00" rx="1"/>
+
+  <!-- subtle glow for visibility on dark/transparent contexts -->
+  <defs>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.6" result="blur"/>
+    </filter>
+  </defs>
+  <g filter="url(#softGlow)"></g>
+</svg>

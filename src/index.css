@@ -1,0 +1,33 @@
+/* Base reset and typography */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter','Poppins',system-ui,sans-serif; color: #E8E8E8; background:#0B0C10; }
+
+/* Generic utility classes */
+.text-center { text-align: center; }
+.hidden { display: none; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.mb-sm { margin-bottom: clamp(8px, 1.6vw, 14px); }
+.mb-md { margin-bottom: clamp(16px, 2.6vw, 24px); }
+.mb-lg { margin-bottom: clamp(24px, 3.6vw, 34px); }
+.mt-md { margin-top: clamp(12px, 2.2vw, 18px); }
+
+/* Containers */
+.container { max-width: clamp(320px, 92vw, 1200px); margin: 0 auto; padding: 0 clamp(12px, 3vw, 24px); }
+.container-narrow { max-width: clamp(320px, 90vw, 820px); margin: 0 auto; padding: 0 clamp(12px, 3vw, 24px); }
+.section { padding: clamp(64px, 8.5vw, 96px) 0; scroll-margin-top: clamp(64px, 9vw, 100px); }
+.section:not(:first-child) { border-top: 1px solid rgba(255,255,255,0.08); }
+
+/* Buttons */
+.btn { display:inline-block; padding:12px 24px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:all .25s ease; text-decoration:none; }
+.btn--primary { background:#7A00FF; color:#fff; box-shadow:0 0 20px rgba(122,0,255,.5); }
+.btn--primary:hover { filter:brightness(1.1); }
+.btn--outline { background:transparent; color:#E8E8E8; border-color:#00FFFF; }
+.btn--outline:hover { background:rgba(0,255,255,.1); }
+
+/* Headings */
+.title { font-family:'Orbitron','Exo 2',system-ui,sans-serif; font-weight:700; }
+.title-xl { font-size: clamp(2rem, 4vw, 3rem); }
+.title-xxl { font-size: clamp(2.5rem, 6vw, 4rem); }
+.muted { color: rgba(232,232,232,.75); }

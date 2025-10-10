@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Black background -->
+  <rect x="0" y="0" width="64" height="64" rx="12" fill="#0B0C10"/>
+
+  <!-- Tilted bold white D (stroke for crispness at small sizes) -->
+  <g transform="rotate(-12 32 32)">
+    <path d="M20 16 H38 C50 16 56 22 56 32 C56 42 50 48 38 48 H20 V16 Z" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M24 22 H36 C44 22 48 26 48 32 C48 38 44 42 36 42 H24" fill="none" stroke="#0B0C10" stroke-width="8"/>
+  </g>
+
+  <!-- Orange pixel squares breaking outward -->
+  <rect x="44" y="8" width="10" height="10" fill="#FF8C00" rx="1"/>
+  <rect x="52" y="18" width="9" height="9" fill="#FFA31A" rx="1"/>
+  <rect x="38" y="4" width="8" height="8" fill="#FF7A00" rx="1"/>
+
+  <!-- subtle highlight for depth -->
+  <rect x="0" y="0" width="64" height="64" rx="12" fill="url(#glow)" opacity="0.12"/>
+  <defs>
+    <radialGradient id="glow" cx="32" cy="18" r="38" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

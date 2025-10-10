@@ -1,0 +1,29 @@
+/* Section-specific helpers mapping to components */
+.section { position:relative; }
+.section .section-header { text-align:center; margin-bottom: 40px; }
+.muted { color: rgba(232,232,232,.8); }
+
+/* Panel utility for consistent inner padding on cards/forms */
+.panel { padding: clamp(1rem, 2.6vw, 1.5rem); }
+
+/* Feature card icon */
+.feature-icon { display:block; font-size:28px; margin:0 auto 12px; color: var(--accent-violet); }
+
+/* Social icons */
+.social { display:flex; gap:12px; align-items:center; }
+.social a { color: rgba(232,232,232,.8); text-decoration:none; }
+.social a:hover { color: var(--accent-blue); }
+
+/* Global liquid glass specular highlight overlay for any panel/card */
+.glass-liquid { position:relative; border-radius: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(12px) saturate(115%); box-shadow: 0 20px 40px rgba(0,0,0,0.35); }
+.glass-liquid::before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:
+  radial-gradient(120% 90% at 10% -10%, rgba(255,255,255,0.25), transparent 60%),
+  linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  opacity:.7; filter: blur(4px);
+}
+.glass-liquid::after { content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.55); opacity:.6; }
+
+/* If neon-border also present, prefer liquid glass (hide neon glow edge) */
+.glass-liquid.neon-border::after { display:none !important; }
+
+/* Back-to-top styles moved to dedicated stylesheet (src/css/backtotop.css) */
