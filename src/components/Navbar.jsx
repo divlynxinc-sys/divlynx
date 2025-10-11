@@ -6,6 +6,7 @@ import '../css/navbar.css'
 const navItems = [
   { label: 'Services', href: '#services' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Our Impact', href: '#why' },
   { label: 'Vision', href: '#vision' },
   { label: 'About', href: '#team' },
   { label: 'Contact', href: '#contact' },
