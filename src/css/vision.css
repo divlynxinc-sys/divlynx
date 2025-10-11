@@ -19,8 +19,8 @@
 /* Decorative images on left and right from public assets */
 .vision-decor { position:absolute; inset:0; pointer-events:none; z-index:0; }
 .vision-decor img { position:absolute; opacity:.46; mix-blend-mode:screen; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45)) blur(0.6px); object-fit: contain; will-change: transform; backface-visibility: hidden; }
-.vision-decor .decor-left { right: 100%; top:50%; transform: translateY(-50%); width: min(32vw, 420px); height:auto; animation: floatY 8s ease-in-out infinite; }
-.vision-decor .decor-right { left: 100%; top:50%; transform: translateY(-50%); width: min(32vw, 420px); height:auto; animation: floatY 8s ease-in-out infinite; animation-delay: -4s; }
+.vision-decor .decor-left { right: 100%; top:50%; transform: translateY(-50%); width: min(30vw, 420px); height:auto; animation: floatY 5s ease-in-out infinite; }
+.vision-decor .decor-right { left: 100%; top:50%; transform: translateY(-50%); width: min(30vw, 420px); height:auto; animation: floatY 5s ease-in-out infinite; animation-delay: -4s; }
 .vision-decor .decor-left:hover,
 .vision-decor .decor-right:hover { animation-play-state: paused; }
 

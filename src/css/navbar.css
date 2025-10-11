@@ -417,7 +417,34 @@
     width: 24px;
     height: 3px;
   }
+  /* Mobile drawer: reduce visual footprint and increase contrast */
+  .navbar__drawer {
+    background: rgba(6, 6, 10, 0.82);
+    backdrop-filter: blur(40px) saturate(150%);
+  }
+  .navbar__drawer.is-open {
+    background: rgba(6, 6, 10, 15);
+    backdrop-filter: blur(50px) saturate(160%);
+  }
   .drawer__panel {
-    background: rgba(28, 28, 34, 0.92); /* More opaque for mobile */
+    background: rgba(18, 18, 22, 0.96); /* Darker for better legibility */
+    width: clamp(170px, 50vw, 240px);
+    padding: 12px 14px;
+    border-radius: 26px;
+    gap: 16px;
+  }
+  .drawer__menu {
+    gap: 16px;
+    padding: 12px 8px;
+  }
+  .drawer__menu li {
+    padding-bottom: 8px;
+    margin-bottom: 0;
+  }
+  .drawer__link {
+    font-size: 18px;
+    padding: 10px 12px;
+    color: rgba(255, 255, 255, 0.98);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
   }
 }
