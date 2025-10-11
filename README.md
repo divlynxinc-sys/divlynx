@@ -60,18 +60,35 @@ divlynx-website-rewamp/
 
 ## Environment Configuration (EmailJS)
 
-The contact form uses EmailJS. Create a `.env` file in the project root and set:
+The contact form uses EmailJS.
+
+### Configure EmailJS
+1. Create an account at https://www.emailjs.com/.
+2. Create a Service (connect your email provider).
+3. Create a Template with these variables:
+   - `from_name`
+   - `reply_to`
+   - `message`
+   - `to_email`
+4. Copy your Service ID, Template ID, and Public Key.
+
+### Add Environment Variables
+Copy `.env.example` to `.env.local` and set:
 
 ```
 VITE_EMAILJS_SERVICE_ID=your_service_id
 VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
+VITE_CONTACT_TO_EMAIL=divlynx.inc@gmail.com
 ```
 
 Where to set these
 - Sign in to EmailJS, create a service and a template.
 - Copy your Service ID, Template ID, and Public Key.
 - Values are read in `src/components/Contact.jsx` via `import.meta.env.*`.
+
+Fallback behavior
+- If env vars are missing, the form will fall back to a `mailto:` send and open the user’s email app with a prefilled message to `divlynx.inc@gmail.com`.
 
 Validation & UX
 - Name, email, and message are validated client-side.

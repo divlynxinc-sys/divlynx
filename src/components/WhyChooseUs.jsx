@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import '../css/features.css'
+import ScrollHint from './ScrollHint'
 import { FiCpu, FiTrendingUp, FiGitMerge, FiLayers, FiAperture, FiZap, FiUsers, FiHeart } from 'react-icons/fi'
 
 const features = [
@@ -28,7 +29,7 @@ const features = [
 
 export default function WhyChooseUs() {
   return (
-    <section className="section features-section">
+    <section id="why" className="section features-section">
       {/* Decorative white ring lights behind cards */}
       <div className="features-rings" aria-hidden="true">
         <span className="ring ring--tr" />
@@ -55,6 +56,7 @@ export default function WhyChooseUs() {
           ))}
         </div>
       </div>
+      <ScrollHint target="#services" ariaLabel="Scroll to services" />
     </section>
   )
 }

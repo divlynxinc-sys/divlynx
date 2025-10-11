@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import '../css/projects.css'
+import ScrollHint from './ScrollHint'
 
 // Minimal project entries: project name + tech used
 const projects = [
@@ -53,6 +54,7 @@ export default function Projects() {
           </div>
         </div>
       </div>
+      <ScrollHint target="#team" ariaLabel="Scroll to team" className="scroll-hint--below" />
     </section>
   )
 }

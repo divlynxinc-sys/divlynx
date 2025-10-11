@@ -15,7 +15,18 @@
 .footer-links a { color: rgba(232,232,232,.85); text-decoration:none; font-size: 13px; padding: 6px 0; }
 .footer-links a:hover { color: var(--accent-blue); }
 
-.footer-social { display:flex; gap: 12px; justify-content: flex-end; justify-self:end; }
+.footer-social { display:flex; gap: 12px; justify-content: flex-end; justify-self:end; align-items: center; }
 @media (max-width: 800px){ .footer-social { justify-content:center; justify-self:center; } }
-.footer-social a { color: rgba(232,232,232,.85); font-size: 20px; }
+.footer-social a { color: rgba(232,232,232,.85); font-size: 20px; text-decoration: none; display: inline-flex; align-items: center; }
 .footer-social a:hover { color: var(--accent-blue); }
+/* Brand-specific hover/focus colors */
+.footer-social a.footer-social--linkedin:hover, .footer-social a.footer-social--linkedin:focus-visible { color: #0A66C2; }
+.footer-social a.footer-social--instagram:hover, .footer-social a.footer-social--instagram:focus-visible { color: #E1306C; }
+.footer-social a.footer-social--email:hover, .footer-social a.footer-social--email:focus-visible { color: #7cffc6; }
+
+/* Email pill styling */
+.footer-email-pill { display:inline-flex; align-items:center; gap:8px; padding:.35rem .6rem; border-radius:999px; background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.03)); border:1px solid rgba(255,255,255,0.16); font-size: 14px; line-height: 1; }
+.footer-email-pill:hover { border-color: rgba(255,255,255,0.22); background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05)); }
+.footer-email-pill:focus-visible { outline:none; box-shadow: 0 0 0 2px rgba(122,0,255,0.35); }
+.footer-email-pill svg { width:18px; height:18px; }
+.footer-email-text { /* inherit color for hover/focus branding */ font-size: 14px; }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiMenu, FiMoreVertical } from 'react-icons/fi'
+import { FiLinkedin, FiMenu, FiMoreVertical, FiInstagram } from 'react-icons/fi'
 import '../css/navbar.css'
 
 const navItems = [
@@ -55,8 +55,10 @@ export default function Navbar() {
           ))}
         </ul>
         <div className="navbar__actions">
-          <a href="https://www.linkedin.com/company/divlynx/" target="_blank" rel="noopener" className="btn--nav" title="LinkedIn"><FiLinkedin /> <span className="hide-sm">LinkedIn</span></a>
-          <a href="https://github.com/" target="_blank" rel="noopener" className="btn--nav" title="GitHub"><FiGithub /> <span className="hide-sm">GitHub</span></a>
+          <a href="https://www.linkedin.com/company/divlynx/" target="_blank" rel="noopener" className="btn--nav btn--linkedin" title="LinkedIn"><FiLinkedin /> <span className="hide-sm">LinkedIn</span></a>
+          <a href="https://www.instagram.com/divlynxinc?igsh=bmN1Z2o1eDJvbDZh" target="_blank" rel="noopener" className="btn--nav btn--instagram" title="Instagram">
+            <FiInstagram /> <span className="hide-sm">Instagram</span>
+          </a>
         </div>
         <button className={`navbar__toggle${open ? ' is-open' : ''}`} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open} onClick={()=>setOpen((v)=>!v)}>
           <span className="toggle-lines" aria-hidden>

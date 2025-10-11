@@ -1,4 +1,5 @@
 import '../css/team.css'
+import ScrollHint from './ScrollHint'
 
 export default function Team() {
   return (
@@ -18,6 +19,7 @@ export default function Team() {
         {/* Cards removed as requested */}
         <p className="muted team-footer">We’re a team of thinkers, builders, and innovators — united by code, driven by creativity.</p>
       </div>
+      <ScrollHint target="#contact" ariaLabel="Scroll to contact" />
     </section>
   )
 }

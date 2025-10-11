@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import '../css/vision.css'
+import ScrollHint from './ScrollHint'
 
 export default function Vision() {
   return (
@@ -18,6 +19,7 @@ export default function Vision() {
           </div>
         </div>
       </motion.div>
+      <ScrollHint target="#why" ariaLabel="Scroll to why choose us" />
     </section>
   )
 }

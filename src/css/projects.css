@@ -19,7 +19,7 @@
 .project-card { position:relative; border-radius:12px; padding: clamp(12px, 2.4vw, 20px); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(12px); box-shadow: 0 16px 30px rgba(0,0,0,0.32); }
 .project-card::before { content:""; position:absolute; inset:-1px; border-radius:inherit; pointer-events:none; background: radial-gradient(720px 360px at 50% -35%, rgba(255,255,255,0.16), transparent 60%); opacity:.32; filter: blur(5px); }
 .project-card__head { display:flex; align-items:center; justify-content:space-between; gap: clamp(6px, 1.8vw, 10px); margin-bottom: clamp(5px, 1.2vw, 8px); }
-.project-card__title { font-family:'Orbitron, Exo 2, system-ui, sans-serif'; font-weight:700; font-size: clamp(.95rem, 2vw, 1.1rem); color:#fff; margin:0; }
+.project-card__title { font-family:'Inter', system-ui, sans-serif; font-weight:700; font-size: clamp(.95rem, 2vw, 1.1rem); color:#fff; margin:0; }
 .pill { display:inline-block; padding:3px 6px; border-radius:999px; border:1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); font-size:11px; color:#fff; }
 .pill--muted { color: rgba(232,232,232,.9); }
 .project-card__meta { display:flex; align-items:center; gap: clamp(4px, 1.6vw, 6px); font-size: clamp(.7rem, 1.6vw, .8rem); margin-bottom: clamp(5px, 1.2vw, 8px); }

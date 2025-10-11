@@ -5,6 +5,20 @@ import '../css/hero.css'
 export default function Hero() {
   const words = ['Seamlessly', 'Intelligently', 'Securely', 'Efficiently', 'Dynamically', 'Scalably', 'Precisely']
   const [index, setIndex] = useState(0)
+  const toEmail = import.meta.env.VITE_CONTACT_TO_EMAIL || 'divlynx.inc@gmail.com'
+  const defaultWebmail = (import.meta.env.VITE_DEFAULT_WEBMAIL || 'gmail').toLowerCase()
+  const composeUrl = (() => {
+    const subject = encodeURIComponent('Hello from DivLynx website')
+    const body = ''
+    if (defaultWebmail === 'outlook') {
+      return `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(toEmail)}&subject=${subject}&body=${body}`
+    }
+    if (defaultWebmail === 'yahoo') {
+      return `https://compose.mail.yahoo.com/?to=${encodeURIComponent(toEmail)}&subject=${subject}&body=${body}`
+    }
+    return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(toEmail)}&su=${subject}&body=${body}&tf=1`
+  })()
+  const calendlyUrl = import.meta.env.VITE_CALENDLY_URL || 'https://calendly.com/'
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -41,8 +55,8 @@ export default function Hero() {
           </h1>
           <p className="hero__subtitle">Expertise in Design, Development, and Digital Strategy</p>
           <div className="cta">
-            <a href="#contact" className="btn--hero">Book a Meeting</a>
-            <a href="mailto:divlynx.inc@gmail.com" className="btn--hero" aria-label="Drop an email">Drop an Email</a>
+            <a href={calendlyUrl} target="_blank" rel="noopener" className="btn--hero" aria-label="Book a meeting on Calendly">Book a Meeting</a>
+            <a href={composeUrl} target="_blank" rel="noopener" className="btn--hero" aria-label="Drop an email in webmail">Drop an Email</a>
           </div>
         </motion.div>
 

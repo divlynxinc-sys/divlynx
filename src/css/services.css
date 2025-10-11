@@ -13,7 +13,7 @@
 .services-section > * { position:relative; z-index:1; }
 /* White subtitle visibility */
 .services-subtitle { color:#fff; position:relative; z-index:2; }
-.services-subheading { text-align:center; color:#fff; font-weight:700; font-family:'Orbitron','Exo 2',system-ui,sans-serif; margin: clamp(20px, 3vw, 32px) 0 clamp(8px, 2vw, 12px); font-size: clamp(1rem, 2.6vw, 1.2rem); }
+.services-subheading { text-align:center; color:#fff; font-weight:700; font-family:'Inter', system-ui, sans-serif; margin: clamp(20px, 3vw, 32px) 0 clamp(8px, 2vw, 12px); font-size: clamp(1rem, 2.6vw, 1.2rem); }
 .services-process { margin-top: clamp(14px, 2.2vw, 22px); display:grid; grid-template-columns: repeat(5, 1fr); gap: clamp(6px, 2vw, 10px); }
 .process-step { display:flex; align-items:center; gap: clamp(4px, 1.8vw, 8px); padding: clamp(8px, 2vw, 12px); font-weight:600; }
 /* Smaller process icon and text */
@@ -33,7 +33,7 @@
 
 /* Make service cards match testimonial card design (smaller variant) */
 .service-card { position:relative; border-radius:12px; padding: clamp(12px, 2.2vw, 18px); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(12px); box-shadow: 0 16px 30px rgba(0,0,0,0.32); }
-.service-card h4 { font-size: clamp(.9rem, 2vw, 1.05rem); margin-bottom: clamp(5px, 1.2vw, 8px); font-family:'Orbitron','Exo 2',system-ui,sans-serif; font-weight:700; }
+.service-card h4 { font-size: clamp(.9rem, 2vw, 1.05rem); margin-bottom: clamp(5px, 1.2vw, 8px); font-family:'Inter', system-ui, sans-serif; font-weight:700; }
 .service-card .feature-icon { color: var(--accent-blue); font-size: clamp(1.1rem, 2.6vw, 1.5rem); margin: 0 0 clamp(6px, 1.4vw, 9px); display:block; }
 /* Smaller paragraph text in cards */
 .services-section .muted { font-size: clamp(.85rem, 2vw, 1rem); line-height: 1.55; }

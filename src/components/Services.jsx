@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import '../css/services.css'
+import ScrollHint from './ScrollHint'
 import { FiCloud, FiDatabase, FiCpu, FiSmartphone, FiGitBranch, FiMessageCircle, FiSearch, FiLayers, FiCode, FiUpload, FiTrendingUp } from 'react-icons/fi'
 
 const services = [
@@ -12,6 +13,7 @@ const services = [
 ]
 
 export default function Services() {
+  const calendlyUrl = import.meta.env.VITE_CALENDLY_URL || 'https://calendly.com/'
   const handleProposalClick = (e) => {
     e.preventDefault()
     const target = document.querySelector('#contact')
@@ -34,15 +36,16 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="service-card glass-liquid"
-            >
-              <s.icon className="feature-icon" />
-              <h4>{s.title}</h4>
-              <p className="muted">{s.desc}</p>
-              <a href="#contact" className="btn--hero" aria-label="Tell us about your project" onClick={handleProposalClick}>Tell us about your project</a>
-            </motion.div>
-          ))}
-        </div>
+          className="service-card glass-liquid"
+        >
+          <s.icon className="feature-icon" />
+          <h4>{s.title}</h4>
+          <p className="muted">{s.desc}</p>
+          <a href="#contact" className="btn--hero" aria-label="Tell us about your project" onClick={handleProposalClick}>Tell us about your project</a>
+          <a href={calendlyUrl} target="_blank" rel="noopener" className="btn--hero" aria-label="Book a meeting on Calendly" style={{ marginTop: '8px' }}>Book a Meeting</a>
+        </motion.div>
+      ))}
+    </div>
         {/* Subheading for process */}
         <h4 className="services-subheading">User Journey</h4>
 
@@ -71,6 +74,7 @@ export default function Services() {
           </details>
         </div>
       </div>
+      <ScrollHint target="#projects" ariaLabel="Scroll to projects" className="scroll-hint--below" />
     </section>
   )
 }

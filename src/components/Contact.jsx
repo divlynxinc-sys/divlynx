@@ -95,16 +95,43 @@ export default function Contact() {
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
       const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      const toEmail = import.meta.env.VITE_CONTACT_TO_EMAIL || 'divlynx.inc@gmail.com'
+
+      // Helper: open webmail compose in a new browser tab (Gmail/Outlook/Yahoo)
+      const webmailFallback = () => {
+        const subject = encodeURIComponent(`Website Contact – ${sanitize(form.name).trim()}`)
+        const body = encodeURIComponent(
+          `From: ${sanitize(form.name).trim()} <${sanitize(form.email).trim()}>
+\n\n${sanitize(form.message).trim()}`
+        )
+        const userEmail = sanitize(form.email).trim().toLowerCase()
+        let provider = 'gmail'
+        if (userEmail.includes('outlook') || userEmail.endsWith('@hotmail.com') || userEmail.endsWith('@live.com')) {
+          provider = 'outlook'
+        } else if (userEmail.endsWith('@yahoo.com')) {
+          provider = 'yahoo'
+        }
+        let url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(toEmail)}&su=${subject}&body=${body}&tf=1`
+        if (provider === 'outlook') {
+          url = `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(toEmail)}&subject=${subject}&body=${body}`
+        } else if (provider === 'yahoo') {
+          url = `https://compose.mail.yahoo.com/?to=${encodeURIComponent(toEmail)}&subject=${subject}&body=${body}`
+        }
+        window.open(url, '_blank', 'noopener,noreferrer')
+        setStatus({ sending:false, success:'Opened your web mail in a new tab to send.', error:null })
+      }
 
       if (!serviceId || !templateId || !publicKey) {
-        throw new Error('Email service not configured. Set VITE_EMAILJS_* env vars.')
+        // Attempt webmail compose so users can still reach us without env setup
+        webmailFallback()
+        return
       }
 
       const templateParams = {
         from_name: sanitize(form.name).trim(),
         reply_to: sanitize(form.email).trim(),
         message: sanitize(form.message).trim(),
-        to_email: 'divlynx.inc@gmail.com',
+        to_email: toEmail,
       }
 
       await emailjs.send(serviceId, templateId, templateParams, { publicKey })
