@@ -4,10 +4,10 @@ import { FiLinkedin, FiMenu, FiMoreVertical, FiInstagram } from 'react-icons/fi'
 import '../css/navbar.css'
 
 const navItems = [
+  { label: 'Vision', href: '#vision' },
+  { label: 'Our Impact', href: '#why' },
   { label: 'Services', href: '#services' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Our Impact', href: '#why' },
-  { label: 'Vision', href: '#vision' },
   { label: 'About', href: '#team' },
   { label: 'Contact', href: '#contact' },
 ]
