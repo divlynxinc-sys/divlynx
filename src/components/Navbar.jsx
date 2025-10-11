@@ -14,7 +14,7 @@ const navItems = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  // Robust outside-click handler for mobile and desktop
+  // outside-click handler for mobile and desktop
   useEffect(() => {
     const handleOutside = (e) => {
       if (!open) return
