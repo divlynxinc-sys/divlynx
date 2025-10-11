@@ -42,7 +42,7 @@ export default function Hero() {
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % words.length);
-    }, 5000); // change every ~5s including slight delay
+    }, 3000); // change every ~3s
     return () => clearInterval(id);
   }, []);
   return (
