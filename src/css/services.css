@@ -164,6 +164,7 @@
 /* Smaller section title override */
 .services-section .title-section {
   font-size: clamp(1.4rem, 3vw, 1.9rem);
+  margin-bottom: clamp(28px, 4vw, 44px);
 }
 .process-icon {
   font-size: clamp(1rem, 2.2vw, 1.25rem);
