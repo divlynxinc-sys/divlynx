@@ -5,8 +5,9 @@
   left: 0;
   right: 0;
   padding: 14px 24px;
-  z-index: 100;
+  z-index: 10000; /* INCREASED: Ensure navbar is always on top */
   overflow: visible;
+  isolation: isolate; /* ADDED: Creates stacking context */
 }
 .navbar.glass-liquid {
   backdrop-filter: blur(14px) saturate(120%);
@@ -200,11 +201,11 @@
 /* Mobile drawer toggle */
 .navbar__toggle {
   display: none;
-  position: absolute;
-  right: 20px;
-  top: 10px;
+  position: relative;
+  right: auto;
+  top: auto;
   transform: none;
-  z-index: 4;
+  z-index: 10002; /* INCREASED: Ensure toggle is always clickable */
   width: 48px;
   height: 30px;
   border-radius: 12px;
@@ -216,6 +217,7 @@
   cursor: pointer;
   backdrop-filter: none;
   box-shadow: none;
+  pointer-events: auto; /* ADDED: Force button to be clickable */
 }
 .navbar__toggle:hover {
   background: transparent;
@@ -240,7 +242,7 @@
 .navbar__drawer {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 10001; /* INCREASED: Ensure drawer is above navbar */
   display: block;
   opacity: 0;
   visibility: hidden;
@@ -249,11 +251,17 @@
   backdrop-filter: blur(26px) saturate(130%);
   transition: opacity 0.25s ease, visibility 0.25s ease,
     backdrop-filter 0.25s ease;
+  isolation: isolate; /* ADDED: Ensures stacking context */
+}
+/* CRITICAL: Ensure drawer overlay doesn't block clicks when closed */
+.navbar__drawer:not(.is-open) {
+  pointer-events: none !important;
+  display: none; /* Hide completely when closed */
 }
 .navbar__drawer.is-open {
   opacity: 1;
   visibility: visible;
-  pointer-events: auto;
+  pointer-events: auto !important; /* Force pointer events when open */
   backdrop-filter: blur(40px) saturate(150%);
   background: rgba(8, 8, 12, 0.66);
 }
@@ -279,6 +287,8 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   contain: layout paint;
+  z-index: 10002; /* INCREASED: Ensure panel is above everything */
+  pointer-events: auto; /* ADDED: Ensure panel is always clickable */
 }
 .drawer__panel::before {
   content: "";
@@ -341,10 +351,23 @@
   padding: 14px 18px;
   border-radius: 16px;
   text-align: center;
+  position: relative;
+  z-index: 10003; /* ADDED: Ensure links are clickable */
+  pointer-events: auto; /* ADDED: Force links to be clickable */
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(
+    255,
+    255,
+    255,
+    0.1
+  ); /* ADDED: Touch feedback */
 }
-.drawer__link:hover {
+.drawer__link:hover,
+.drawer__link:active,
+.drawer__link:focus {
   color: #fff;
   background: rgba(255, 255, 255, 0.08);
+  outline: none;
 }
 .drawer__actions {
   display: grid;
@@ -384,10 +407,13 @@
 @media (max-width: 640px) {
   .navbar {
     padding: 12px 16px;
+    z-index: 10000; /* INCREASED: Ensure navbar is always on top on mobile */
   }
   .navbar__wrap {
     grid-template-columns: 1fr auto;
     align-items: center;
+    position: relative; /* ADDED: Create positioning context */
+    z-index: 10001; /* ADDED: Ensure wrap is on top */
   }
   .navbar__brand {
     width: 60px;
@@ -412,6 +438,8 @@
     align-self: center;
     width: 45px;
     height: 45px;
+    z-index: 10002; /* ADDED: Ensure toggle is always clickable */
+    pointer-events: auto; /* ADDED: Force clickability */
   }
   .navbar__toggle .line {
     width: 24px;
@@ -423,7 +451,7 @@
     backdrop-filter: blur(40px) saturate(150%);
   }
   .navbar__drawer.is-open {
-    background: rgba(6, 6, 10, 15);
+    background: rgba(6, 6, 10, 0.95); /* FIXED: was "15" instead of "0.95" */
     backdrop-filter: blur(50px) saturate(160%);
   }
   .drawer__panel {
@@ -443,8 +471,13 @@
   }
   .drawer__link {
     font-size: 18px;
-    padding: 10px 12px;
+    padding: 12px 16px; /* INCREASED: Better touch target */
     color: rgba(255, 255, 255, 0.98);
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+    z-index: 10004; /* INCREASED: Ensure mobile links are clickable */
+    min-height: 44px; /* ADDED: Minimum touch target size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
