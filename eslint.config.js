@@ -6,7 +6,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'dist-ssr']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -31,5 +31,10 @@ export default defineConfig([
       'react/jsx-uses-vars': 'error',
       'react/jsx-uses-react': 'error',
     },
+  },
+  {
+    // Serverless functions and build scripts run in Node, not the browser.
+    files: ['api/**/*.js', 'scripts/**/*.mjs'],
+    languageOptions: { globals: globals.node },
   },
 ])
