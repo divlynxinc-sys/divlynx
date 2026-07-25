@@ -57,3 +57,6 @@ test-results/
 
 # Firebase deploy cache
 .firebase/
+
+.vercel
+.env*
