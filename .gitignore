@@ -54,3 +54,6 @@ storybook-static/
 jest-results/
 playwright-report/
 test-results/
+
+# Firebase deploy cache
+.firebase/

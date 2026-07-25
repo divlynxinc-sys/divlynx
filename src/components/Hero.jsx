@@ -1,180 +1,96 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { FiArrowUpRight, FiCalendar } from "react-icons/fi";
+import WorkflowCanvas from "./WorkflowCanvas";
+import { CALENDLY, EMAIL, scrollToId } from "../site";
 import "../css/hero.css";
 
-export default function Hero() {
-  const words = [
-    "Seamlessly",
-    "Intelligently",
-    "Securely",
-    "Efficiently",
-    "Dynamically",
-    "Scalably",
-    "Precisely",
-  ];
-  const [index, setIndex] = useState(0);
-  const toEmail =
-    import.meta.env.VITE_CONTACT_TO_EMAIL || "divlynx.inc@gmail.com";
-  const defaultWebmail = (
-    import.meta.env.VITE_DEFAULT_WEBMAIL || "gmail"
-  ).toLowerCase();
-  const composeUrl = (() => {
-    const subject = encodeURIComponent("Hello from DivLynx website");
-    const body = "";
-    if (defaultWebmail === "outlook") {
-      return `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(
-        toEmail
-      )}&subject=${subject}&body=${body}`;
-    }
-    if (defaultWebmail === "yahoo") {
-      return `https://compose.mail.yahoo.com/?to=${encodeURIComponent(
-        toEmail
-      )}&subject=${subject}&body=${body}`;
-    }
-    return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-      toEmail
-    )}&su=${subject}&body=${body}&tf=1`;
-  })();
-  const calendlyUrl =
-    import.meta.env.VITE_CALENDLY_URL ||
-    "https://calendly.com/divlynx-inc/premium-1-hour-1-1-session";
+const rise = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0 },
+};
 
-  useEffect(() => {
-    const id = setInterval(() => {
-      setIndex((i) => (i + 1) % words.length);
-    }, 3000); // change every ~3s
-    return () => clearInterval(id);
-  }, []);
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.12 } },
+};
+
+const STATS = [
+  { value: "30+", label: "Projects shipped" },
+  { value: "20+", label: "Clients worldwide" },
+  { value: "4 wks", label: "Typical first release" },
+];
+
+export default function Hero() {
   return (
-    <section id="top" className="hero">
-      <div className="hero__bg-stacks" />
-      <div className="vignette" />
-      <div className="noise" />
-      <div className="particles-bg" />
-      <div className="hero__columns">
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="shell hero__grid">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="hero__content">
-          {/*<div className="hero__badge"><span className="dot" /> NEW GEN AI AUTOMATION PARTNER</div>*/}
-          <h1 className="hero__title">
-            <span className="muted">AI-Driven</span> Solutions.{" "}
-            <span className="muted">Growth</span> Simplified{" "}
-            <span className="hero__word-rotator">
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={words[index]}
-                  className="hero__em"
-                  style={{ display: "inline-block" }}
-                  initial={{ y: "100%" }}
-                  animate={{ y: 0 }}
-                  exit={{ y: "-100%" }}
-                  transition={{ duration: 0.8, ease: "easeInOut", delay: 0.5 }}>
-                  {words[index]}.
-                </motion.span>
-              </AnimatePresence>
+          className="hero__copy"
+          variants={stagger}
+          initial="hidden"
+          animate="show"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <motion.p className="hero__eyebrow" variants={rise}>
+            <span className="hero__pip" aria-hidden="true" />
+            AI automation &amp; product engineering
+          </motion.p>
+
+          <motion.h1 id="hero-title" className="display h1 hero__title" variants={rise}>
+            We build your product — and the{" "}
+            <span className="sweep">agents that run it</span>.
+          </motion.h1>
+
+          <motion.p className="lede hero__lede" variants={rise}>
+            Divlynx is a software studio for teams that are done doing things by hand. We design
+            and ship AI automation, voice agents and n8n workflows — along with the web and mobile
+            products they plug into.
+          </motion.p>
+
+          <motion.div className="hero__actions" variants={rise}>
+            <a
+              href="#contact"
+              className="btn btn--primary"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToId("#contact");
+              }}>
+              Start a project <FiArrowUpRight aria-hidden />
+            </a>
+            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+              <FiCalendar aria-hidden /> Book a 30-min call
+            </a>
+          </motion.div>
+
+          <motion.p className="hero__reply" variants={rise}>
+            <span className="hero__pulse" aria-hidden="true" />
+            {/* One element, not loose text nodes — otherwise the flex container
+                splits the sentence into separately-wrapping columns. */}
+            <span>
+              Taking on new work — write to{" "}
+              <a href={`mailto:${EMAIL}`} className="hero__mail">
+                {EMAIL}
+              </a>{" "}
+              and we reply within a day.
             </span>
-          </h1>
-          <p className="hero__subtitle">
-            Expertise in Design, Development, and Digital Strategy
-          </p>
-          <div className="cta">
-            <a
-              href={calendlyUrl}
-              target="_blank"
-              rel="noopener"
-              className="btn--hero"
-              aria-label="Book a meeting on Calendly">
-              Book a Meeting
-            </a>
-            <a
-              href={composeUrl}
-              target="_blank"
-              rel="noopener"
-              className="btn--hero"
-              aria-label="Drop an email in webmail">
-              Drop an Email
-            </a>
-          </div>
+          </motion.p>
+
+          <motion.dl className="hero__stats" variants={rise}>
+            {STATS.map((s) => (
+              <div key={s.label} className="hero__stat">
+                <dt className="hero__stat-value">{s.value}</dt>
+                <dd className="hero__stat-label">{s.label}</dd>
+              </div>
+            ))}
+          </motion.dl>
         </motion.div>
 
-        <div className="hero__tstack">
-          <motion.div
-            className="hero__tcard glass-liquid"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}>
-            <div className="hero__tdate">Nov 14th, 2024</div>
-            <p className="hero__tquote">
-              “One of the best working experience, kudos to divlynx inc.”
-            </p>
-            <div className="hero__tstars">★★★★★</div>
-            <div className="hero__tauthor">After Realism</div>
-            <div className="hero__tsource">Australia</div>
-          </motion.div>
-          <motion.div
-            className="hero__tcard glass-liquid"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}>
-            <div className="hero__tdate">March 3rd, 2024</div>
-            <p className="hero__tquote">
-              “ We enjoyed working with divlynx and will likely have additional
-              jobs for them in the future.”
-            </p>
-            <div className="hero__tstars">★★★★★</div>
-            <div className="hero__tauthor">Elclub</div>
-            <div className="hero__tsource">USA</div>
-          </motion.div>
-          <motion.div
-            className="hero__tcard glass-liquid"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}>
-            <div className="hero__tdate">Nov 18th, 2023</div>
-            <p className="hero__tquote">
-              “Execution was swift, outcomes exceeded expectations - strong
-              recommendations!”
-            </p>
-            <div className="hero__tstars">★★★★★</div>
-            <div className="hero__tauthor">MetaStore</div>
-            <div className="hero__tsource">Pakistan</div>
-          </motion.div>
-          {/* Mobile-only duplicate to fill 2×2 grid */}
-          <motion.div
-            className="hero__tcard glass-liquid tcard--mobile-dup"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: "easeOut", delay: 0.35 }}>
-            <div className="hero__tdate">March 3rd, 2024</div>
-            <p className="hero__tquote">
-              “ We enjoyed working with divlynx and will likely have additional
-              jobs for them in the future.”
-            </p>
-            <div className="hero__tstars">★★★★★</div>
-            <div className="hero__tauthor">Elclub</div>
-            <div className="hero__tsource">USA</div>
-          </motion.div>
-          <div className="hero__stats">
-            <div className="hero__stat">30+ Projects</div>
-            <div className="hero__stat">20+ Clients</div>
-            <div className="hero__stat">2+ Years</div>
-          </div>
-          <div className="hero__trust">
-            <span className="hero__trust-label">Trusted by</span>
-            <div className="hero__trust-logos">
-              <img src="/after-realism.png" alt="After Realism logo" />
-              <img src="/metastore.webp" alt="Metastore logo" />
-              <img src="/elclub.png" alt="El Club logo" />
-            </div>
-          </div>
-        </div>
+        <motion.div
+          className="hero__canvas"
+          initial={{ opacity: 0, y: 26 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+          <WorkflowCanvas />
+        </motion.div>
       </div>
     </section>
   );

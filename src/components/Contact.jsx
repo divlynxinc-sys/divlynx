@@ -1,287 +1,283 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
+import { FiArrowUpRight, FiCalendar, FiLinkedin, FiInstagram, FiMail } from "react-icons/fi";
+import { CALENDLY, EMAIL, SOCIAL, composeUrl } from "../site";
 import "../css/contact.css";
-import { FiGithub, FiLinkedin, FiMail, FiX } from "react-icons/fi";
+
+/** Same-origin, so no CORS. Backed by functions/index.js sending through Resend. */
+const ENDPOINT = "/api/contact";
+
+const TOPICS = [
+  "AI automation",
+  "AI voice agents",
+  "n8n / integrations",
+  "Web design & development",
+  "Mobile app",
+  "Full-stack product",
+  "Something else",
+];
+
+// `company` is the honeypot — hidden from people, irresistible to bots.
+const EMPTY = { name: "", email: "", topic: TOPICS[0], message: "", company: "" };
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState({
-    sending: false,
-    success: null,
-    error: null,
-  });
-  const [errors, setErrors] = useState({ name: "", email: "", message: "" });
-  const [touched, setTouched] = useState({
-    name: false,
-    email: false,
-    message: false,
-  });
+  const [form, setForm] = useState(EMPTY);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+  const [status, setStatus] = useState({ sending: false, note: null, tone: null });
 
-  // Position background white glows for desktop and mobile
-  useEffect(() => {
-    const applyGlows = () => {
-      const el = document.getElementById("contact");
-      if (!el) return;
-      const isMobile = window.matchMedia("(max-width: 800px)").matches;
-      if (isMobile) {
-        // Stack glows vertically for small screens
-        el.style.setProperty("--glow1x", "50%");
-        el.style.setProperty("--glow1y", "24%");
-        el.style.setProperty("--glow2x", "50%");
-        el.style.setProperty("--glow2y", "76%");
-      } else {
-        // Desktop: top-left and bottom-right framing the form
-        el.style.setProperty("--glow1x", "28%");
-        el.style.setProperty("--glow1y", "24%");
-        el.style.setProperty("--glow2x", "78%");
-        el.style.setProperty("--glow2y", "68%");
-      }
-    };
-    applyGlows();
-    window.addEventListener("resize", applyGlows);
-    return () => window.removeEventListener("resize", applyGlows);
-  }, []);
+  const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i, []);
 
-  const emailRegex = useMemo(
-    () => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
-    []
-  );
-  const nameRegex = useMemo(() => /^[A-Za-z ]{2,50}$/, []);
-  const sanitize = (s) =>
-    s
-      .replace(/[<>]/g, "")
-      .replace(/\b(script|onerror|onload|javascript:|data:)/gi, "");
+  // Strip the characters that make a message dangerous to render elsewhere.
+  const clean = (s) => s.replace(/[<>]/g, "").trim();
 
-  const validateField = (field, value) => {
-    const v = sanitize(value).trim();
-    if (field === "name") {
-      if (!v) return "Please enter a valid name.";
-      if (!nameRegex.test(v)) return "Please enter a valid name.";
-      if (v.length < 2 || v.length > 50) return "Please enter a valid name.";
-      return "";
-    }
-    if (field === "email") {
-      if (!v) return "Please enter a valid email address.";
-      if (!emailRegex.test(v)) return "Please enter a valid email address.";
-      return "";
-    }
-    if (field === "message") {
-      if (!v) return "Message must be between 10 and 1000 characters.";
-      if (v.length < 10 || v.length > 1000)
-        return "Message must be between 10 and 1000 characters.";
-      return "";
-    }
+  const validate = (field, value) => {
+    const v = clean(value);
+    if (field === "name") return v.length < 2 ? "Enter your name." : "";
+    if (field === "email") return emailRegex.test(v) ? "" : "Enter an email we can reply to.";
+    if (field === "message")
+      return v.length < 10 ? "Tell us a little more — 10 characters minimum." : "";
     return "";
   };
 
-  const validateAll = (data) => ({
-    name: validateField("name", data.name),
-    email: validateField("email", data.email),
-    message: validateField("message", data.message),
+  const allErrors = (data) => ({
+    name: validate("name", data.name),
+    email: validate("email", data.email),
+    message: validate("message", data.message),
   });
+
+  const isValid = !Object.values(allErrors(form)).some(Boolean);
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    setTouched((prev) => ({ ...prev, [name]: true }));
-    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
+    if (touched[name]) setErrors((prev) => ({ ...prev, [name]: validate(name, value) }));
   };
 
   const onBlur = (e) => {
     const { name, value } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
-    setErrors((prev) => ({ ...prev, [name]: validateField(name, value) }));
+    setErrors((prev) => ({ ...prev, [name]: validate(name, value) }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validate all fields before sending
-    const nextErrors = validateAll(form);
-    setErrors(nextErrors);
+    const next = allErrors(form);
+    setErrors(next);
     setTouched({ name: true, email: true, message: true });
-    const hasErrors = Object.values(nextErrors).some(Boolean);
-    if (hasErrors) {
-      return;
-    }
-    setStatus({ sending: true, success: null, error: null });
+    if (Object.values(next).some(Boolean)) return;
+
+    setStatus({ sending: true, note: null, tone: null });
 
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-      const toEmail =
-        import.meta.env.VITE_CONTACT_TO_EMAIL || "divlynx.inc@gmail.com";
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: clean(form.name),
+          email: clean(form.email),
+          topic: form.topic,
+          message: clean(form.message),
+          company: form.company,
+        }),
+      });
 
-      // Helper: open webmail compose in a new browser tab (Gmail/Outlook/Yahoo)
-      const webmailFallback = () => {
-        const subject = encodeURIComponent(
-          `Website Contact – ${sanitize(form.name).trim()}`
-        );
-        const body = encodeURIComponent(
-          `From: ${sanitize(form.name).trim()} <${sanitize(form.email).trim()}>
-\n\n${sanitize(form.message).trim()}`
-        );
-        const userEmail = sanitize(form.email).trim().toLowerCase();
-        let provider = "gmail";
-        if (
-          userEmail.includes("outlook") ||
-          userEmail.endsWith("@hotmail.com") ||
-          userEmail.endsWith("@live.com")
-        ) {
-          provider = "outlook";
-        } else if (userEmail.endsWith("@yahoo.com")) {
-          provider = "yahoo";
-        }
-        let url = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-          toEmail
-        )}&su=${subject}&body=${body}&tf=1`;
-        if (provider === "outlook") {
-          url = `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(
-            toEmail
-          )}&subject=${subject}&body=${body}`;
-        } else if (provider === "yahoo") {
-          url = `https://compose.mail.yahoo.com/?to=${encodeURIComponent(
-            toEmail
-          )}&subject=${subject}&body=${body}`;
-        }
-        window.open(url, "_blank", "noopener,noreferrer");
+      // No endpoint means we are running `vite dev` or the function is not
+      // deployed yet — fall back to the visitor's own mail client.
+      if (res.status === 404) return openWebmail();
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
         setStatus({
           sending: false,
-          success: "Opened your web mail in a new tab to send.",
-          error: null,
+          tone: "bad",
+          note: data.error || "That did not send. Please email us directly.",
         });
-      };
-
-      if (!serviceId || !templateId || !publicKey) {
-        // Attempt webmail compose so users can still reach us without env setup
-        webmailFallback();
         return;
       }
 
-      const templateParams = {
-        from_name: sanitize(form.name).trim(),
-        reply_to: sanitize(form.email).trim(),
-        message: sanitize(form.message).trim(),
-        to_email: toEmail,
-      };
-
-      await emailjs.send(serviceId, templateId, templateParams, { publicKey });
+      setForm(EMPTY);
+      setErrors({});
+      setTouched({});
       setStatus({
         sending: false,
-        success: "Thanks! Your message has been sent successfully.",
-        error: null,
+        tone: "ok",
+        note: "Message sent. We reply within one working day.",
       });
-      setForm({ name: "", email: "", message: "" });
-      setErrors({ name: "", email: "", message: "" });
-      setTouched({ name: false, email: false, message: false });
-    } catch (err) {
-      setStatus({
-        sending: false,
-        success: null,
-        error: err?.message || "Failed to send. Please try again later.",
-      });
+    } catch {
+      openWebmail();
     }
   };
+
+  /** Last resort so a visitor is never left with no way to reach us. */
+  const openWebmail = () => {
+    window.open(
+      composeUrl(
+        `${form.topic} — ${clean(form.name)}`,
+        `${clean(form.message)}\n\nReply to: ${clean(form.email)}`
+      ),
+      "_blank",
+      "noopener,noreferrer"
+    );
+    setStatus({
+      sending: false,
+      tone: "ok",
+      note: "Your mail app is open with the message ready to send.",
+    });
+  };
+
+  const field = (name) => (errors[name] && touched[name] ? "field is-invalid" : "field");
+
   return (
-    <section id="contact" className="section contact-section">
-      <div className="container">
+    <section id="contact" className="band contact">
+      <div className="shell contact__grid">
         <motion.div
+          className="contact__pitch"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="section-header">
-          <h3 className="title-section contact-title">
-            Let’s Build the Future of Intelligence Together.
-          </h3>
-          <p className="muted">Ready to innovate with AI? Let’s talk.</p>
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
+          <p className="eyebrow">Contact</p>
+          <h2 className="display h2">
+            Tell us what keeps <span className="sweep">breaking</span>.
+          </h2>
+          <p className="lede contact__lede">
+            Send the messy version. A rough description of the problem is more useful to us than a
+            polished brief, and the first call costs nothing.
+          </p>
+
+          <div className="contact__channels">
+            <a className="channel channel--mail" href={`mailto:${EMAIL}`}>
+              <span className="channel__icon">
+                <FiMail aria-hidden />
+              </span>
+              <span className="channel__text">
+                <span className="channel__label">Email us</span>
+                <span className="channel__value">{EMAIL}</span>
+              </span>
+              <FiArrowUpRight className="channel__go" aria-hidden />
+            </a>
+
+            <a className="channel" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+              <span className="channel__icon">
+                <FiCalendar aria-hidden />
+              </span>
+              <span className="channel__text">
+                <span className="channel__label">Book a call</span>
+                <span className="channel__value">30 minutes, no pitch deck</span>
+              </span>
+              <FiArrowUpRight className="channel__go" aria-hidden />
+            </a>
+          </div>
+
+          <div className="contact__social">
+            <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <FiLinkedin />
+            </a>
+            <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <FiInstagram />
+            </a>
+          </div>
         </motion.div>
 
-        <div className="grid-2">
-          <form
-            className="contact-form glass-liquid panel"
-            onSubmit={handleSubmit}
-            noValidate
-            // style={p:12px}
-          >
+        <motion.form
+          className="contact__form"
+          onSubmit={handleSubmit}
+          noValidate
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}>
+          <div className="form__row">
+            <label className={field("name")}>
+              <span className="field__label">Name</span>
+              <input
+                name="name"
+                value={form.name}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="Alex Carter"
+                autoComplete="name"
+                maxLength={60}
+                aria-invalid={Boolean(errors.name && touched.name)}
+              />
+              {errors.name && touched.name && <span className="field__error">{errors.name}</span>}
+            </label>
+
+            <label className={field("email")}>
+              <span className="field__label">Email</span>
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={onChange}
+                onBlur={onBlur}
+                placeholder="alex@company.com"
+                autoComplete="email"
+                aria-invalid={Boolean(errors.email && touched.email)}
+              />
+              {errors.email && touched.email && <span className="field__error">{errors.email}</span>}
+            </label>
+          </div>
+
+          {/* Honeypot: off-screen and skipped by keyboard and screen readers. */}
+          <div className="honeypot" aria-hidden="true">
+            <label htmlFor="company">Company (leave blank)</label>
             <input
-              name="name"
-              value={form.name}
+              id="company"
+              name="company"
+              type="text"
+              value={form.company}
               onChange={onChange}
-              onBlur={onBlur}
-              placeholder="Your full name"
-              autoComplete="name"
-              required
-              minLength={2}
-              maxLength={50}
-              pattern="^[A-Za-z ]{2,50}$"
-              aria-invalid={Boolean(errors.name)}
-              aria-describedby="name-error"
-              className={errors.name && touched.name ? "input-error" : ""}
-              style={{ marginBottom: "12px " }}
+              tabIndex={-1}
+              autoComplete="off"
             />
-            {errors.name && touched.name && (
-              <p id="name-error" className="error-text">
-                {errors.name}
-              </p>
-            )}
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={onChange}
-              onBlur={onBlur}
-              placeholder="name@company.com"
-              autoComplete="email"
-              required
-              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-              aria-invalid={Boolean(errors.email)}
-              aria-describedby="email-error"
-              className={errors.email && touched.email ? "input-error" : ""}
-              style={{ marginBottom: "12px" }}
-            />
-            {errors.email && touched.email && (
-              <p id="email-error" className="error-text">
-                {errors.email}
-              </p>
-            )}
+          </div>
+
+          <label className="field">
+            <span className="field__label">What do you need?</span>
+            <select name="topic" value={form.topic} onChange={onChange}>
+              {TOPICS.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className={field("message")}>
+            <span className="field__label">The problem</span>
             <textarea
               name="message"
               rows={5}
               value={form.message}
               onChange={onChange}
               onBlur={onBlur}
-              placeholder="Tell us about your project—goals, timeline, and scope."
-              required
-              minLength={10}
-              maxLength={1000}
-              aria-invalid={Boolean(errors.message)}
-              aria-describedby="message-error"
-              className={errors.message && touched.message ? "input-error" : ""}
-              style={{ marginBottom: "12px" }}
+              placeholder="What is happening today, who it affects, and what you wish happened instead."
+              maxLength={2000}
+              aria-invalid={Boolean(errors.message && touched.message)}
             />
             {errors.message && touched.message && (
-              <p id="message-error" className="error-text">
-                {errors.message}
-              </p>
+              <span className="field__error">{errors.message}</span>
             )}
-            <button
-              type="submit"
-              className="btn--hero"
-              disabled={
-                status.sending || Object.values(validateAll(form)).some(Boolean)
-              }>
-              {status.sending ? "Sending…" : "Send Message"}
-            </button>
-            {status.error && (
-              <p className="form-status error">{status.error}</p>
-            )}
-            {status.success && (
-              <p className="form-status success">{status.success}</p>
-            )}
-          </form>
-        </div>
+          </label>
+
+          <button type="submit" className="btn btn--primary form__submit" disabled={status.sending || !isValid}>
+            {status.sending ? "Sending…" : "Send message"}
+            {!status.sending && <FiArrowUpRight aria-hidden />}
+          </button>
+
+          <p className="form__foot">
+            Prefer email? Write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a> directly.
+          </p>
+
+          {status.note && (
+            <p className={`form__note is-${status.tone}`} role="status">
+              {status.note}
+            </p>
+          )}
+        </motion.form>
       </div>
     </section>
   );

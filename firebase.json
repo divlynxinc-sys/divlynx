@@ -1,0 +1,38 @@
+{
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs22",
+    "ignore": ["node_modules", ".git", "*.log"]
+  },
+  "hosting": {
+    "public": "dist",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+
+    "//": "Every page route is prerendered to a real HTML file, so there is no SPA catch-all rewrite. That keeps genuine 404s returning a 404 status instead of a 200 with the home page, which matters for search. The only rewrite is the contact API. If you ever add a page route that is NOT prerendered, add a rewrite for it here.",
+
+    "cleanUrls": true,
+    "trailingSlash": false,
+
+    "rewrites": [
+      {
+        "source": "/api/contact",
+        "function": { "functionId": "contact", "region": "us-central1" }
+      }
+    ],
+
+    "headers": [
+      {
+        "source": "/assets/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+      },
+      {
+        "source": "/sitemap.xml",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+      }
+    ]
+  }
+}

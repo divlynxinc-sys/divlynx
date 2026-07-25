@@ -1,0 +1,71 @@
+.jt__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: clamp(30px, 4vw, 44px);
+}
+
+.jt__all {
+  flex-shrink: 0;
+}
+
+.jt__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.jt__card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(20px, 2.4vw, 26px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.008));
+  transition: border-color 0.35s var(--ease), transform 0.35s var(--ease);
+}
+
+.jt__card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 163, 26, 0.34);
+}
+
+.jt__title {
+  margin: 14px 0 10px;
+}
+
+.jt__card:hover .jt__title {
+  color: var(--cream);
+}
+
+.jt__excerpt {
+  font-size: 0.9063rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.jt__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: auto;
+  padding-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.jt__card:hover .jt__more {
+  color: var(--amber-lift);
+}
+
+@media (max-width: 900px) {
+  .jt__grid {
+    grid-template-columns: 1fr;
+  }
+}

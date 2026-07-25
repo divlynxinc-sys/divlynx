@@ -1,0 +1,103 @@
+.trust {
+  padding-block: clamp(28px, 4vw, 44px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.trust__clients {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 22px 40px;
+}
+
+.trust__label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.trust__logos {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 48px);
+}
+
+.trust__logos img {
+  height: clamp(22px, 3vw, 30px);
+  width: auto;
+  opacity: 0.55;
+  filter: grayscale(1) brightness(1.9);
+  transition: opacity 0.3s var(--ease), filter 0.3s var(--ease);
+}
+
+.trust__logos img:hover {
+  opacity: 1;
+  filter: grayscale(0) brightness(1);
+}
+
+/* -------------------------------------------------------------- marquee -- */
+
+.marquee {
+  margin-top: clamp(26px, 3.6vw, 38px);
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(38px, 5vw, 62px);
+  width: max-content;
+  animation: marqueeSlide 46s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__icon {
+  height: 26px;
+  width: auto;
+  flex-shrink: 0;
+  opacity: 0.36;
+  filter: grayscale(1);
+  transition: opacity 0.3s var(--ease), filter 0.3s var(--ease);
+}
+
+.marquee__icon:hover {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+.marquee__icon.is-inverted {
+  filter: grayscale(1) invert(1);
+}
+
+.marquee__icon.is-inverted:hover {
+  filter: invert(1);
+}
+
+@keyframes marqueeSlide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .trust__clients {
+    justify-content: center;
+    text-align: center;
+  }
+}

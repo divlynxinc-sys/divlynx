@@ -1,62 +1,116 @@
-import { FiLinkedin, FiMail, FiInstagram } from "react-icons/fi";
+import { Link, useLocation } from "react-router-dom";
+import { FiArrowUpRight, FiInstagram, FiLinkedin, FiMail } from "react-icons/fi";
+import Logo from "./Logo";
+import { CALENDLY, EMAIL, NAV, SOCIAL, scrollToId } from "../site";
 import "../css/footer.css";
 
+const SERVICES = [
+  "AI automation",
+  "AI voice agents",
+  "n8n & integrations",
+  "Web design & development",
+  "Mobile apps",
+  "Cloud, data & DevOps",
+];
+
 export default function Footer() {
-  const toEmail =
-    import.meta.env.VITE_CONTACT_TO_EMAIL || "divlynx.inc@gmail.com";
-  const defaultWebmail = (
-    import.meta.env.VITE_DEFAULT_WEBMAIL || "gmail"
-  ).toLowerCase();
-  const composeUrl = (() => {
-    const subject = encodeURIComponent("Hello from DivLynx website");
-    const body = "";
-    if (defaultWebmail === "outlook") {
-      return `https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(
-        toEmail
-      )}&subject=${subject}&body=${body}`;
-    }
-    if (defaultWebmail === "yahoo") {
-      return `https://compose.mail.yahoo.com/?to=${encodeURIComponent(
-        toEmail
-      )}&subject=${subject}&body=${body}`;
-    }
-    return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
-      toEmail
-    )}&su=${subject}&body=${body}&tf=1`;
-  })();
+  const { pathname } = useLocation();
+  const onHome = pathname === "/";
+
+  const goHash = (e, href) => {
+    if (!onHome) return; // Let the router handle the /#hash navigation.
+    e.preventDefault();
+    scrollToId(href);
+  };
+
+  /** Section links become /#section when we are not on the home page. */
+  const hashLink = (href, children, key) =>
+    onHome ? (
+      <a key={key} href={href} onClick={(e) => goHash(e, href)}>
+        {children}
+      </a>
+    ) : (
+      <Link key={key} to={`/${href}`}>
+        {children}
+      </Link>
+    );
+
   return (
-    <footer className="footer-section">
-      <div className="container footer-grid">
-        <div className="footer-brand">
-          <img src="/logo-2.svg" alt="Divlynx" className="footer-logo" />
-          <div className="footer-name title">Divlynx Inc</div>
+    <footer className="foot">
+      <div className="shell">
+        <div className="foot__cta">
+          <div>
+            <h2 className="display foot__headline">
+              Got a process that should <span className="sweep">run itself</span>?
+            </h2>
+            <p className="foot__sub">
+              One call. We will tell you honestly whether it is worth building.
+            </p>
+          </div>
+          <div className="foot__cta-actions">
+            {onHome ? (
+              <a href="#contact" className="btn btn--primary" onClick={(e) => goHash(e, "#contact")}>
+                Start a project <FiArrowUpRight aria-hidden />
+              </a>
+            ) : (
+              <Link to="/#contact" className="btn btn--primary">
+                Start a project <FiArrowUpRight aria-hidden />
+              </Link>
+            )}
+            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+              Book a call
+            </a>
+          </div>
         </div>
-        <div className="footer-center muted">© 2025 · All rights reserved</div>
-        <div className="footer-social">
-          <a
-            href="https://www.linkedin.com/company/divlynx/"
-            target="_blank"
-            rel="noopener"
-            aria-label="LinkedIn"
-            className="footer-social--linkedin">
-            <FiLinkedin />
-          </a>
-          <a
-            href="https://www.instagram.com/divlynxinc?igsh=bmN1Z2o1eDJvbDZh"
-            target="_blank"
-            rel="noopener"
-            aria-label="Instagram"
-            className="footer-social--instagram">
-            <FiInstagram />
-          </a>
-          <a
-            href={composeUrl}
-            target="_blank"
-            rel="noopener"
-            aria-label="Email"
-            className="footer-social--email footer-email-pill">
-            <FiMail /> <span className="footer-email-text">{toEmail}</span>
-          </a>
+
+        <div className="foot__cols">
+          <div className="foot__brand">
+            <Logo className="foot__logo" />
+            <p className="foot__blurb">
+              A software studio building AI automation, voice agents and the products they run on.
+            </p>
+            <a href={`mailto:${EMAIL}`} className="foot__mail">
+              <FiMail aria-hidden /> {EMAIL}
+            </a>
+          </div>
+
+          <nav className="foot__col" aria-label="Services">
+            <h3 className="foot__col-title">Services</h3>
+            <ul>
+              {SERVICES.map((s) => (
+                <li key={s}>{hashLink("#services", s, s)}</li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav className="foot__col" aria-label="Company">
+            <h3 className="foot__col-title">Company</h3>
+            <ul>
+              {NAV.map((n) => (
+                <li key={n.href}>
+                  {n.kind === "route" ? (
+                    <Link to={n.href}>{n.label}</Link>
+                  ) : (
+                    hashLink(n.href, n.label, n.href)
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        <div className="foot__bar">
+          <p className="foot__legal">
+            © {new Date().getFullYear()} Divlynx Inc. All rights reserved.
+          </p>
+          <div className="foot__social">
+            <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <FiLinkedin />
+            </a>
+            <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <FiInstagram />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

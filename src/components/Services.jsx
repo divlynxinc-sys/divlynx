@@ -1,159 +1,117 @@
 import { motion } from "framer-motion";
-import "../css/services.css";
-import ScrollHint from "./ScrollHint";
 import {
-  FiCloud,
-  FiDatabase,
   FiCpu,
-  FiSmartphone,
-  FiGitBranch,
-  FiMessageCircle,
-  FiSearch,
+  FiPhoneCall,
+  FiGitMerge,
   FiLayers,
-  FiCode,
-  FiUpload,
-  FiTrendingUp,
+  FiSmartphone,
+  FiMonitor,
+  FiServer,
 } from "react-icons/fi";
+import "../css/services.css";
 
-const services = [
+const SERVICES = [
   {
+    size: "lead",
     icon: FiCpu,
-    title: "AI & Machine Learning",
-    desc: "Models that learn and optimize with real-world data.",
+    title: "AI automation",
+    blurb:
+      "The work your team keeps redoing — quoting, triage, data entry, reporting — handed to agents that do it the same way every time.",
+    points: [
+      "Agentic workflows with tool access",
+      "RAG over your own documents",
+      "Human approval where it matters",
+      "Guardrails, logging and cost caps",
+    ],
   },
   {
-    icon: FiMessageCircle,
-    title: "LLMs & NLP",
-    desc: "Language intelligence for chat, summarization, and automation.",
+    size: "tall",
+    icon: FiPhoneCall,
+    title: "AI voice agents",
+    blurb:
+      "Phone agents that answer on the first ring, qualify the caller and put the meeting straight into your calendar.",
+    points: ["Inbound and outbound", "CRM + calendar wired in", "Transcripts and summaries"],
   },
   {
+    size: "half",
+    icon: FiGitMerge,
+    title: "n8n & workflow engineering",
+    blurb: "Your tools wired together and documented. Self-hosted or cloud, yours to keep.",
+  },
+  {
+    size: "half",
+    icon: FiLayers,
+    title: "Full-stack development",
+    blurb: "APIs, dashboards and platforms that hold up once real traffic shows up.",
+  },
+  {
+    size: "half",
     icon: FiSmartphone,
-    title: "Web & Mobile Development",
-    desc: "High-performance apps with modern UX and secure APIs.",
+    title: "Mobile apps",
+    blurb: "iOS and Android from one codebase, taken all the way through store review.",
   },
   {
-    icon: FiGitBranch,
-    title: "MLOps & DevOps",
-    desc: "CI/CD pipelines, model deployment and observability.",
+    size: "wide",
+    icon: FiMonitor,
+    title: "Web design & development",
+    blurb:
+      "Marketing sites and product UI that load fast, read clearly and give people an obvious next step.",
   },
   {
-    icon: FiCloud,
-    title: "Cloud Infrastructure & Automation",
-    desc: "Scalable infra, IaC and cost-optimized environments.",
-  },
-  {
-    icon: FiDatabase,
-    title: "Data Engineering & Insights",
-    desc: "Pipelines, warehousing and decision-ready analytics.",
+    size: "wide",
+    icon: FiServer,
+    title: "Cloud, data & DevOps",
+    blurb:
+      "Pipelines, infrastructure and monitoring set up so releases are boring and outages page someone before customers notice.",
   },
 ];
 
 export default function Services() {
-  const calendlyUrl =
-    import.meta.env.VITE_CALENDLY_URL ||
-    "https://calendly.com/divlynx-inc/premium-1-hour-1-1-session";
-  const handleProposalClick = (e) => {
-    e.preventDefault();
-    const target = document.querySelector("#contact");
-    if (target) {
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      target.scrollIntoView({
-        behavior: prefersReduced ? "auto" : "smooth",
-        block: "start",
-      });
-      history.replaceState(null, "", "#contact");
-    }
-  };
   return (
-    <section id="services" className="section services-section">
-      <div className="container text-center">
-        <h3 className="title-section mb-lg">Our Services</h3>
-        {/*<p className="services-subtitle" style={{ textAlign:'center', marginBottom:'24px' }}>We provide expert solutions.</p>*/}
-        <div className="grid-3">
-          {services.map((s, idx) => (
-            <motion.div
-              key={s.title}
-              initial={{ opacity: 0, y: 14 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="service-card glass-liquid">
-              <s.icon className="feature-icon" />
-              <h4>{s.title}</h4>
-              <p className="muted">{s.desc}</p>
-              <a
-                href="#contact"
-                className="btn--hero"
-                aria-label="Tell us about your project"
-                onClick={handleProposalClick}>
-                Tell us about your project
-              </a>
-              <a
-                href={calendlyUrl}
-                target="_blank"
-                rel="noopener"
-                className="btn--hero"
-                aria-label="Book a meeting on Calendly"
-                style={{ marginTop: "8px" }}>
-                Book a Meeting
-              </a>
-            </motion.div>
-          ))}
-        </div>
-        {/* Subheading for process */}
-        <h4 className="services-subheading">User Journey</h4>
-
-        {/* Process timeline */}
-        <div className="services-process">
-          <div className="process-step glass-liquid">
-            <FiSearch className="process-icon" /> <span>Discover</span>
+    <section id="services" className="band">
+      <div className="shell">
+        <div className="svc__head">
+          <div>
+            <p className="eyebrow">What we do</p>
+            <h2 className="display h2">
+              One studio for the <span className="sweep">automation</span> and the software it
+              runs on.
+            </h2>
           </div>
-          <div className="process-step glass-liquid">
-            <FiLayers className="process-icon" /> <span>Design</span>
-          </div>
-          <div className="process-step glass-liquid">
-            <FiCode className="process-icon" /> <span>Build</span>
-          </div>
-          <div className="process-step glass-liquid">
-            <FiUpload className="process-icon" /> <span>Deploy</span>
-          </div>
-          <div className="process-step glass-liquid">
-            <FiTrendingUp className="process-icon" /> <span>Optimize</span>
-          </div>
+          <p className="lede svc__head-note">
+            Most teams end up with an AI vendor, a web agency and an app shop that never talk to
+            each other. We do all three, so the pieces fit.
+          </p>
         </div>
 
-        {/* FAQs */}
-        <div className="services-faq">
-          <details className="faq-item glass-liquid">
-            <summary>How fast can we start?</summary>
-            <p className="muted">
-              Discovery begins within 3–5 business days. Initial deliverables in
-              2 weeks.
-            </p>
-          </details>
-          <details className="faq-item glass-liquid">
-            <summary>What engagement models do you offer?</summary>
-            <p className="muted">
-              Fixed‑scope projects, monthly retainers, or dedicated teams based
-              on outcomes.
-            </p>
-          </details>
-          <details className="faq-item glass-liquid">
-            <summary>Do you provide handover and documentation?</summary>
-            <p className="muted">
-              Yes—runbooks, infra docs, and component handover with training are
-              included.
-            </p>
-          </details>
+        <div className="svc__bento">
+          {SERVICES.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.article
+                key={s.title}
+                className={`svc svc--${s.size}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.55, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}>
+                <span className="svc__icon">
+                  <Icon aria-hidden />
+                </span>
+                <h3 className="h3 svc__title">{s.title}</h3>
+                <p className="svc__blurb">{s.blurb}</p>
+                {s.points && (
+                  <ul className="svc__points">
+                    {s.points.map((p) => (
+                      <li key={p}>{p}</li>
+                    ))}
+                  </ul>
+                )}
+              </motion.article>
+            );
+          })}
         </div>
       </div>
-      <ScrollHint
-        target="#projects"
-        ariaLabel="Scroll to projects"
-        className="scroll-hint--below"
-      />
     </section>
   );
 }

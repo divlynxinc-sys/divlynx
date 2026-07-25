@@ -1,33 +1,351 @@
-/* Base reset and typography */
-*, *::before, *::after { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; overflow-x: hidden; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Inter', system-ui, sans-serif; color: #E8E8E8; background:#0B0C10; }
+/* ==========================================================================
+   Divlynx design system
+   Palette derived from the logo mark: white → cream → amber gradient on ink.
+   ========================================================================== */
 
-/* Generic utility classes */
-.text-center { text-align: center; }
-.hidden { display: none; }
-.mx-auto { margin-left: auto; margin-right: auto; }
-.mb-sm { margin-bottom: clamp(8px, 1.6vw, 14px); }
-.mb-md { margin-bottom: clamp(16px, 2.6vw, 24px); }
-.mb-lg { margin-bottom: clamp(24px, 3.6vw, 34px); }
-.mt-md { margin-top: clamp(12px, 2.2vw, 18px); }
+:root {
+  /* Surfaces */
+  --ink: #08090a;
+  --ink-raised: #0d0f11;
+  --surface: #111416;
+  --surface-hi: #16191d;
 
-/* Containers */
-.container { max-width: clamp(320px, 92vw, 1200px); margin: 0 auto; padding: 0 clamp(12px, 3vw, 24px); }
-.container-narrow { max-width: clamp(320px, 90vw, 820px); margin: 0 auto; padding: 0 clamp(12px, 3vw, 24px); }
-.section { padding: clamp(64px, 8.5vw, 96px) 0; scroll-margin-top: clamp(64px, 9vw, 100px); }
-.section:not(:first-child) { border-top: 1px solid rgba(255,255,255,0.08); }
+  /* Hairlines */
+  --line: rgba(255, 255, 255, 0.08);
+  --line-hi: rgba(255, 255, 255, 0.14);
 
-/* Buttons */
-.btn { display:inline-block; padding:12px 24px; border-radius:8px; border:1px solid transparent; cursor:pointer; transition:all .25s ease; text-decoration:none; }
-.btn--primary { background:#7A00FF; color:#fff; box-shadow:0 0 20px rgba(122,0,255,.5); }
-.btn--primary:hover { filter:brightness(1.1); }
-.btn--outline { background:transparent; color:#E8E8E8; border-color:#00FFFF; }
-.btn--outline:hover { background:rgba(0,255,255,.1); }
+  /* Brand — sampled from divlynx-Logo-new.svg gradient stops */
+  --amber: #f78400;
+  --amber-lift: #ffa31a;
+  --amber-deep: #c26700;
+  --cream: #feedda;
 
-/* Headings */
-.title { font-family:'Inter', system-ui, sans-serif; font-weight:700; }
-.title-xl { font-size: clamp(2rem, 4vw, 3rem); }
-.title-xxl { font-size: clamp(2.5rem, 6vw, 4rem); }
-.muted { color: rgba(232,232,232,.75); }
+  /* Type colours — warm-neutral, not cool grey */
+  --text: #ede9e3;
+  --text-dim: #a5a29d;
+  --muted: #7e8288;
+
+  /* Fonts */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Rhythm */
+  --shell: 1200px;
+  --gutter: clamp(20px, 5vw, 40px);
+  --section-y: clamp(72px, 10vw, 132px);
+  --radius: 14px;
+  --radius-lg: 20px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --------------------------------------------------------------- reset -- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background: var(--amber);
+  color: #000;
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber-lift);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ------------------------------------------------------------ primitives -- */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.band {
+  position: relative;
+  padding-block: var(--section-y);
+  scroll-margin-top: 88px;
+}
+
+.band + .band {
+  border-top: 1px solid var(--line);
+}
+
+/* Section eyebrow: mono label + hairline that runs to the edge of the column */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 22px;
+}
+
+.eyebrow::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-hi), transparent);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin: 0;
+}
+
+.h1 {
+  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+}
+
+.h2 {
+  font-size: clamp(2rem, 4.4vw, 3.25rem);
+  line-height: 1.04;
+}
+
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 0;
+}
+
+/* Cream→amber sweep echoing the logo's own gradient. Starts at cream rather
+   than white so short spans still read as one warm colour instead of looking
+   like a word that changed colour halfway through. `clone` gives each wrapped
+   line its own sweep. */
+.sweep {
+  background: linear-gradient(96deg, var(--cream) 0%, var(--amber-lift) 52%, var(--amber) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.lede {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  color: var(--text-dim);
+  max-width: 54ch;
+}
+
+.dim {
+  color: var(--text-dim);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+/* ---------------------------------------------------------------- buttons -- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 22px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.25s var(--ease), background 0.25s var(--ease),
+    border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.btn svg {
+  flex-shrink: 0;
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, var(--amber-lift), var(--amber));
+  color: #140a00;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.28) inset, 0 8px 26px -10px rgba(247, 132, 0, 0.75);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.34) inset, 0 16px 34px -12px rgba(247, 132, 0, 0.9);
+}
+
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--line-hi);
+  color: var(--text);
+}
+
+.btn--ghost:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 163, 26, 0.45);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Small pill used for tech tags / meta chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.03em;
+  color: var(--text-dim);
+}
+
+/* ------------------------------------------------------------ ambient bg -- */
+
+.aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(58rem 34rem at 78% -8%, rgba(247, 132, 0, 0.14), transparent 62%),
+    radial-gradient(44rem 30rem at 6% 12%, rgba(255, 163, 26, 0.07), transparent 60%);
+}
+
+.grid-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 68px 68px;
+  mask-image: radial-gradient(100% 62% at 50% 0%, #000 0%, transparent 78%);
+  -webkit-mask-image: radial-gradient(100% 62% at 50% 0%, #000 0%, transparent 78%);
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+}
+
+/* ------------------------------------------------------------ a11y / motion -- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 200;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--amber);
+  color: #000;
+  font-weight: 600;
+  transform: translateY(-160%);
+  transition: transform 0.2s var(--ease);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
