@@ -1,5 +1,4 @@
 import { POSTS } from "./blog/posts";
-import { ADDRESS } from "./site";
 
 /** Change this once if the production domain ever moves. */
 export const SITE_URL = "https://divlynx.com";
@@ -13,6 +12,16 @@ const HOME_DESC =
 export function metaForPath(pathname) {
   if (pathname === "/" || pathname === "") {
     return { title: HOME_TITLE, description: HOME_DESC, canonical: `${SITE_URL}/`, type: "website" };
+  }
+
+  if (pathname === "/case-studies" || pathname === "/case-studies/") {
+    return {
+      title: "Case studies — AI automation, voice agents & software | Divlynx",
+      description:
+        "How Divlynx engagements actually ran: the problem we were handed, what we built, and what changed afterwards — one case study per service line.",
+      canonical: `${SITE_URL}/case-studies`,
+      type: "website",
+    };
   }
 
   if (pathname === "/blog" || pathname === "/blog/") {
@@ -47,7 +56,7 @@ export function metaForPath(pathname) {
 }
 
 export function allPaths() {
-  return ["/", "/blog", ...POSTS.map((p) => `/blog/${p.slug}`)];
+  return ["/", "/case-studies", "/blog", ...POSTS.map((p) => `/blog/${p.slug}`)];
 }
 
 /** Schema.org JSON-LD for a path — helps search engines show rich results. */
@@ -61,13 +70,6 @@ export function jsonLdForPath(pathname) {
     url: SITE_URL,
     email: "info@divlynx.com",
     description: HOME_DESC,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: ADDRESS.street,
-      addressLocality: ADDRESS.locality,
-      addressRegion: ADDRESS.region,
-      addressCountry: ADDRESS.country,
-    },
     sameAs: [
       "https://www.linkedin.com/company/divlynx/",
       "https://www.instagram.com/divlynxinc",

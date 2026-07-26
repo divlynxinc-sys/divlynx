@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollTop from "./components/ScrollTop";
 import Home from "./routes/Home";
+import CaseStudies from "./routes/CaseStudies";
 import BlogIndex from "./routes/BlogIndex";
 import BlogPost from "./routes/BlogPost";
 import NotFound from "./routes/NotFound";
@@ -66,6 +67,7 @@ export default function App() {
         <main id="main">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="*" element={<NotFound />} />

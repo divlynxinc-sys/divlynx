@@ -1,14 +1,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  FiArrowUpRight,
-  FiCalendar,
-  FiLinkedin,
-  FiInstagram,
-  FiMail,
-  FiMapPin,
-} from "react-icons/fi";
-import { ADDRESS, CALENDLY, EMAIL, MAP_URL, SOCIAL, composeUrl } from "../site";
+import { FiArrowUpRight, FiCalendar, FiLinkedin, FiInstagram, FiMail } from "react-icons/fi";
+import { CALENDLY, EMAIL, SOCIAL, composeUrl } from "../site";
 import "../css/contact.css";
 
 /** Same-origin, so no CORS. Backed by functions/index.js sending through Resend. */
@@ -173,25 +166,6 @@ export default function Contact() {
               <span className="channel__text">
                 <span className="channel__label">Book a call</span>
                 <span className="channel__value">30 minutes, no pitch deck</span>
-              </span>
-              <FiArrowUpRight className="channel__go" aria-hidden />
-            </a>
-
-            <a
-              className="channel"
-              href={MAP_URL}
-              target="_blank"
-              rel="noopener noreferrer">
-              <span className="channel__icon">
-                <FiMapPin aria-hidden />
-              </span>
-              <span className="channel__text">
-                <span className="channel__label">Visit us</span>
-                <address className="channel__value channel__address">
-                  {ADDRESS.lines.map((line) => (
-                    <span key={line}>{line}</span>
-                  ))}
-                </address>
               </span>
               <FiArrowUpRight className="channel__go" aria-hidden />
             </a>

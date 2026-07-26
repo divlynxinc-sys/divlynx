@@ -76,20 +76,6 @@
   overflow-wrap: anywhere;
 }
 
-/* Two-line postal address inside a channel card. */
-.channel__address {
-  display: flex;
-  flex-direction: column;
-  font-style: normal;
-  line-height: 1.35;
-}
-
-.channel__address span:last-child {
-  font-size: 0.875rem;
-  font-weight: 400;
-  color: var(--text-dim);
-}
-
 .channel__go {
   margin-left: auto;
   flex-shrink: 0;

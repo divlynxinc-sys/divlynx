@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import { FiArrowUpRight, FiInstagram, FiLinkedin, FiMail, FiMapPin } from "react-icons/fi";
+import { FiArrowUpRight, FiInstagram, FiLinkedin, FiMail } from "react-icons/fi";
 import Logo from "./Logo";
-import { ADDRESS, CALENDLY, EMAIL, MAP_URL, NAV, SOCIAL, scrollToId } from "../site";
+import { CALENDLY, EMAIL, NAV, SOCIAL, scrollToId } from "../site";
 import "../css/footer.css";
 
 const SERVICES = [
@@ -71,19 +71,6 @@ export default function Footer() {
             </p>
             <a href={`mailto:${EMAIL}`} className="foot__mail">
               <FiMail aria-hidden /> {EMAIL}
-            </a>
-
-            <a
-              href={MAP_URL}
-              className="foot__address"
-              target="_blank"
-              rel="noopener noreferrer">
-              <FiMapPin aria-hidden />
-              <address>
-                {ADDRESS.lines.map((line) => (
-                  <span key={line}>{line}</span>
-                ))}
-              </address>
             </a>
           </div>
 

@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
-import { scrollToId } from "../site";
 import "../css/work.css";
 
 /* Descriptions stay factual — swap in real numbers once you have them signed off. */
@@ -87,15 +87,9 @@ export default function Work() {
               Shipped, live, and <span className="sweep">still running</span>.
             </h2>
           </div>
-          <a
-            href="#case-studies"
-            className="btn btn--ghost work__cta"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToId("#case-studies");
-            }}>
+          <Link to="/case-studies" className="btn btn--ghost work__cta">
             Read the case studies <FiArrowUpRight aria-hidden />
-          </a>
+          </Link>
         </div>
 
         <ul className="work__list">

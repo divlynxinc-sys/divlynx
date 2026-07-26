@@ -76,33 +76,6 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
-.foot__address {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 9px;
-  margin-top: 16px;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: var(--text-dim);
-  transition: color 0.25s var(--ease);
-}
-
-.foot__address svg {
-  flex-shrink: 0;
-  margin-top: 3px;
-  color: var(--amber);
-}
-
-.foot__address address {
-  display: flex;
-  flex-direction: column;
-  font-style: normal;
-}
-
-.foot__address:hover {
-  color: var(--text);
-}
-
 .foot__col-title {
   margin-bottom: 16px;
   font-family: var(--font-mono);

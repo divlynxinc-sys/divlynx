@@ -147,6 +147,19 @@
 
 /* ------------------------------------------------------------ responsive -- */
 
+/* Seven links plus the logo and CTA run out of room before the drawer takes
+   over at 940px, so tighten the links rather than let them wrap. */
+@media (max-width: 1180px) {
+  .nav__links {
+    gap: 0;
+  }
+
+  .nav__link {
+    padding: 8px 10px;
+    font-size: 0.875rem;
+  }
+}
+
 @media (max-width: 940px) {
   .nav__links,
   .nav__cta {

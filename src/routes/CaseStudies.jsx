@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
-import { scrollToId } from "../site";
+import { EMAIL } from "../site";
 import "../css/case-studies.css";
 
 /**
@@ -179,7 +180,7 @@ function CaseCard({ item, index }) {
       transition={{ duration: 0.55, delay: (index % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}>
       <header className="case__head">
         <p className="case__service">{item.service}</p>
-        <h3 className="case__title">{item.title}</h3>
+        <h2 className="case__title">{item.title}</h2>
         <p className="case__client">
           {item.client} · {item.region}
         </p>
@@ -190,7 +191,7 @@ function CaseCard({ item, index }) {
 
         <div className="case__blocks">
           <div className="case__block">
-            <h4 className="case__block-title">What we built</h4>
+            <h3 className="case__block-title">What we built</h3>
             <ul className="case__list">
               {item.built.map((b) => (
                 <li key={b}>{b}</li>
@@ -199,7 +200,7 @@ function CaseCard({ item, index }) {
           </div>
 
           <div className="case__block">
-            <h4 className="case__block-title">Outcome</h4>
+            <h3 className="case__block-title">Outcome</h3>
             <ul className="case__list case__list--out">
               {item.outcome.map((o) => (
                 <li key={o}>{o}</li>
@@ -224,20 +225,18 @@ function CaseCard({ item, index }) {
 
 export default function CaseStudies() {
   return (
-    <section id="case-studies" className="band">
+    <section className="band cases">
       <div className="shell">
-        <div className="cases__head">
-          <div>
-            <p className="eyebrow">Case studies</p>
-            <h2 className="display h2">
-              What the work <span className="sweep">actually looked like</span>.
-            </h2>
-          </div>
-          <p className="lede cases__head-note">
+        <header className="cases__head">
+          <p className="eyebrow">Case studies</p>
+          <h1 className="display h1">
+            What the work <span className="sweep">actually looked like</span>.
+          </h1>
+          <p className="lede cases__lede">
             One per service line — the problem we were handed, what we built, and what changed
             afterwards.
           </p>
-        </div>
+        </header>
 
         <div className="cases__grid">
           {CASES.map((item, i) => (
@@ -245,21 +244,22 @@ export default function CaseStudies() {
           ))}
         </div>
 
-        <div className="cases__foot">
-          <p className="cases__foot-note">
-            Recognise your own problem in one of these? The first call is a straight answer on
-            whether it is worth building.
-          </p>
-          <a
-            href="#contact"
-            className="btn btn--primary"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToId("#contact");
-            }}>
-            Start a project <FiArrowUpRight aria-hidden />
-          </a>
-        </div>
+        <aside className="cases__cta">
+          <div>
+            <h2 className="display cases__cta-title">Recognise your own problem in one of these?</h2>
+            <p className="cases__cta-sub">
+              Tell us what is breaking and we will tell you honestly whether it is worth building.
+            </p>
+          </div>
+          <div className="cases__cta-actions">
+            <Link to="/#contact" className="btn btn--primary">
+              Start a project <FiArrowUpRight aria-hidden />
+            </Link>
+            <a href={`mailto:${EMAIL}`} className="btn btn--ghost">
+              {EMAIL}
+            </a>
+          </div>
+        </aside>
       </div>
     </section>
   );

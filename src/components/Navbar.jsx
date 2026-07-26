@@ -28,7 +28,11 @@ export default function Navbar() {
   // Scroll-spy only makes sense on the page that owns those sections.
   useEffect(() => {
     if (!onHome) {
-      setActive(pathname.startsWith("/blog") ? "/blog" : "");
+      // Longest match first, so /blog/a-post still lights up /blog.
+      const route = NAV.filter((n) => n.kind === "route")
+        .sort((a, b) => b.href.length - a.href.length)
+        .find((n) => pathname.startsWith(n.href));
+      setActive(route ? route.href : "");
       return;
     }
 
