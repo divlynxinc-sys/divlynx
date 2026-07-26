@@ -14,6 +14,21 @@ export const SOCIAL = {
   instagram: "https://www.instagram.com/divlynxinc?igsh=bmN1Z2o1eDJvbDZh",
 };
 
+/** Office address. `lines` is what the site renders; the rest feeds schema.org. */
+export const ADDRESS = {
+  lines: ["A.K. Brohi Road, H-11/4", "Islamabad, Pakistan"],
+  street: "A.K. Brohi Road, H-11/4",
+  locality: "Islamabad",
+  region: "Islamabad Capital Territory",
+  country: "PK",
+};
+
+export const ADDRESS_ONE_LINE = `${ADDRESS.street}, ${ADDRESS.locality}, Pakistan`;
+
+export const MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `Divlynx, ${ADDRESS_ONE_LINE}`
+)}`;
+
 /**
  * `hash` entries are sections of the home page; `route` entries are real pages.
  * Navbar and Footer both read this list.

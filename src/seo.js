@@ -1,4 +1,5 @@
 import { POSTS } from "./blog/posts";
+import { ADDRESS } from "./site";
 
 /** Change this once if the production domain ever moves. */
 export const SITE_URL = "https://divlynx.com";
@@ -60,6 +61,13 @@ export function jsonLdForPath(pathname) {
     url: SITE_URL,
     email: "info@divlynx.com",
     description: HOME_DESC,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: ADDRESS.street,
+      addressLocality: ADDRESS.locality,
+      addressRegion: ADDRESS.region,
+      addressCountry: ADDRESS.country,
+    },
     sameAs: [
       "https://www.linkedin.com/company/divlynx/",
       "https://www.instagram.com/divlynxinc",

@@ -88,13 +88,13 @@ export default function Work() {
             </h2>
           </div>
           <a
-            href="#contact"
+            href="#case-studies"
             className="btn btn--ghost work__cta"
             onClick={(e) => {
               e.preventDefault();
-              scrollToId("#contact");
+              scrollToId("#case-studies");
             }}>
-            Ask about a case study <FiArrowUpRight aria-hidden />
+            Read the case studies <FiArrowUpRight aria-hidden />
           </a>
         </div>
 
