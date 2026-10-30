@@ -1,7 +1,7 @@
 .workshop {
   position: relative;
   width: min(116%, 720px);
-  margin: clamp(-42px, -3vw, -20px) 0 -8% -8%;
+  margin: clamp(12px, 1.6vw, 26px) 0 -8% -8%;
   isolation: isolate;
   pointer-events: none;
 }
@@ -77,11 +77,11 @@
 .workshop__label--mobile::after { top: 100%; left: 28%; height: 23px; transform: rotate(20deg); }
 
 @media (max-width: 1020px) {
-  .workshop { width: min(105%, 680px); margin: -54px auto -10%; }
+  .workshop { width: min(105%, 680px); margin: 18px auto -10%; }
 }
 
 @media (max-width: 760px) {
-  .workshop { width: 116%; margin: -42px -8% -12%; }
+  .workshop { display: none; }
   .workshop__label { padding: 4px 6px; font-size: 0.43rem; }
 }
 

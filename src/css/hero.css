@@ -105,8 +105,7 @@
   }
 
   .hero__canvas {
-    max-width: 420px;
-    margin-inline: auto;
+    display: none;
   }
 
   .hero__actions .btn {
