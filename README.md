@@ -1,151 +1,162 @@
-<div align="center">
+# Divlynx website
 
-# DivLynx Website (React + Vite)
+Production website for Divlynx, a software studio delivering digital products, AI automation, voice agents, workflow engineering, mobile applications, and growth systems.
 
-A modern, responsive website for DivLynx built with React, Vite, and handcrafted CSS. It features a hero with animated testimonials, services, projects, team, contact form (EmailJS), and a continuously scrolling technology strip.
+The application uses React and Vite, server-side rendering and route prerendering for search visibility, and Vercel for hosting. Styling is maintained as section-level CSS without a UI framework.
 
-</div>
+## Technology
 
----
+- React 19 and React Router
+- Vite 7
+- Framer Motion and React Icons
+- Vercel serverless functions
+- Resend for contact-form delivery
+- Sharp for build-time image handling
+- ESLint
 
-## Quick Start
+## Getting started
 
-Prerequisites
-- Node.js 18+ (recommended)
-- npm (or pnpm/yarn)
+Use Node.js 20 or newer and npm.
 
-Install & run
 ```bash
 npm install
 npm run dev
 ```
-Open `http://localhost:5173` in your browser.
 
-Build & preview
+The development server runs at `http://localhost:5173` by default.
+
+## Commands
+
 ```bash
-npm run build
-npm run preview
+npm run dev          # Start the Vite development server
+npm run lint         # Run ESLint
+npm run build        # Build client and SSR bundles, then prerender routes
+npm run build:client # Build the browser application only
+npm run build:server # Build the SSR entry only
+npm run prerender    # Generate route HTML, sitemap.xml, and robots.txt
+npm run preview      # Preview the production client build
 ```
 
-## Project Overview
+## Repository structure
 
-- Framework: `React 19` + `Vite 7`
-- Animations: `framer-motion`
-- Icons: `react-icons`
-- Email: `@emailjs/browser`
-- Styling: plain CSS with responsive `clamp()` and media queries
-- Linting: ESLint, React Refresh/Hooks configs
-
-## Directory Structure
-
+```text
+.
+|-- api/
+|   `-- contact.js              # Vercel contact-form endpoint
+|-- docs/
+|   |-- Divlynx-Pitch-Deck.pdf  # Client-facing pitch deck
+|   `-- divlynx-pitch-deck.html # Editable deck source
+|-- public/
+|   |-- assets/
+|   |   |-- brand/              # Primary logo and touch icon
+|   |   |-- clients/            # Trusted-client marks used on the site
+|   |   `-- hero/               # Hero illustration
+|   |-- 404.html                # Static-host fallback
+|   `-- favicon.svg
+|-- scripts/
+|   `-- prerender.mjs           # Static route and SEO artifact generation
+|-- src/
+|   |-- blog/                   # Journal content and post renderer
+|   |-- components/             # Reusable and home-page sections
+|   |-- css/                    # Component and route styles
+|   |-- hooks/                  # Shared React hooks
+|   |-- routes/                 # Route-level page components
+|   |-- App.jsx                 # Router and application shell
+|   |-- entry-server.jsx        # SSR entry
+|   |-- index.css               # Tokens, resets, and global utilities
+|   |-- main.jsx                # Browser entry
+|   |-- seo.js                  # Route metadata
+|   `-- site.js                 # Company details, navigation, and contact constants
+|-- index.html                  # Vite document template
+|-- vercel.json                 # Hosting, caching, and build configuration
+`-- vite.config.js
 ```
-divlynx-website-rewamp/
-├── public/                  # static assets (logos, background images)
-├── src/
-│   ├── components/          # React components
-│   │   ├── Navbar.jsx
-│   │   ├── Hero.jsx         # hero, testimonials, trusted-by logos
-│   │   ├── TechStrip.jsx    # scrolling technologies marquee
-│   │   ├── Services.jsx     # services grid + journey + FAQ
-│   │   ├── Projects.jsx     # portfolio cards + tech stack tiles
-│   │   ├── Team.jsx         # team grid
-│   │   ├── Contact.jsx      # contact form (EmailJS)
-│   │   └── Footer.jsx
-│   ├── css/                 # scoped CSS files per section
-│   │   ├── hero.css, navbar.css, services.css, projects.css, team.css, etc.
-│   ├── App.jsx              # page composition
-│   └── main.jsx             # app bootstrap
-└── package.json
-```
 
-## Environment Configuration (EmailJS)
+## Static assets
 
-The contact form uses EmailJS.
+Only files used by the website or editable pitch-deck source belong in `public/assets`.
 
-### Configure EmailJS
-1. Create an account at https://www.emailjs.com/.
-2. Create a Service (connect your email provider).
-3. Create a Template with these variables:
-   - `from_name`
-   - `reply_to`
-   - `message`
-   - `to_email`
-4. Copy your Service ID, Template ID, and Public Key.
+- `brand/`: approved Divlynx brand files
+- `clients/`: one production logo per displayed client
+- `hero/`: large hero artwork
 
-### Add Environment Variables
-Copy `.env.example` to `.env.local` and set:
+Use lowercase kebab-case filenames. Avoid spaces, duplicate export variants, and temporary generated files. Search both `src` and `docs` before moving or deleting an asset because the deck HTML shares website assets.
 
-```
-VITE_EMAILJS_SERVICE_ID=your_service_id
-VITE_EMAILJS_TEMPLATE_ID=your_template_id
-VITE_EMAILJS_PUBLIC_KEY=your_public_key
+Assets under `/assets/*` receive immutable one-year caching through `vercel.json`. When replacing a production asset, change its filename so clients do not retain an older cached version.
+
+## Configuration
+
+Create `.env.local` for local values. Never commit secrets.
+
+```env
 VITE_CONTACT_TO_EMAIL=divlynx.inc@gmail.com
+VITE_CALENDLY_URL=https://calendly.com/divlynx-inc/book-a-call-30-mins
+VITE_DEFAULT_WEBMAIL=gmail
+RESEND_API_KEY=re_xxxxxxxxx
 ```
 
-Where to set these
-- Sign in to EmailJS, create a service and a template.
-- Copy your Service ID, Template ID, and Public Key.
-- Values are read in `src/components/Contact.jsx` via `import.meta.env.*`.
+### Contact form
 
-Fallback behavior
-- If env vars are missing, the form will fall back to a `mailto:` send and open the user’s email app with a prefilled message to `divlynx.inc@gmail.com`.
+The browser submits project enquiries to `/api/contact`. The Vercel function in `api/contact.js` validates the request and sends it with Resend from the verified `divlynx.com` domain. If server delivery is unavailable, the interface provides an email-compose fallback addressed to `divlynx.inc@gmail.com`.
 
-Validation & UX
-- Name, email, and message are validated client-side.
-- Reduced-motion users get non-animated scrolling.
+## Routes and SEO
 
-## Responsive Behavior
+The build prerenders `/`, `/case-studies`, `/blog`, and every journal post declared in `src/blog/posts.js`. `scripts/prerender.mjs` also writes `sitemap.xml` and `robots.txt`. Route metadata lives in `src/seo.js`.
 
-- Desktop layout is preserved down to `760px` width.
-- Below `760px`, hero stacks to a single column and the tech strip hides.
-- Mobile tweaks include larger trusted-by logos and fine-tuned spacing.
+When adding a journal post, update `src/blog/posts.js`; the post route and sitemap entry are generated from that source.
 
-Key breakpoints to adjust
-- `src/css/hero.css`: media queries controlling hero column stacking and tech strip visibility.
+## Content ownership
 
-## Scripts
+- Company details, social links, Calendly URL, and navigation: `src/site.js`
+- Services: `src/components/Services.jsx`
+- Delivery process: `src/components/Process.jsx`
+- Selected work: `src/components/Work.jsx`
+- Testimonials: `src/components/Testimonials.jsx`
+- Case studies: `src/routes/CaseStudies.jsx`
+- Journal content: `src/blog/posts.js`
 
-From `package.json`:
+Keep project claims qualitative unless a client has approved publishing exact commercial metrics.
 
-```json
-{
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  }
-}
+## Pitch deck
+
+The editable deck is `docs/divlynx-pitch-deck.html`. It uses the approved logo and hero artwork from `public/assets`.
+
+To regenerate the PDF with Chrome on Windows:
+
+```powershell
+& 'C:\Program Files\Google\Chrome\Application\chrome.exe' `
+  --headless=new `
+  --disable-gpu `
+  --no-pdf-header-footer `
+  --print-to-pdf="$PWD\docs\Divlynx-Pitch-Deck.pdf" `
+  "file:///$($PWD.Path.Replace('\','/'))/docs/divlynx-pitch-deck.html"
 ```
+
+Review the PDF after changing copy, fonts, or shared assets.
 
 ## Deployment
 
-Static hosting options
-- Vercel / Netlify: import the repo, framework “Vite”, build command `npm run build`, output `dist`.
-- Any static server: serve the `dist/` folder after build.
+Vercel uses `npm run build` and serves `dist`. Configure production environment variables in the Vercel project before deployment. Static files under `/assets` are cached immutably; HTML, sitemap, and serverless responses are not.
 
-Environment on deploy
-- Make sure the EmailJS env vars are configured in your hosting provider.
+## Quality checklist
 
-## Troubleshooting
+Before merging or deploying:
 
-- Icons blocked or not loading: some devicon SVGs are fetched from a CDN and may be blocked by certain networks. Fix by downloading required icons and placing them in `/public`, then update sources in `TechStrip.jsx`.
-- Email not sending: verify `VITE_EMAILJS_*` variables and EmailJS template settings. Check browser console for errors from `emailjs.send`.
-- Port already in use: change the dev port via `vite.config.js` or run `vite --port 5174`.
+```bash
+npm run lint
+npm run build
+```
 
-## Contributing
+Also verify:
 
-1. Fork and clone the repository.
-2. Create a feature branch.
-3. Run `npm run dev` and `npm run lint` locally.
-4. Open a pull request with a clear description and screenshots.
-
-## Notes for Designers/Developers
-
-- Glass/liquid card styles are reusable via the `glass-liquid` class.
-- Animations use `framer-motion` with `viewport={{ once: true }}` for performance.
-- Typography, spacing, and sizes rely heavily on CSS `clamp()` for fluid scaling.
+- Home, case studies, journal index, and one journal article
+- Navigation and in-page anchors
+- Contact submission and email fallback
+- Hero and carousel layouts at desktop and mobile widths
+- Reduced-motion behavior
+- External project links
+- No unreferenced files in `public/assets`
 
 ## License
 
-Add your project license here (e.g., MIT, Apache-2.0, or proprietary). If this is a private website, keep it proprietary and restrict distribution.
+Proprietary. All code, brand assets, case-study content, and client materials are owned by Divlynx or used with permission.

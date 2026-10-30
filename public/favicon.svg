@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  The navbar mark, lifted from divlynx-Logo-new.svg (same paths as src/components/Logo.jsx),
+  The navbar mark, aligned with public/assets/brand/divlynx-logo.svg and src/components/Logo.jsx,
   scaled into a rounded dark tile. The source art is 415x274, so the nested viewport is
   sized to that ratio and centred — nothing is cropped or stretched.
 -->

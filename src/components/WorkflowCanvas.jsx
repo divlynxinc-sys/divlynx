@@ -5,7 +5,7 @@ export default function WorkflowCanvas() {
     <figure className="workshop" aria-label="Digital workshop connecting product interfaces, AI automation, voice agents, workflows, and mobile apps">
       <img
         className="workshop__image"
-        src="/digital-workshop-hero.png"
+        src="/assets/hero/digital-workshop.png"
         width="1536"
         height="1024"
         alt="Isometric digital workshop with a mechanical arm assembling a browser interface"

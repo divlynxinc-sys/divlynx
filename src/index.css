@@ -14,7 +14,7 @@
   --line: rgba(255, 255, 255, 0.08);
   --line-hi: rgba(255, 255, 255, 0.14);
 
-  /* Brand, sampled from divlynx-Logo-new.svg gradient stops */
+  /* Brand, sampled from public/assets/brand/divlynx-logo.svg gradient stops */
   --amber: #f78400;
   --amber-lift: #ffa31a;
   --amber-deep: #c26700;
@@ -340,4 +340,38 @@ ol {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* Small phones: retain readable type and comfortable touch targets without
+   forcing sections wider than the viewport. */
+@media (max-width: 380px) {
+  :root {
+    --gutter: 16px;
+    --section-y: 64px;
+  }
+
+  body { font-size: 15px; }
+  .btn { min-height: 46px; padding-inline: 17px; }
+  .h1 { font-size: 2.1rem; }
+  .h2 { font-size: 1.85rem; }
+}
+
+/* Large desktop and TV displays: increase the content canvas rather than
+   leaving the 1200px site floating in an oversized empty viewport. */
+@media (min-width: 1800px) {
+  :root {
+    --shell: 1480px;
+    --gutter: 48px;
+    --section-y: 144px;
+  }
+
+  body { font-size: 17px; }
+  .h1 { font-size: 4rem; }
+  .h2 { font-size: 3.65rem; }
+  .lede { font-size: 1.2rem; }
+}
+
+@media (min-width: 2400px) {
+  :root { --shell: 1680px; }
+  body { font-size: 18px; }
 }

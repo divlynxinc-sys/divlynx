@@ -4,7 +4,7 @@ import "../css/logo.css";
  * Brand lockup.
  *
  * The mark is the original vector art lifted straight out of
- * `public/divlynx-Logo-new.svg`, gradient stops and all.
+ * `public/assets/brand/divlynx-logo.svg`, gradient stops and all.
  *
  * The wordmark is set as live text rather than reusing the `<text>` element in
  * that file: the source SVG asks for "FONTSPRING DEMO - Croogla 4F", which is

@@ -1,11 +1,11 @@
 import "../css/trust.css";
 
 const CLIENTS = [
-  { src: "/after-realism.png", alt: "After Realism", place: "Australia", className: "is-after-realism" },
-  { src: "/metastore.webp", alt: "MetaStore", place: "Pakistan", className: "is-metastore" },
-  { src: "/elclub.png", alt: "El Club", place: "USA", className: "is-elclub" },
-  { src: "/SC__Primary_Black-02.png", alt: "Sincere Capital", place: "Netherlands", className: "is-sincere" },
-  { src: "/range fit.jpeg", alt: "Range Fit Gym", place: "Pakistan", className: "is-range-fit" },
+  { src: "/assets/clients/after-realism.png", alt: "After Realism", place: "Australia", className: "is-after-realism" },
+  { src: "/assets/clients/metastore.webp", alt: "MetaStore", place: "Pakistan", className: "is-metastore" },
+  { src: "/assets/clients/el-club.png", alt: "El Club", place: "USA", className: "is-elclub" },
+  { src: "/assets/clients/sincere-capital.png", alt: "Sincere Capital", place: "Netherlands", className: "is-sincere" },
+  { src: "/assets/clients/range-fit-gym.jpeg", alt: "Range Fit Gym", place: "Pakistan", className: "is-range-fit" },
 ];
 
 const ICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
