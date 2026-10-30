@@ -12,13 +12,28 @@ const EXECUTIVES = [
     role: "Co-Founder & CTO",
     image: "/assets/team/abdullah-tahir.jpeg",
   },
+  {
+    name: "Ali Shayan",
+    role: "Head of Engineering",
+    image: "/assets/team/ali-shayan.jpeg",
+  },
+  {
+    name: "Abdullah Omer",
+    role: "Cheif Operating Officer",
+    image: "/assets/team/abdullah-omer.jpeg",
+  },
 ];
 
-const TEAM = [
+const ENGINEERING = [
   {
     name: "Zile Hasnain",
     role: "Software Engineer",
     image: "/assets/team/zile-software-engineer.jpeg",
+  },
+  {
+    name: "Shahroze Afaq",
+    role: "Cyber Security Engineer",
+    image: "/assets/team/shahroze-afaq.jpeg",
   },
 ];
 
@@ -49,7 +64,7 @@ export default function Team() {
       <div className="shell">
         <header className="team__head">
           <div>
-            <p className="eyebrow">Leadership</p>
+            <p className="eyebrow">Our team</p>
             <h2 className="display h2">
               The people behind <span className="sweep">the work</span>.
             </h2>
@@ -60,14 +75,17 @@ export default function Team() {
           </p>
         </header>
 
-        <div className="team__grid">
-          {EXECUTIVES.map((member, index) => <Profile key={member.name} member={member} index={index} />)}
+        <div className="team__group team__group--first">
+          <p className="team__group-label">Leadership</p>
+          <div className="team__grid team__grid--executives">
+            {EXECUTIVES.map((member, index) => <Profile key={member.name} member={member} index={index} />)}
+          </div>
         </div>
 
         <div className="team__group">
           <p className="team__group-label">Engineering</p>
-          <div className="team__grid team__grid--second">
-            {TEAM.map((member, index) => <Profile key={member.name} member={member} index={index} />)}
+          <div className="team__grid team__grid--engineering">
+            {ENGINEERING.map((member, index) => <Profile key={member.name} member={member} index={index} />)}
           </div>
         </div>
       </div>
