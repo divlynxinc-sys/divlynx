@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
-import { FiArrowUpRight, FiInstagram, FiLinkedin, FiMail } from "react-icons/fi";
+import { FiArrowUpRight, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import Logo from "./Logo";
-import { CALENDLY, EMAIL, NAV, SOCIAL, scrollToId } from "../site";
+import { CALENDLY, EMAIL, NAV, OFFICE, PHONE, PHONE_HREF, SOCIAL, scrollToId } from "../site";
 import "../css/footer.css";
 
 const SERVICES = [
@@ -11,6 +11,10 @@ const SERVICES = [
   "Web design & development",
   "Mobile apps",
   "Cloud, data & DevOps",
+  "Game development",
+  "POS systems",
+  "SEO",
+  "Digital advertising",
 ];
 
 export default function Footer() {
@@ -69,9 +73,11 @@ export default function Footer() {
             <p className="foot__blurb">
               A software studio building AI automation, voice agents and the products they run on.
             </p>
-            <a href={`mailto:${EMAIL}`} className="foot__mail">
-              <FiMail aria-hidden /> {EMAIL}
-            </a>
+            <address className="foot__contact">
+              <a href={`mailto:${EMAIL}`}><FiMail aria-hidden /><span>{EMAIL}</span></a>
+              <a href={`tel:${PHONE_HREF}`}><FiPhone aria-hidden /><span>{PHONE}</span></a>
+              <span><FiMapPin aria-hidden /><span>{OFFICE}</span></span>
+            </address>
           </div>
 
           <nav className="foot__col" aria-label="Services">

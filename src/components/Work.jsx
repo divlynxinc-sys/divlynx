@@ -3,15 +3,43 @@ import { motion } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
 import "../css/work.css";
 
-/* Descriptions stay factual — swap in real numbers once you have them signed off. */
+/* Descriptions stay factual, swap in real numbers once you have them signed off. */
 const PROJECTS = [
   {
+    client: "Sincere Capital",
+    title: "Real-estate listings platform",
+    kind: "Web",
+    region: "Netherlands",
+    note: "A live real-estate website that brings listings, brokerage services and enquiries into one clear customer journey.",
+    tech: ["Property listings", "Lead capture", "Responsive UI"],
+    href: "https://www.sincere-estate.nl/",
+  },
+  {
+    client: "JobSynk AI",
+    title: "AI resume and job application platform",
+    kind: "Product",
+    region: "Global",
+    note: "A live workspace that tailors resumes to job descriptions, checks ATS readability, and drafts the application content around each role.",
+    tech: ["AI resume builder", "ATS checker", "Job tailoring"],
+    href: "https://jobsynk.co/",
+  },
+  {
+    client: "Range Fit Gym",
+    title: "Fitness membership platform",
+    kind: "Product",
+    region: "Pakistan",
+    note: "A responsive gym platform combining membership plans, trainer profiles, account access, and facility information in one customer journey.",
+    tech: ["Next.js", "Memberships", "Authentication", "Responsive UI"],
+    href: "https://range-fit-gym.vercel.app/",
+  },
+  {
     client: "After Realism",
-    title: "Website redesign and rebuild",
+    title: "Geospatial consultancy platform",
     kind: "Web",
     region: "Australia",
-    note: "A full rebuild of the marketing site on a headless stack the team can edit without us.",
-    tech: ["Next.js", "Nest.js", "Tailwind", "shadcn/ui"],
+    note: "A live consultancy website presenting interactive maps, spatial data products, AI solutions, and cloud engineering work.",
+    tech: ["SvelteKit", "AWS", "PostGIS", "Three.js"],
+    href: "https://afterrealism.com/",
   },
   {
     client: "El Club",
@@ -23,11 +51,21 @@ const PROJECTS = [
   },
   {
     client: "MetaStore",
-    title: "Subscription platform",
-    kind: "Product",
+    title: "Digital subscriptions marketplace",
+    kind: "Commerce",
     region: "Pakistan",
-    note: "Plan management, billing states and a self-serve account area.",
-    tech: ["React", "Tailwind", "Stripe"],
+    note: "A storefront for entertainment subscriptions, productivity tools, software keys, and digital services.",
+    tech: ["E-commerce", "Product catalogue", "Subscriptions"],
+    href: "https://metastore.pk/",
+  },
+  {
+    client: "JeeUstaad",
+    title: "Verified local-services marketplace",
+    kind: "Marketplace",
+    region: "Pakistan",
+    note: "A task marketplace connecting customers with ID-verified workers, protected by escrow payments, reviews, and human dispute resolution.",
+    tech: ["Marketplace", "Escrow", "Worker verification", "Android"],
+    href: "https://jeeustaad.com/",
   },
   {
     client: "Hospitality group",
@@ -52,27 +90,6 @@ const PROJECTS = [
     region: "Global",
     note: "Containerised delivery with infrastructure as code and automated rollbacks.",
     tech: ["AWS", "Docker", "Kubernetes", "Terraform"],
-  },
-];
-
-const QUOTES = [
-  {
-    quote: "One of the best working experiences — kudos to Divlynx.",
-    author: "After Realism",
-    place: "Australia",
-    date: "Nov 2024",
-  },
-  {
-    quote: "We enjoyed working with Divlynx and will likely have additional jobs for them.",
-    author: "El Club",
-    place: "USA",
-    date: "Mar 2024",
-  },
-  {
-    quote: "Execution was swift and outcomes exceeded expectations. Strong recommendation.",
-    author: "MetaStore",
-    place: "Pakistan",
-    date: "Nov 2023",
   },
 ];
 
@@ -104,7 +121,13 @@ export default function Work() {
               <span className="work__index">{String(i + 1).padStart(2, "0")}</span>
 
               <div className="work__main">
-                <h3 className="work__title">{p.title}</h3>
+                <h3 className="work__title">
+                  {p.href ? (
+                    <a href={p.href} target="_blank" rel="noopener noreferrer">
+                      {p.title} <FiArrowUpRight aria-hidden />
+                    </a>
+                  ) : p.title}
+                </h3>
                 <p className="work__note">{p.note}</p>
                 <ul className="work__tech">
                   {p.tech.map((t) => (
@@ -125,28 +148,6 @@ export default function Work() {
           ))}
         </ul>
 
-        <div className="work__quotes">
-          {QUOTES.map((q, i) => (
-            <motion.figure
-              key={q.author}
-              className="quote"
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}>
-              <span className="quote__mark" aria-hidden="true">
-                &ldquo;
-              </span>
-              <blockquote className="quote__text">{q.quote}</blockquote>
-              <figcaption className="quote__by">
-                <span className="quote__author">{q.author}</span>
-                <span className="quote__place">
-                  {q.place} · {q.date}
-                </span>
-              </figcaption>
-            </motion.figure>
-          ))}
-        </div>
       </div>
     </section>
   );

@@ -16,7 +16,7 @@ export default function BlogIndex() {
           </h1>
           <p className="lede blog-index__lede">
             What we have learned shipping AI automation, voice agents and n8n workflows for real
-            companies — including the parts that did not work. No hype, no listicles.
+            companies, including the parts that did not work. No hype, no listicles.
           </p>
         </header>
 

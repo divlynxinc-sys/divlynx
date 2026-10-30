@@ -13,14 +13,14 @@ const STEPS = [
   {
     n: "02",
     title: "Prototype in your stack",
-    body: "You get a working slice running against your real data — not a slide deck. This is where we agree on what finished looks like.",
+    body: "You get a working slice running against your real data, not a slide deck. This is where we agree on what finished looks like.",
     when: "Week 2",
   },
   {
     n: "03",
     title: "Build and demo weekly",
     body: "Every week you see something you can click. Scope changes are cheap here and expensive later, so we surface them early.",
-    when: "Weeks 3–6",
+    when: "Weeks 3-6",
   },
   {
     n: "04",
@@ -44,7 +44,7 @@ export default function Process() {
             </h2>
           </div>
           <p className="lede proc__note">
-            Fixed scope or monthly retainer — either way you know what is being built, what it
+            Fixed scope or monthly retainer, either way you know what is being built, what it
             costs, and where it is on any given Friday.
           </p>
         </div>

@@ -5,7 +5,7 @@ import "../css/workflow.css";
 
 /**
  * The hero's signature: a real automation running on a loop.
- * Triggers fan into an AI agent, the agent fans out into actions —
+ * Triggers fan into an AI agent, then the agent fans out into actions.
  * the same shape a client sees in their own n8n canvas.
  */
 
@@ -18,9 +18,9 @@ const NODES = [
   { id: "o3", role: "action", icon: FiCalendar, label: "Meeting booked", meta: "Calendar" },
 ];
 
-/* Nodes are anchored by their CENTRE (x, y) and sized only in width — height
+/* Nodes are anchored by their CENTRE (x, y) and sized only in width, height
    comes from the content, so a label that wraps can never clip or collide with
-   its own border. Edges are drawn centre-to-centre in the same 0–100 space
+   its own border. Edges are drawn centre-to-centre in the same 0-100 space
    (the SVG uses preserveAspectRatio="none", so it maps 1:1 to those percents)
    and their ends tuck under the nodes, which are opaque and painted on top. */
 const WIDE = {

@@ -4,9 +4,9 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { POSTS_BY_DATE, formatDate } from "../blog/posts";
 import "../css/journal-teaser.css";
 
-/** Three most recent posts. Deliberately not the whole archive. */
+/** Four most recent posts. Deliberately not the whole archive. */
 export default function JournalTeaser() {
-  const recent = POSTS_BY_DATE.slice(0, 3);
+  const recent = POSTS_BY_DATE.slice(0, 4);
 
   return (
     <section id="journal" className="band">

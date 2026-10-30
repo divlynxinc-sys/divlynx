@@ -24,20 +24,74 @@
 .trust__logos {
   display: flex;
   align-items: center;
-  gap: clamp(24px, 4vw, 48px);
+  gap: clamp(20px, 3vw, 34px);
+}
+
+.trust__logos li {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 40px;
+  flex: 0 0 52px;
 }
 
 .trust__logos img {
-  height: clamp(22px, 3vw, 30px);
-  width: auto;
-  opacity: 0.55;
-  filter: grayscale(1) brightness(1.9);
-  transition: opacity 0.3s var(--ease), filter 0.3s var(--ease);
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0.58;
+  filter: grayscale(1) contrast(1.35) brightness(1.65);
+  transition: opacity 0.3s var(--ease), filter 0.3s var(--ease), transform 0.3s var(--ease);
 }
 
 .trust__logos img:hover {
   opacity: 1;
-  filter: grayscale(0) brightness(1);
+  filter: grayscale(1) contrast(1.45) brightness(2.1);
+}
+
+.trust__logos .is-sincere {
+  display: flex;
+  align-items: center;
+}
+
+.trust__logos .is-sincere img,
+.trust__logos .is-sincere img:hover {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  mix-blend-mode: screen;
+}
+
+.trust__logos .is-range-fit img {
+  width: 34px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0.55;
+  filter: grayscale(1) contrast(3) brightness(1.5);
+  mix-blend-mode: screen;
+}
+
+.trust__logos .is-metastore img {
+  transform: scale(1.16);
+}
+
+.trust__logos .is-elclub img {
+  transform: scale(1.06);
+}
+
+.trust__logos .is-range-fit img:hover {
+  opacity: 1;
+  filter: grayscale(1) contrast(3.5) brightness(2);
+}
+
+.trust__logos .is-sincere img {
+  opacity: 0.55;
+  filter: grayscale(1) invert(1) brightness(1.4);
+}
+
+.trust__logos .is-sincere img:hover {
+  opacity: 1;
+  filter: grayscale(1) invert(1) brightness(1.9);
 }
 
 /* -------------------------------------------------------------- marquee -- */

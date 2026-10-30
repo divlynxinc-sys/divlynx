@@ -69,6 +69,18 @@
   transition: color 0.3s var(--ease);
 }
 
+.work__title a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.work__title svg {
+  width: 0.8em;
+  height: 0.8em;
+  color: var(--amber);
+}
+
 .work__row:hover .work__title {
   color: var(--cream);
 }

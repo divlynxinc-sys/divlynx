@@ -1,9 +1,11 @@
 import "../css/trust.css";
 
 const CLIENTS = [
-  { src: "/after-realism.png", alt: "After Realism", place: "Australia" },
-  { src: "/metastore.webp", alt: "MetaStore", place: "Pakistan" },
-  { src: "/elclub.png", alt: "El Club", place: "USA" },
+  { src: "/after-realism.png", alt: "After Realism", place: "Australia", className: "is-after-realism" },
+  { src: "/metastore.webp", alt: "MetaStore", place: "Pakistan", className: "is-metastore" },
+  { src: "/elclub.png", alt: "El Club", place: "USA", className: "is-elclub" },
+  { src: "/SC__Primary_Black-02.png", alt: "Sincere Capital", place: "Netherlands", className: "is-sincere" },
+  { src: "/range fit.jpeg", alt: "Range Fit Gym", place: "Pakistan", className: "is-range-fit" },
 ];
 
 const ICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
@@ -39,10 +41,10 @@ export default function TrustStrip() {
   return (
     <section className="trust" aria-label="Clients and technology">
       <div className="shell trust__clients">
-        <p className="trust__label">Trusted by teams in Australia, the USA and Pakistan</p>
+        <p className="trust__label">Trusted by teams across four countries</p>
         <ul className="trust__logos">
           {CLIENTS.map((c) => (
-            <li key={c.alt}>
+            <li key={c.alt} className={c.className || undefined}>
               <img src={c.src} alt={c.alt} loading="lazy" decoding="async" />
             </li>
           ))}

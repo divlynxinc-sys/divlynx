@@ -4,7 +4,7 @@ import { POSTS } from "./blog/posts";
 export const SITE_URL = "https://divlynx.com";
 export const SITE_NAME = "Divlynx";
 
-const HOME_TITLE = "Divlynx — AI automation, voice agents & software engineering";
+const HOME_TITLE = "Divlynx, AI automation, voice agents & software engineering";
 const HOME_DESC =
   "Divlynx builds AI automation, voice agents, n8n workflows, web platforms and mobile apps for companies that want the busywork gone.";
 
@@ -16,9 +16,9 @@ export function metaForPath(pathname) {
 
   if (pathname === "/case-studies" || pathname === "/case-studies/") {
     return {
-      title: "Case studies — AI automation, voice agents & software | Divlynx",
+      title: "Case studies, AI automation, voice agents & software | Divlynx",
       description:
-        "How Divlynx engagements actually ran: the problem we were handed, what we built, and what changed afterwards — one case study per service line.",
+        "How Divlynx engagements actually ran: the problem we were handed, what we built, and what changed afterwards, one case study per service line.",
       canonical: `${SITE_URL}/case-studies`,
       type: "website",
     };
@@ -26,7 +26,7 @@ export function metaForPath(pathname) {
 
   if (pathname === "/blog" || pathname === "/blog/") {
     return {
-      title: "Journal — practical notes on AI automation | Divlynx",
+      title: "Journal, practical notes on AI automation | Divlynx",
       description:
         "Field notes from building AI automation, voice agents and n8n workflows for real companies. No hype, just what worked.",
       canonical: `${SITE_URL}/blog`,
@@ -59,7 +59,7 @@ export function allPaths() {
   return ["/", "/case-studies", "/blog", ...POSTS.map((p) => `/blog/${p.slug}`)];
 }
 
-/** Schema.org JSON-LD for a path — helps search engines show rich results. */
+/** Schema.org JSON-LD for a path, helps search engines show rich results. */
 export function jsonLdForPath(pathname) {
   const meta = metaForPath(pathname);
 
@@ -68,7 +68,15 @@ export function jsonLdForPath(pathname) {
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
     url: SITE_URL,
-    email: "info@divlynx.com",
+    email: "divlynx.inc@gmail.com",
+    telephone: "+92 3180950005",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Islamabad",
+      addressRegion: "Islamabad Capital Territory",
+      addressCountry: "PK",
+      streetAddress: "Blue Area",
+    },
     description: HOME_DESC,
     sameAs: [
       "https://www.linkedin.com/company/divlynx/",

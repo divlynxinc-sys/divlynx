@@ -56,24 +56,33 @@
   color: var(--text-dim);
 }
 
-.foot__mail {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 18px;
-  padding: 9px 15px;
-  border: 1px solid var(--line-hi);
-  border-radius: 999px;
-  font-size: 0.875rem;
-  color: var(--text);
-  transition: border-color 0.3s var(--ease), color 0.3s var(--ease),
-    background 0.3s var(--ease);
+.foot__contact {
+  display: grid;
+  gap: 10px;
+  margin-top: 20px;
+  font-style: normal;
 }
 
-.foot__mail:hover {
+.foot__contact > a,
+.foot__contact > span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+}
+
+.foot__contact svg {
+  flex: 0 0 auto;
+  color: var(--amber);
+}
+
+.foot__contact a {
+  transition: color 0.25s var(--ease);
+}
+
+.foot__contact a:hover {
   color: var(--amber-lift);
-  border-color: rgba(255, 163, 26, 0.45);
-  background: rgba(255, 255, 255, 0.03);
 }
 
 .foot__col-title {

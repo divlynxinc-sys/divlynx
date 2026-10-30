@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
 import { FiArrowUpRight, FiCalendar } from "react-icons/fi";
 import WorkflowCanvas from "./WorkflowCanvas";
 import { CALENDLY, EMAIL, scrollToId } from "../site";
@@ -15,10 +16,38 @@ const stagger = {
 };
 
 const STATS = [
-  { value: "30+", label: "Projects shipped" },
-  { value: "20+", label: "Clients worldwide" },
-  { value: "4 wks", label: "Typical first release" },
+  { value: 30, suffix: "+", label: "Projects shipped" },
+  { value: 20, suffix: "+", label: "Clients worldwide" },
+  { value: 4, suffix: " wks", label: "Typical first release" },
 ];
+
+function AnimatedStat({ value, suffix, label }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reducedMotion = useReducedMotion();
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return undefined;
+    if (reducedMotion) {
+      setDisplay(value);
+      return undefined;
+    }
+    const counter = animate(0, value, {
+      duration: 2.2,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (latest) => setDisplay(Math.round(latest)),
+    });
+    return () => counter.stop();
+  }, [inView, reducedMotion, value]);
+
+  return (
+    <div ref={ref} className="hero__stat">
+      <dt className="hero__stat-value">{display}{suffix}</dt>
+      <dd className="hero__stat-label">{label}</dd>
+    </div>
+  );
+}
 
 export default function Hero() {
   return (
@@ -30,19 +59,14 @@ export default function Hero() {
           initial="hidden"
           animate="show"
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-          <motion.p className="hero__eyebrow" variants={rise}>
-            <span className="hero__pip" aria-hidden="true" />
-            AI automation &amp; product engineering
-          </motion.p>
-
           <motion.h1 id="hero-title" className="display h1 hero__title" variants={rise}>
-            We build your product — and the{" "}
+            We build your product and the{" "}
             <span className="sweep">agents that run it</span>.
           </motion.h1>
 
           <motion.p className="lede hero__lede" variants={rise}>
             Divlynx is a software studio for teams that are done doing things by hand. We design
-            and ship AI automation, voice agents and n8n workflows — along with the web and mobile
+            and ship AI automation, voice agents and n8n workflows, along with the web and mobile
             products they plug into.
           </motion.p>
 
@@ -62,11 +86,10 @@ export default function Hero() {
           </motion.div>
 
           <motion.p className="hero__reply" variants={rise}>
-            <span className="hero__pulse" aria-hidden="true" />
-            {/* One element, not loose text nodes — otherwise the flex container
+            {/* One element, not loose text nodes, otherwise the flex container
                 splits the sentence into separately-wrapping columns. */}
             <span>
-              Taking on new work — write to{" "}
+              Taking on new work. Write to{" "}
               <a href={`mailto:${EMAIL}`} className="hero__mail">
                 {EMAIL}
               </a>{" "}
@@ -75,12 +98,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.dl className="hero__stats" variants={rise}>
-            {STATS.map((s) => (
-              <div key={s.label} className="hero__stat">
-                <dt className="hero__stat-value">{s.value}</dt>
-                <dd className="hero__stat-label">{s.label}</dd>
-              </div>
-            ))}
+            {STATS.map((s) => <AnimatedStat key={s.label} {...s} />)}
           </motion.dl>
         </motion.div>
 

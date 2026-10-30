@@ -18,6 +18,142 @@
   gap: 14px;
 }
 
+/* ------------------------------------------------------------ carousel -- */
+
+.svc__carousel {
+  position: relative;
+  overflow: hidden;
+  padding: 12px 0 54px;
+  outline: none;
+  touch-action: pan-y;
+}
+
+.svc__stage {
+  position: relative;
+  height: clamp(390px, 41vw, 450px);
+  cursor: grab;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.18) 3%,
+    rgba(0, 0, 0, 0.68) 8%,
+    #000 14%,
+    #000 86%,
+    rgba(0, 0, 0, 0.68) 92%,
+    rgba(0, 0, 0, 0.18) 97%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.18) 3%,
+    rgba(0, 0, 0, 0.68) 8%,
+    #000 14%,
+    #000 86%,
+    rgba(0, 0, 0, 0.68) 92%,
+    rgba(0, 0, 0, 0.18) 97%,
+    transparent 100%
+  );
+}
+
+.svc__stage:active {
+  cursor: grabbing;
+}
+
+.svc__stage .svc {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  width: clamp(280px, 34vw, 400px);
+  height: clamp(390px, 39vw, 430px);
+  transform: translateX(calc(-50% + var(--card-x))) scale(var(--card-scale));
+  transform-origin: 50% 60%;
+  transition: transform 0.58s var(--ease), border-color 0.35s var(--ease),
+    box-shadow 0.45s var(--ease), background 0.35s var(--ease);
+  pointer-events: none;
+  user-select: none;
+}
+
+.svc__stage .svc.is-active {
+  border-color: rgba(255, 163, 26, 0.45);
+  background: #111416;
+  box-shadow: 0 28px 70px -36px rgba(247, 132, 0, 0.65);
+  pointer-events: auto;
+}
+
+.svc__stage .svc.is-hidden {
+  visibility: hidden;
+}
+
+.svc__stage .svc:hover {
+  transform: translateX(calc(-50% + var(--card-x))) scale(var(--card-scale));
+}
+
+.svc__arrow {
+  position: absolute;
+  top: calc(50% - 34px);
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 1px solid var(--line-hi);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease),
+    transform 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.svc__arrow:hover {
+  color: var(--amber-lift);
+  border-color: rgba(255, 163, 26, 0.55);
+  background: var(--surface-hi);
+  transform: scale(1.06);
+}
+
+.svc__arrow--prev {
+  left: calc(50% - clamp(180px, 20vw, 245px));
+}
+
+.svc__arrow--next {
+  right: calc(50% - clamp(180px, 20vw, 245px));
+}
+
+.svc__nav {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  z-index: 30;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.svc__nav button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--muted);
+  opacity: 0.45;
+  cursor: pointer;
+  transition: width 0.35s var(--ease), opacity 0.35s var(--ease),
+    background 0.35s var(--ease);
+}
+
+.svc__nav button.is-active {
+  width: 26px;
+  background: var(--amber);
+  opacity: 1;
+}
+
+
 .svc {
   position: relative;
   display: flex;
@@ -25,7 +161,7 @@
   padding: clamp(20px, 2.4vw, 28px);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.028), rgba(255, 255, 255, 0.008));
+  background: #0d0f11;
   overflow: hidden;
   transition: border-color 0.35s var(--ease), transform 0.35s var(--ease),
     background 0.35s var(--ease);
@@ -36,9 +172,7 @@
   content: "";
   position: absolute;
   inset: auto 0 0 0;
-  height: 60%;
-  background: radial-gradient(120% 100% at 50% 100%, rgba(247, 132, 0, 0.16), transparent 70%);
-  opacity: 0;
+  display: none;
   transition: opacity 0.4s var(--ease);
   pointer-events: none;
 }
@@ -70,13 +204,45 @@
 
 /* ---------------------------------------------------------------- inner -- */
 
+.svc__card-head {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.svc__number,
+.svc__includes,
+.svc__card-foot {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.svc__number {
+  padding-top: 4px;
+  color: var(--muted);
+}
+
+.svc__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
 .svc__icon {
   position: relative;
   display: grid;
   place-items: center;
   width: 42px;
   height: 42px;
-  margin-bottom: 18px;
+  margin-bottom: 0;
   border: 1px solid var(--line-hi);
   border-radius: 11px;
   background: rgba(255, 255, 255, 0.04);
@@ -94,7 +260,10 @@
 
 .svc__title {
   position: relative;
-  margin-bottom: 9px;
+  margin-bottom: 10px;
+  font-size: clamp(1.18rem, 1.7vw, 1.45rem);
+  line-height: 1.2;
+  color: var(--text);
 }
 
 .svc--lead .svc__title {
@@ -104,8 +273,8 @@
 .svc__blurb {
   position: relative;
   font-size: 0.9375rem;
-  line-height: 1.62;
-  color: var(--text-dim);
+  line-height: 1.58;
+  color: #c3c0ba;
 }
 
 .svc--lead .svc__blurb {
@@ -117,8 +286,15 @@
   position: relative;
   display: grid;
   gap: 9px;
-  margin-top: auto;
-  padding-top: 22px;
+  margin-top: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.svc__includes {
+  margin-top: 20px;
+  margin-bottom: 9px;
+  color: var(--amber);
 }
 
 .svc--lead .svc__points {
@@ -133,7 +309,25 @@
   font-size: 0.6875rem;
   letter-spacing: 0.03em;
   line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.svc__card-foot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
   color: var(--muted);
+}
+
+.svc.is-active .svc__number,
+.svc.is-active .svc__card-foot {
+  color: var(--text-dim);
 }
 
 .svc__points li::before {
@@ -171,6 +365,36 @@
 
   .svc--lead .svc__points {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .svc__carousel {
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  .svc__stage {
+    height: 430px;
+  }
+
+  .svc__stage .svc {
+    width: min(78vw, 340px);
+    height: 400px;
+    padding: 22px;
+  }
+
+  .svc__arrow {
+    top: calc(50% - 36px);
+    width: 44px;
+    height: 44px;
+  }
+
+  .svc__arrow--prev {
+    left: 12px;
+  }
+
+  .svc__arrow--next {
+    right: 12px;
   }
 }
 

@@ -3,7 +3,10 @@
  * Anything a non-developer might need to change lives here.
  */
 
-export const EMAIL = import.meta.env.VITE_CONTACT_TO_EMAIL || "info@divlynx.com";
+export const EMAIL = import.meta.env.VITE_CONTACT_TO_EMAIL || "divlynx.inc@gmail.com";
+export const PHONE = "+92 3180950005";
+export const PHONE_HREF = "+923180950005";
+export const OFFICE = "Blue Area, Islamabad, Pakistan";
 
 export const CALENDLY =
   import.meta.env.VITE_CALENDLY_URL ||
@@ -22,6 +25,7 @@ export const NAV = [
   { label: "Services", href: "#services", kind: "hash" },
   { label: "How we work", href: "#process", kind: "hash" },
   { label: "Work", href: "#work", kind: "hash" },
+  { label: "Testimonials", href: "#testimonials", kind: "hash" },
   { label: "Case studies", href: "/case-studies", kind: "route" },
   { label: "Journal", href: "/blog", kind: "route" },
   { label: "Studio", href: "#studio", kind: "hash" },

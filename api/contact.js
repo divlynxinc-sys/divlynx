@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 
 /**
- * Contact form endpoint — Vercel serverless function.
+ * Contact form endpoint, Vercel serverless function.
  *
  * Vercel maps this file to /api/contact automatically, so the browser talks to
  * its own origin and no CORS handling is needed.
@@ -13,7 +13,7 @@ import { Resend } from "resend";
 
 /** Must be an address on the domain verified in Resend. */
 const FROM = "Divlynx Website <noreply@divlynx.com>";
-const TO = "info@divlynx.com";
+const TO = "divlynx.inc@gmail.com";
 
 const TOPICS = new Set([
   "AI automation",
@@ -27,7 +27,7 @@ const TOPICS = new Set([
 
 /**
  * Best-effort throttle. Serverless instances are recycled and requests spread
- * across them, so this blunts naive floods — it is not a security boundary.
+ * across them, so this blunts naive floods, it is not a security boundary.
  */
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX = 3;
@@ -123,7 +123,7 @@ export default async function handler(req, res) {
       // Sending *from* the visitor's address would fail SPF/DKIM and land in
       // spam. Their address goes here so Reply just works.
       replyTo: email,
-      subject: `New enquiry — ${topic} — ${name}`,
+      subject: `New enquiry, ${topic}, ${name}`,
       text: [
         `Name:  ${name}`,
         `Email: ${email}`,
@@ -131,7 +131,7 @@ export default async function handler(req, res) {
         "",
         message,
         "",
-        `— sent from the divlynx.com contact form (${ip})`,
+        `, sent from the divlynx.com contact form (${ip})`,
       ].join("\n"),
       html: `
         <div style="font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.6;color:#111">

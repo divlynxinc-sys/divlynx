@@ -29,7 +29,7 @@ const FAQS = [
   },
   {
     q: "How do you price work?",
-    a: "Fixed scope for defined projects, monthly retainer for ongoing work. We quote after the mapping session rather than before it — a number given without understanding the work is just a guess.",
+    a: "Fixed scope for defined projects, monthly retainer for ongoing work. We quote after the mapping session rather than before it, a number given without understanding the work is just a guess.",
   },
   {
     q: "Can the AI run on our own infrastructure?",
@@ -59,7 +59,7 @@ export default function Studio() {
             </h2>
             <p className="lede studio__lede">
               Divlynx is a group of engineers, designers and strategists who got tired of watching
-              good ideas die in a backlog. We keep the team small on purpose — it is the only way
+              good ideas die in a backlog. We keep the team small on purpose, it is the only way
               the person who understands your business is also the one writing the code.
             </p>
             <blockquote className="studio__quote">

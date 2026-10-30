@@ -14,13 +14,13 @@
   --line: rgba(255, 255, 255, 0.08);
   --line-hi: rgba(255, 255, 255, 0.14);
 
-  /* Brand — sampled from divlynx-Logo-new.svg gradient stops */
+  /* Brand, sampled from divlynx-Logo-new.svg gradient stops */
   --amber: #f78400;
   --amber-lift: #ffa31a;
   --amber-deep: #c26700;
   --cream: #feedda;
 
-  /* Type colours — warm-neutral, not cool grey */
+  /* Type colours, warm-neutral, not cool grey */
   --text: #ede9e3;
   --text-dim: #a5a29d;
   --muted: #7e8288;
@@ -135,7 +135,6 @@ ol {
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 14px;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 500;
@@ -143,13 +142,6 @@ ol {
   text-transform: uppercase;
   color: var(--amber);
   margin-bottom: 22px;
-}
-
-.eyebrow::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--line-hi), transparent);
 }
 
 .display {

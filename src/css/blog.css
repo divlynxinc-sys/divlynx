@@ -104,7 +104,7 @@
   transform: translate(2px, -2px);
 }
 
-/* Closing prompt on the index — one, at the end, not a sidebar */
+/* Closing prompt on the index, one, at the end, not a sidebar */
 .blog-cta {
   display: flex;
   align-items: flex-end;

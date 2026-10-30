@@ -4,95 +4,114 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { EMAIL } from "../site";
 import "../css/case-studies.css";
 
-/**
- * One case study per service line in Services.jsx, so a visitor who recognises
- * their own problem can see what that engagement actually looked like.
- *
- * Outcomes are deliberately qualitative. Do not add percentages or revenue
- * figures here until a client has signed them off in writing — the two entries
- * marked TEMPLATE below are patterns, not delivered projects, and should be
- * replaced with a real engagement or removed before they go in front of buyers.
- */
+/** Live client projects only. Outcomes remain qualitative until a client has
+ * approved measurable commercial results for publication. */
 const CASES = [
   {
     featured: true,
-    service: "AI voice agents",
-    client: "Hospitality group",
-    region: "Pakistan",
-    title: "A reception line that never rings out",
+    service: "Web design & development",
+    client: "Sincere Capital",
+    region: "Netherlands",
+    title: "A live property platform built around the listing",
     challenge:
-      "Reception was answering booking calls in the middle of check-in. Callers waited, hung up, and booked somewhere else — and nobody could say how many.",
+      "Sincere Estate needed one credible digital home for its property inventory and full-service brokerage offer, with a direct path from browsing to enquiry.",
     built: [
-      "Voice agent on the main reservation line, answering on the first ring",
-      "Handles availability, rates and booking changes end to end",
-      "Trained on regional accents and code-switching between Urdu and English",
-      "Hands off to a human the moment a caller asks, with full context",
-      "Every call transcribed and summarised into the reservation system",
+      "A responsive real-estate website structured around live property discovery",
+      "Listing pages that make availability and essential property details easy to scan",
+      "Clear service journeys for renting, buying, selling and property management",
+      "Direct enquiry paths for property seekers, landlords, buyers and sellers",
     ],
     outcome: [
-      "Calls answered around the clock, including the check-in rush",
-      "Front desk back on the desk instead of on the phone",
-      "A written record of every enquiry, not just the ones that converted",
+      "An active sales channel where new listings can meet prospective clients",
+      "Brokerage services and property inventory presented under one consistent brand",
+      "A clearer route from initial interest to a conversation with the Sincere team",
     ],
-    stack: ["Python", "Rasa", "Twilio", "NLP"],
+    stack: ["Property listings", "Responsive UI", "Lead capture", "Content management"],
+    href: "https://www.sincere-estate.nl/",
   },
   {
-    service: "AI automation",
-    client: "Professional services firm",
-    region: "Pakistan",
-    title: "Enquiry triage and first-draft quoting", // TEMPLATE — confirm or replace
+    service: "AI product development",
+    client: "JobSynk AI",
+    region: "Global",
+    title: "A job application workspace built around the role",
     challenge:
-      "Every enquiry landed in a shared inbox and was read three times before anyone could price it. Simple jobs waited behind complicated ones.",
+      "Generic resumes and disconnected writing tools make every serious job application repetitive. JobSynk needed one workspace that could understand a job description and help candidates adapt the complete application around it.",
     built: [
-      "Agent reads each enquiry, classifies it and pulls the matching rate card",
-      "RAG over past proposals so the draft sounds like the firm, not like a bot",
-      "Draft quote queued for a human to approve, edit or reject",
-      "Cost caps and full logging on every model call",
+      "AI resume workspace that evaluates content against a target role",
+      "ATS checker focused on parsing, structure, and role-relevant language",
+      "Role matching and guided improvements at individual resume-line level",
+      "Supporting drafts for cover letters, interview answers, and follow-up email",
     ],
     outcome: [
-      "Quotes drafted the same hour instead of the same week",
-      "Nothing leaves the building without a person approving it",
-      "Pricing decisions traceable back to a source document",
+      "Candidates can move from job description to tailored application in one workflow",
+      "ATS risks and weak resume content become visible before an application is sent",
+      "Related application documents stay aligned with the same role and experience",
     ],
-    stack: ["Python", "OpenAI", "Postgres", "Retrieval"],
+    stack: ["AI", "Resume builder", "ATS analysis", "SaaS"],
+    href: "https://jobsynk.co/",
   },
   {
-    service: "n8n & workflow engineering",
-    client: "Operations team",
+    service: "Marketplace development",
+    client: "JeeUstaad",
     region: "Pakistan",
-    title: "Six tools that finally talk to each other", // TEMPLATE — confirm or replace
+    title: "A safer way to hire local skilled workers",
     challenge:
-      "CRM, billing, support desk and spreadsheets each held part of the truth. Reconciling them was somebody's Friday.",
+      "Hiring for repairs, cleaning, moving, and other local work often happens through unverified referrals, cash advances, and scattered phone calls. JeeUstaad needed trust and payment protection built into the marketplace itself.",
     built: [
-      "Self-hosted n8n wiring the systems together, owned by the client",
-      "Retries, dead-letter handling and alerting on every failed run",
-      "Written runbook so the team can change a flow without calling us",
+      "Task posting and category-based matching across local service trades",
+      "Worker identity and police-verification workflows",
+      "Offer comparison, reviews, text chat, and voice notes",
+      "Escrow payments, disputes, wallets, and local payout methods",
+      "Android experience for job alerts and work on the move",
     ],
     outcome: [
-      "Manual reconciliation dropped out of the weekly routine",
-      "Failures surface as alerts instead of as month-end surprises",
-      "The workflows stay with the client — no vendor lock-in",
+      "Customers can compare verified workers before choosing an offer",
+      "Funds remain protected until the customer confirms completed work",
+      "Workers receive relevant local opportunities and can withdraw earnings digitally",
     ],
-    stack: ["n8n", "Node.js", "Docker", "Webhooks"],
+    stack: ["Marketplace", "Escrow", "Verification", "Android"],
+    href: "https://jeeustaad.com/",
   },
   {
     service: "Web design & development",
     client: "After Realism",
     region: "Australia",
-    title: "A marketing site the team can edit alone",
+    title: "A geospatial consultancy presented with product clarity",
     challenge:
-      "The old site needed a developer for every copy change, so it slowly stopped reflecting what the business did.",
+      "After Realism needed one clear digital home for a technically broad offer spanning interactive maps, spatial data, AI, cloud platforms, and its own live products.",
     built: [
-      "Full redesign and rebuild on a headless stack",
-      "Editable content model the marketing team runs without us",
-      "Performance and accessibility budgets enforced at build time",
+      "A complete consultancy website structured around services, products, and delivered work",
+      "Dedicated presentation for live products including MapDrop and GeoChat",
+      "Clear paths into map, data, AI, web application, and cloud engagements",
     ],
     outcome: [
-      "Copy and page changes ship without a developer in the loop",
-      "Fast loads on the mobile connections most of their traffic uses",
+      "Specialist geospatial capability is legible to both technical and commercial buyers",
+      "Products, public-sector experience, and consulting services now reinforce one another",
     ],
-    stack: ["Next.js", "Nest.js", "Tailwind", "shadcn/ui"],
-    quote: "One of the best working experiences — kudos to Divlynx.",
+    stack: ["SvelteKit", "AWS", "PostGIS", "Three.js"],
+    quote: "One of the best working experiences, kudos to Divlynx.",
+    href: "https://afterrealism.com/",
+  },
+  {
+    service: "Full-stack product development",
+    client: "Range Fit Gym",
+    region: "Pakistan",
+    title: "Memberships, trainers, and gym access in one platform",
+    challenge:
+      "Range Fit needed more than a brochure site. Prospective members had to understand the facilities, compare training plans, meet the trainers, and move directly into an account journey from any device.",
+    built: [
+      "Responsive fitness website with video-led brand presentation",
+      "Membership catalogue covering day passes and specialised training plans",
+      "Trainer profiles, facilities, contact details, and location information",
+      "Integrated sign-up and login paths for the member experience",
+    ],
+    outcome: [
+      "Prospective members can evaluate plans and trainers before visiting the gym",
+      "Membership information and account access now share one consistent experience",
+      "The platform works across desktop and mobile for customers on the move",
+    ],
+    stack: ["Next.js", "Memberships", "Authentication", "Responsive UI"],
+    href: "https://range-fit-gym.vercel.app/",
   },
   {
     service: "Full-stack development",
@@ -117,56 +136,21 @@ const CASES = [
     service: "Product & subscriptions",
     client: "MetaStore",
     region: "Pakistan",
-    title: "Self-serve billing, minus the support tickets",
+    title: "Digital subscriptions and services in one storefront",
     challenge:
-      "Plan changes, failed payments and cancellations all came through support because customers had nowhere to do them.",
+      "Customers needed one place to discover and compare a growing catalogue spanning streaming, productivity, design, AI tools, software keys, and digital services.",
     built: [
-      "Subscription platform with plan management and billing states",
-      "Self-serve account area for upgrades, downgrades and cancellations",
-      "Dunning and payment-failure handling wired into Stripe",
+      "Category-led storefront for subscriptions, software, and digital services",
+      "Reusable product presentation across a broad and frequently changing catalogue",
+      "Direct paths from product discovery into purchase and customer support",
     ],
     outcome: [
-      "Routine billing changes handled by customers themselves",
-      "Failed payments recovered automatically instead of manually",
+      "Customers can browse entertainment and productivity products from one destination",
+      "New subscription products and service categories can be presented consistently",
     ],
-    stack: ["React", "Tailwind", "Stripe"],
+    stack: ["E-commerce", "Product catalogue", "Subscriptions"],
     quote: "Execution was swift and outcomes exceeded expectations. Strong recommendation.",
-  },
-  {
-    service: "Mobile apps",
-    client: "Regional cricket league",
-    region: "Pakistan",
-    title: "Fixtures, live scoring and squads in one app",
-    challenge:
-      "Scores lived in group chats and squad sheets lived in spreadsheets, so nobody trusted either by the end of a season.",
-    built: [
-      "Live scoring with offline capture for grounds with poor signal",
-      "Fixture and squad management shared across web and mobile",
-      "One codebase shipped to both app stores",
-    ],
-    outcome: [
-      "One source of truth for a whole season of results",
-      "Scorers can work through a dead patch of signal and sync later",
-    ],
-    stack: ["React", "Express", "MongoDB"],
-  },
-  {
-    service: "Cloud, data & DevOps",
-    client: "Divlynx platform",
-    region: "Global",
-    title: "Releases that stopped being an event",
-    challenge:
-      "Deployments were scheduled for quiet hours because a bad release meant downtime and a manual rollback.",
-    built: [
-      "Containerised delivery with infrastructure as code",
-      "Zero-downtime rollouts and automated rollback on failed health checks",
-      "Monitoring that pages an engineer before customers notice",
-    ],
-    outcome: [
-      "Deploys during working hours, not at midnight",
-      "Bad releases roll back on their own",
-    ],
-    stack: ["AWS", "Docker", "Kubernetes", "Terraform"],
+    href: "https://metastore.pk/",
   },
 ];
 
@@ -184,6 +168,11 @@ function CaseCard({ item, index }) {
         <p className="case__client">
           {item.client} · {item.region}
         </p>
+        {item.href && (
+          <a className="case__live" href={item.href} target="_blank" rel="noopener noreferrer">
+            Visit live website <FiArrowUpRight aria-hidden />
+          </a>
+        )}
       </header>
 
       <div className="case__body">
@@ -233,8 +222,8 @@ export default function CaseStudies() {
             What the work <span className="sweep">actually looked like</span>.
           </h1>
           <p className="lede cases__lede">
-            One per service line — the problem we were handed, what we built, and what changed
-            afterwards.
+            Real client projects, the product challenge, what we delivered, and the experience
+            now running in production.
           </p>
         </header>
 

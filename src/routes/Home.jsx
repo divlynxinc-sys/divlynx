@@ -3,6 +3,7 @@ import TrustStrip from "../components/TrustStrip";
 import Services from "../components/Services";
 import Process from "../components/Process";
 import Work from "../components/Work";
+import Testimonials from "../components/Testimonials";
 import Studio from "../components/Studio";
 import Contact from "../components/Contact";
 import JournalTeaser from "../components/JournalTeaser";
@@ -20,6 +21,7 @@ export default function Home() {
       <Services />
       <Process />
       <Work />
+      <Testimonials />
       <Studio />
       <JournalTeaser />
       <Contact />

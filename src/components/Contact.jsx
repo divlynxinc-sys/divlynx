@@ -17,7 +17,7 @@ const TOPICS = [
   "Something else",
 ];
 
-// `company` is the honeypot — hidden from people, irresistible to bots.
+// `company` is the honeypot, hidden from people, irresistible to bots.
 const EMPTY = { name: "", email: "", topic: TOPICS[0], message: "", company: "" };
 
 export default function Contact() {
@@ -36,7 +36,7 @@ export default function Contact() {
     if (field === "name") return v.length < 2 ? "Enter your name." : "";
     if (field === "email") return emailRegex.test(v) ? "" : "Enter an email we can reply to.";
     if (field === "message")
-      return v.length < 10 ? "Tell us a little more — 10 characters minimum." : "";
+      return v.length < 10 ? "Tell us a little more, 10 characters minimum." : "";
     return "";
   };
 
@@ -83,7 +83,7 @@ export default function Contact() {
       });
 
       // No endpoint means we are running `vite dev` or the function is not
-      // deployed yet — fall back to the visitor's own mail client.
+      // deployed yet, fall back to the visitor's own mail client.
       if (res.status === 404) return openWebmail();
 
       const data = await res.json().catch(() => ({}));
@@ -114,7 +114,7 @@ export default function Contact() {
   const openWebmail = () => {
     window.open(
       composeUrl(
-        `${form.topic} — ${clean(form.name)}`,
+        `${form.topic}, ${clean(form.name)}`,
         `${clean(form.message)}\n\nReply to: ${clean(form.email)}`
       ),
       "_blank",

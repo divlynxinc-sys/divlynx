@@ -52,7 +52,7 @@ export default function App() {
 
   return (
     /* MotionConfig honours prefers-reduced-motion for every framer-motion
-       animation below — CSS alone cannot, since those are inline styles. */
+       animation below, CSS alone cannot, since those are inline styles. */
     <MotionConfig reducedMotion="user">
       <a className="skip-link" href="#main">
         Skip to content
