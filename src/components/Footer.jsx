@@ -80,7 +80,7 @@ export default function Footer() {
             </address>
           </div>
 
-          <nav className="foot__col" aria-label="Services">
+          <nav className="foot__col foot__col--services" aria-label="Services">
             <h3 className="foot__col-title">Services</h3>
             <ul>
               {SERVICES.map((s) => (
@@ -89,7 +89,7 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <nav className="foot__col" aria-label="Company">
+          <nav className="foot__col foot__col--company" aria-label="Company">
             <h3 className="foot__col-title">Company</h3>
             <ul>
               {NAV.map((n) => (

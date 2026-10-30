@@ -41,7 +41,7 @@ export default function TrustStrip() {
   return (
     <section className="trust" aria-label="Clients and technology">
       <div className="shell trust__clients">
-        <p className="trust__label">Trusted by teams across four countries</p>
+        <p className="trust__label">Trusted by teams worldwide</p>
         <ul className="trust__logos">
           {CLIENTS.map((c) => (
             <li key={c.alt} className={c.className || undefined}>

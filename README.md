@@ -50,7 +50,8 @@ npm run preview      # Preview the production client build
 |   |-- assets/
 |   |   |-- brand/              # Primary logo and touch icon
 |   |   |-- clients/            # Trusted-client marks used on the site
-|   |   `-- hero/               # Hero illustration
+|   |   |-- hero/               # Hero illustration
+|   |   `-- team/               # Leadership portraits
 |   |-- 404.html                # Static-host fallback
 |   `-- favicon.svg
 |-- scripts/
@@ -79,6 +80,7 @@ Only files used by the website or editable pitch-deck source belong in `public/a
 - `brand/`: approved Divlynx brand files
 - `clients/`: one production logo per displayed client
 - `hero/`: large hero artwork
+- `team/`: approved leadership portraits
 
 Use lowercase kebab-case filenames. Avoid spaces, duplicate export variants, and temporary generated files. Search both `src` and `docs` before moving or deleting an asset because the deck HTML shares website assets.
 
@@ -112,6 +114,7 @@ When adding a journal post, update `src/blog/posts.js`; the post route and sitem
 - Delivery process: `src/components/Process.jsx`
 - Selected work: `src/components/Work.jsx`
 - Testimonials: `src/components/Testimonials.jsx`
+- Careers: `src/components/Careers.jsx`
 - Case studies: `src/routes/CaseStudies.jsx`
 - Journal content: `src/blog/posts.js`
 

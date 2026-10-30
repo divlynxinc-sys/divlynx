@@ -155,8 +155,10 @@ const CASES = [
 ];
 
 function CaseCard({ item, index }) {
+  const caseId = `case-${item.client.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
   return (
     <motion.article
+      id={caseId}
       className={`case${item.featured ? " case--featured" : ""}`}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}

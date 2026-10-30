@@ -23,12 +23,12 @@ export const SOCIAL = {
  */
 export const NAV = [
   { label: "Services", href: "#services", kind: "hash" },
-  { label: "How we work", href: "#process", kind: "hash" },
   { label: "Work", href: "#work", kind: "hash" },
   { label: "Testimonials", href: "#testimonials", kind: "hash" },
   { label: "Case studies", href: "/case-studies", kind: "route" },
   { label: "Journal", href: "/blog", kind: "route" },
-  { label: "Studio", href: "#studio", kind: "hash" },
+  { label: "Team", href: "#team", kind: "hash" },
+  { label: "Careers", href: "#careers", kind: "hash" },
   { label: "Contact", href: "#contact", kind: "hash" },
 ];
 

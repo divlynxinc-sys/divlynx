@@ -39,7 +39,7 @@
 
 .foot__cols {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.25fr) minmax(0, 1fr);
   gap: clamp(30px, 5vw, 60px);
   padding-block: clamp(40px, 5vw, 58px);
 }
@@ -98,6 +98,28 @@
 .foot__col ul {
   display: grid;
   gap: 10px;
+}
+
+.foot__col--services ul {
+  display: block;
+  columns: 2;
+  column-gap: clamp(20px, 3vw, 42px);
+}
+
+.foot__col--services li {
+  margin-bottom: 10px;
+  break-inside: avoid;
+}
+
+.foot__col--company ul {
+  display: block;
+  columns: 2;
+  column-gap: clamp(20px, 3vw, 38px);
+}
+
+.foot__col--company li {
+  margin-bottom: 10px;
+  break-inside: avoid;
 }
 
 .foot__col a {
@@ -160,4 +182,17 @@
   .foot__brand {
     grid-column: 1 / -1;
   }
+
+  .foot__col--services {
+    grid-column: 1 / -1;
+  }
+
+  .foot__col--company {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 420px) {
+  .foot__cols { grid-template-columns: 1fr; }
+  .foot__col--services ul { column-gap: 16px; }
 }

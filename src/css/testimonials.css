@@ -1,5 +1,5 @@
 .testimonials { overflow: hidden; }
-.testimonials__head { max-width: 700px; margin-bottom: clamp(32px, 4vw, 48px); }
+.testimonials__head { max-width: none; margin-bottom: clamp(32px, 4vw, 48px); }
 .testimonials__carousel { position: relative; overflow: hidden; padding: 12px 0 54px; outline: none; touch-action: pan-y; }
 .testimonials__stage { position: relative; height: clamp(350px, 38vw, 410px); cursor: grab; -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.18) 3%, rgba(0,0,0,.68) 8%, #000 14%, #000 86%, rgba(0,0,0,.68) 92%, rgba(0,0,0,.18) 97%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.18) 3%, rgba(0,0,0,.68) 8%, #000 14%, #000 86%, rgba(0,0,0,.68) 92%, rgba(0,0,0,.18) 97%, transparent 100%); }
 .testimonials__stage:active { cursor: grabbing; }
@@ -25,4 +25,5 @@
 .testimonials__nav { position: absolute; left: 50%; bottom: 22px; z-index: 30; display: flex; gap: 8px; transform: translateX(-50%); }
 .testimonials__nav button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 999px; background: var(--muted); opacity: .45; cursor: pointer; transition: width .35s var(--ease), opacity .35s var(--ease), background .35s var(--ease); }
 .testimonials__nav button.is-active { width: 26px; background: var(--amber); opacity: 1; }
+@media (min-width: 1101px) { .testimonials__head .h2 { font-size: clamp(2.25rem, 3.45vw, 3.1rem); white-space: nowrap; } }
 @media (max-width: 700px) { .testimonials__carousel { margin-inline: calc(var(--gutter) * -1); } .testimonials__stage { height: 390px; } .testimonial-card { width: min(78vw, 330px); height: 350px; } .testimonials__arrow { width: 44px; height: 44px; } .testimonials__arrow--prev { left: 12px; } .testimonials__arrow--next { right: 12px; } }

@@ -53,6 +53,12 @@
   border-color: rgba(255, 163, 26, 0.4);
 }
 
+.channel--whatsapp .channel__icon {
+  border-color: rgba(37, 211, 102, .38);
+  background: rgba(37, 211, 102, .1);
+  color: #50d982;
+}
+
 .channel__text {
   display: flex;
   flex-direction: column;

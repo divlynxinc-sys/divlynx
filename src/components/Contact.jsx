@@ -1,11 +1,13 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FiArrowUpRight, FiCalendar, FiLinkedin, FiInstagram, FiMail } from "react-icons/fi";
-import { CALENDLY, EMAIL, SOCIAL, composeUrl } from "../site";
+import { FaWhatsapp } from "react-icons/fa";
+import { CALENDLY, EMAIL, PHONE, PHONE_HREF, SOCIAL, composeUrl } from "../site";
 import "../css/contact.css";
 
 /** Same-origin, so no CORS. Backed by functions/index.js sending through Resend. */
 const ENDPOINT = "/api/contact";
+const WHATSAPP_URL = `https://wa.me/${PHONE_HREF.replace("+", "")}?text=${encodeURIComponent("Hi Divlynx, I would like to discuss a project.")}`;
 
 const TOPICS = [
   "AI automation",
@@ -155,6 +157,17 @@ export default function Contact() {
               <span className="channel__text">
                 <span className="channel__label">Email us</span>
                 <span className="channel__value">{EMAIL}</span>
+              </span>
+              <FiArrowUpRight className="channel__go" aria-hidden />
+            </a>
+
+            <a className="channel channel--whatsapp" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+              <span className="channel__icon">
+                <FaWhatsapp aria-hidden />
+              </span>
+              <span className="channel__text">
+                <span className="channel__label">WhatsApp us</span>
+                <span className="channel__value">{PHONE}</span>
               </span>
               <FiArrowUpRight className="channel__go" aria-hidden />
             </a>

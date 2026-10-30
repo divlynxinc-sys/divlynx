@@ -1,10 +1,93 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiArrowUpRight, FiMenu, FiX } from "react-icons/fi";
+import { FiArrowUpRight, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
 import Logo from "./Logo";
 import { NAV, scrollToId } from "../site";
 import "../css/navbar.css";
+
+const NAV_DRAWERS = {
+  "/case-studies": {
+    label: "Selected case studies",
+    columns: [
+      {
+        title: "Products & platforms",
+        links: [
+          { label: "Sincere Capital", note: "Property platform", href: "/case-studies#case-sincere-capital" },
+          { label: "JobSynk AI", note: "AI career product", href: "/case-studies#case-jobsynk-ai" },
+          { label: "JeeUstaad", note: "Services marketplace", href: "/case-studies#case-jeeustaad" },
+        ],
+      },
+      {
+        title: "Web & commerce",
+        links: [
+          { label: "After Realism", note: "Geospatial consultancy", href: "/case-studies#case-after-realism" },
+          { label: "Range Fit Gym", note: "Membership platform", href: "/case-studies#case-range-fit-gym" },
+          { label: "MetaStore", note: "Subscriptions marketplace", href: "/case-studies#case-metastore" },
+        ],
+      },
+    ],
+  },
+  "/blog": {
+    label: "Journal topics",
+    columns: [
+      {
+        title: "AI systems",
+        links: [
+          { label: "Claude AI in production", href: "/blog/claude-ai-in-production" },
+          { label: "AI skills vs tools", href: "/blog/ai-skills-vs-tools" },
+          { label: "What makes an AI agent", href: "/blog/what-makes-an-ai-agent" },
+        ],
+      },
+      {
+        title: "Automation practice",
+        links: [
+          { label: "Agentic AI without hype", href: "/blog/agentic-ai-without-the-hype" },
+          { label: "Choosing first automation", href: "/blog/how-to-choose-your-first-automation" },
+          { label: "n8n vs Zapier vs Make", href: "/blog/n8n-vs-zapier-vs-make" },
+        ],
+      },
+    ],
+  },
+};
+
+function NavMega({ item, drawer, onHash, onClose }) {
+  return (
+    <div className={`nav-mega nav-mega--${item.label.toLowerCase().replaceAll(" ", "-")}`}>
+      <div className="nav-mega__columns">
+        {drawer.columns.map((column) => (
+          <div key={column.title} className="nav-mega__column">
+            <ul>
+              {column.links.map((entry) => {
+                const link = typeof entry === "string" ? { label: entry, href: "#services" } : entry;
+                return (
+                  <li key={link.label}>
+                    {link.href.startsWith("#") ? (
+                      <a href={link.href} onClick={(event) => onHash(event, link.href)}>
+                        <span>{link.label}</span>
+                      </a>
+                    ) : (
+                      <Link to={link.href} onClick={onClose}>
+                        <span>{link.label}</span>
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div className="nav-mega__foot">
+        {item.kind === "hash" ? (
+          <a href={item.href} onClick={(event) => onHash(event, item.href)}>View all {item.label.toLowerCase()} <FiArrowUpRight /></a>
+        ) : (
+          <Link to={item.href} onClick={onClose}>View all {item.label.toLowerCase()} <FiArrowUpRight /></Link>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -95,31 +178,39 @@ export default function Navbar() {
           </Link>
 
           <nav className="nav__links" aria-label="Primary">
-            {NAV.map((item) =>
-              item.kind === "route" ? (
+            {NAV.map((item) => {
+              const drawer = NAV_DRAWERS[item.href];
+              return (
+                <div key={item.href} className={`nav__item${drawer ? " has-drawer" : ""}`}>
+                  {item.kind === "route" ? (
                 <Link
-                  key={item.href}
                   to={item.href}
                   className={`nav__link${isActive(item) ? " is-active" : ""}`}
+                  aria-haspopup={drawer ? "true" : undefined}
                   onClick={() => setOpen(false)}>
                   {item.label}
+                  {drawer && <FiChevronDown className="nav__link-chevron" aria-hidden />}
                   {isActive(item) && (
                     <motion.span className="nav__link-dot" layoutId="nav-dot" transition={{ duration: 0.35 }} />
                   )}
                 </Link>
               ) : (
                 <a
-                  key={item.href}
                   href={onHome ? item.href : `/${item.href}`}
                   className={`nav__link${isActive(item) ? " is-active" : ""}`}
+                  aria-haspopup={drawer ? "true" : undefined}
                   onClick={(e) => goHash(e, item.href)}>
                   {item.label}
+                  {drawer && <FiChevronDown className="nav__link-chevron" aria-hidden />}
                   {isActive(item) && (
                     <motion.span className="nav__link-dot" layoutId="nav-dot" transition={{ duration: 0.35 }} />
                   )}
                 </a>
-              )
-            )}
+                  )}
+                  {drawer && <NavMega item={item} drawer={drawer} onHash={goHash} onClose={() => setOpen(false)} />}
+                </div>
+              );
+            })}
           </nav>
 
           <div className="nav__end">
