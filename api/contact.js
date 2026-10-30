@@ -31,7 +31,18 @@ const TOPICS = new Set([
  */
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX = 3;
+const MAX_BODY_BYTES = 16_384;
 const hits = new Map();
+
+const TRUSTED_ORIGINS = new Set([
+  "https://divlynx.com",
+  "https://www.divlynx.com",
+]);
+
+function originAllowed(origin) {
+  if (!origin || TRUSTED_ORIGINS.has(origin)) return true;
+  return process.env.NODE_ENV !== "production" && /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
+}
 
 function rateLimited(ip) {
   const now = Date.now();
@@ -69,8 +80,23 @@ const escapeHtml = (s) =>
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
 export default async function handler(req, res) {
+  res.setHeader("Cache-Control", "no-store");
+  res.setHeader("X-Content-Type-Options", "nosniff");
   if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed." });
+
+  if (!originAllowed(req.headers.origin)) {
+    return res.status(403).json({ error: "Origin not allowed." });
+  }
+
+  if (!req.headers["content-type"]?.toLowerCase().includes("application/json")) {
+    return res.status(415).json({ error: "Content-Type must be application/json." });
+  }
+
+  const contentLength = Number(req.headers["content-length"] || 0);
+  if (!Number.isFinite(contentLength) || contentLength > MAX_BODY_BYTES) {
+    return res.status(413).json({ error: "Request is too large." });
+  }
 
   if (!process.env.RESEND_API_KEY) {
     console.error("RESEND_API_KEY is not set on this deployment");
@@ -95,7 +121,7 @@ export default async function handler(req, res) {
       body = {};
     }
   }
-  if (typeof body !== "object" || body === null) body = {};
+  if (typeof body !== "object" || body === null || Array.isArray(body)) body = {};
 
   // Honeypot: real people never fill a hidden field. Answer 200 so bots cannot
   // tell they were caught.

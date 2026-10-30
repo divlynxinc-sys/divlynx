@@ -93,6 +93,11 @@ const PROJECTS = [
   },
 ];
 
+// The landing page is deliberately limited to work visitors can open and
+// verify today. Archived and private engagements remain in the full case-study
+// view, where there is enough room to explain them properly.
+const LIVE_PROJECTS = PROJECTS.filter((project) => Boolean(project.href));
+
 export default function Work() {
   return (
     <section id="work" className="band">
@@ -105,12 +110,12 @@ export default function Work() {
             </h2>
           </div>
           <Link to="/case-studies" className="btn btn--ghost work__cta">
-            Read the case studies <FiArrowUpRight aria-hidden />
+            View all work <FiArrowUpRight aria-hidden />
           </Link>
         </div>
 
         <ul className="work__list">
-          {PROJECTS.map((p, i) => (
+          {LIVE_PROJECTS.map((p, i) => (
             <motion.li
               key={p.title}
               className="work__row"

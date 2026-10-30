@@ -9,6 +9,8 @@ import CaseStudies from "./routes/CaseStudies";
 import BlogIndex from "./routes/BlogIndex";
 import BlogPost from "./routes/BlogPost";
 import NotFound from "./routes/NotFound";
+import Privacy from "./routes/Privacy";
+import CookieNotice from "./components/CookieNotice";
 import { metaForPath } from "./seo";
 
 /**
@@ -32,6 +34,9 @@ function useDocumentMeta() {
     set('meta[property="og:title"]', "content", meta.title);
     set('meta[property="og:description"]', "content", meta.description);
     set('meta[property="og:url"]', "content", meta.canonical);
+    set('meta[name="twitter:title"]', "content", meta.title);
+    set('meta[name="twitter:description"]', "content", meta.description);
+    set('meta[name="robots"]', "content", meta.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
   }, [pathname]);
 
   // Route changes start at the top; in-page hashes scroll to their target.
@@ -70,12 +75,14 @@ export default function App() {
             <Route path="/case-studies" element={<CaseStudies />} />
             <Route path="/blog" element={<BlogIndex />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
         <Footer />
         <ScrollTop />
+        <CookieNotice />
       </div>
     </MotionConfig>
   );

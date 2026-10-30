@@ -41,8 +41,6 @@ function buildHead(path) {
     `<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>`,
   ];
 
-  if (meta.noindex) extra.push('<meta name="robots" content="noindex" />');
-
   if (meta.type === "article" && meta.post) {
     extra.push(
       `<meta property="article:published_time" content="${meta.post.date}" />`,
@@ -65,6 +63,11 @@ for (const path of allPaths()) {
     html,
     /<meta\s+name="description"[\s\S]*?\/>/,
     `<meta name="description" content="${escapeAttr(meta.description)}" />`
+  );
+  html = setTag(
+    html,
+    /<meta name="robots"[^>]*\/>/,
+    `<meta name="robots" content="${meta.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}" />`
   );
   html = setTag(
     html,
@@ -91,6 +94,8 @@ for (const path of allPaths()) {
     /<meta property="og:url"[^>]*\/>/,
     `<meta property="og:url" content="${meta.canonical}" />`
   );
+  html = setTag(html, /<meta name="twitter:title"[^>]*\/>/, `<meta name="twitter:title" content="${escapeAttr(meta.title)}" />`);
+  html = setTag(html, /<meta name="twitter:description"[^>]*\/>/, `<meta name="twitter:description" content="${escapeAttr(meta.description)}" />`);
   html = html.replace("<!--app-head-->", extra);
   html = html.replace("<!--app-html-->", appHtml);
 
@@ -115,6 +120,7 @@ for (const path of allPaths()) {
     /<meta\s+name="description"[\s\S]*?\/>/,
     `<meta name="description" content="${escapeAttr(meta.description)}" />`
   );
+  html = setTag(html, /<meta name="robots"[^>]*\/>/, '<meta name="robots" content="noindex, nofollow" />');
   html = setTag(html, /<link rel="canonical"[^>]*\/>/, "");
   html = html.replace("<!--app-head-->", extra);
   html = html.replace("<!--app-html-->", appHtml);

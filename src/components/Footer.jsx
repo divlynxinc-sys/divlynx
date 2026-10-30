@@ -106,9 +106,10 @@ export default function Footer() {
         </div>
 
         <div className="foot__bar">
-          <p className="foot__legal">
-            © {new Date().getFullYear()} Divlynx Inc. All rights reserved.
-          </p>
+          <div className="foot__legal">
+            <p>© {new Date().getFullYear()} Divlynx Inc. All rights reserved.</p>
+            <Link to="/privacy">Privacy & cookies</Link>
+          </div>
           <div className="foot__social">
             <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <FiLinkedin />

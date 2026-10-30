@@ -34,6 +34,15 @@ export function metaForPath(pathname) {
     };
   }
 
+  if (pathname === "/privacy" || pathname === "/privacy/") {
+    return {
+      title: "Privacy and cookie notice | Divlynx",
+      description: "How Divlynx handles website enquiries, necessary browser storage, external links, and personal information.",
+      canonical: `${SITE_URL}/privacy`,
+      type: "website",
+    };
+  }
+
   const slug = pathname.replace(/^\/blog\//, "").replace(/\/$/, "");
   const post = POSTS.find((p) => p.slug === slug);
   if (post) {
@@ -56,7 +65,7 @@ export function metaForPath(pathname) {
 }
 
 export function allPaths() {
-  return ["/", "/case-studies", "/blog", ...POSTS.map((p) => `/blog/${p.slug}`)];
+  return ["/", "/case-studies", "/blog", "/privacy", ...POSTS.map((p) => `/blog/${p.slug}`)];
 }
 
 /** Schema.org JSON-LD for a path, helps search engines show rich results. */
@@ -67,7 +76,14 @@ export function jsonLdForPath(pathname) {
     "@type": "Organization",
     "@id": `${SITE_URL}/#organization`,
     name: SITE_NAME,
+    legalName: "Divlynx Inc.",
     url: SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/assets/brand/divlynx-logo.svg`,
+      contentUrl: `${SITE_URL}/assets/brand/divlynx-logo.svg`,
+    },
+    image: `${SITE_URL}/assets/hero/digital-workshop.png`,
     email: "divlynx.inc@gmail.com",
     telephone: "+92 3180950005",
     address: {
@@ -78,15 +94,45 @@ export function jsonLdForPath(pathname) {
       streetAddress: "Blue Area",
     },
     description: HOME_DESC,
+    areaServed: "Worldwide",
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales and customer enquiries",
+      email: "divlynx.inc@gmail.com",
+      telephone: "+92 3180950005",
+      availableLanguage: ["English", "Urdu"],
+    },
     sameAs: [
       "https://www.linkedin.com/company/divlynx/",
       "https://www.instagram.com/divlynxinc",
     ],
   };
 
+  const website = {
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: SITE_NAME,
+    inLanguage: "en",
+    publisher: { "@id": `${SITE_URL}/#organization` },
+  };
+
+  const webpage = {
+    "@type": meta.type === "article" ? "Article" : "WebPage",
+    "@id": `${meta.canonical}#webpage`,
+    url: meta.canonical,
+    name: meta.title,
+    description: meta.description,
+    inLanguage: "en",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#organization` },
+  };
+
   if (meta.type === "article" && meta.post) {
     return [
       organisation,
+      website,
+      webpage,
       {
         "@type": "BlogPosting",
         headline: meta.post.title,
@@ -95,11 +141,12 @@ export function jsonLdForPath(pathname) {
         dateModified: meta.post.date,
         author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
         publisher: { "@id": `${SITE_URL}/#organization` },
-        mainEntityOfPage: meta.canonical,
+        mainEntityOfPage: { "@id": `${meta.canonical}#webpage` },
+        inLanguage: "en",
         keywords: meta.post.tags.join(", "),
       },
     ];
   }
 
-  return [organisation];
+  return [organisation, website, webpage];
 }

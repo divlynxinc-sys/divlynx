@@ -1,0 +1,4 @@
+Contact: mailto:divlynx.inc@gmail.com
+Preferred-Languages: en
+Canonical: https://divlynx.com/.well-known/security.txt
+Expires: 2027-10-30T23:59:59Z

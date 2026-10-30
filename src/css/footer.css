@@ -145,11 +145,17 @@
 }
 
 .foot__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.04em;
   color: var(--muted);
 }
+
+.foot__legal a { color: var(--text-dim); }
+.foot__legal a:hover { color: var(--amber-lift); }
 
 .foot__social {
   display: flex;
