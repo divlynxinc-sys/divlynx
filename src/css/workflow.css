@@ -1,243 +1,94 @@
-.wf {
+.workshop {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 12px;
-  border: 1px solid var(--line-hi);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(168deg, rgba(255, 163, 26, 0.05), rgba(255, 255, 255, 0.012) 42%),
-    var(--ink-raised);
-  box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
-}
-
-/* Faint dot-grid, like a node editor canvas */
-.wf::before {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  border-radius: 12px;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(78% 78% at 50% 45%, #000, transparent);
-  -webkit-mask-image: radial-gradient(78% 78% at 50% 45%, #000, transparent);
+  width: min(116%, 720px);
+  margin: clamp(-42px, -3vw, -20px) 0 -8% -8%;
+  isolation: isolate;
   pointer-events: none;
 }
 
-/* --------------------------------------------------------------- chrome -- */
-
-.wf__chrome {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 2px 6px 12px;
-  border-bottom: 1px solid var(--line);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.04em;
-}
-
-.wf__path {
-  color: var(--muted);
-}
-
-.wf__status {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--amber-lift);
-  transition: color 0.4s var(--ease);
-}
-
-.wf__status.is-done {
-  color: #6fd08c;
-}
-
-.wf__dot {
-  width: 6px;
-  height: 6px;
+.workshop::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: 5%;
+  bottom: 8%;
+  left: 5%;
+  height: 28%;
   border-radius: 50%;
-  background: currentColor;
-  box-shadow: 0 0 8px currentColor;
-  animation: wfBlink 1.4s ease-in-out infinite;
+  background: rgba(224, 96, 0, 0.08);
+  filter: blur(42px);
 }
 
-.wf__status.is-done .wf__dot {
-  animation: none;
-}
-
-@keyframes wfBlink {
-  50% {
-    opacity: 0.28;
-  }
-}
-
-/* ---------------------------------------------------------------- stage -- */
-
-.wf__stage {
-  position: relative;
-  flex: 1;
-  margin-top: 12px;
-}
-
-.wf__wires {
-  position: absolute;
-  inset: 0;
+.workshop__image {
+  display: block;
   width: 100%;
-  height: 100%;
-  overflow: visible;
+  height: auto;
+  object-fit: contain;
+  filter: saturate(0.94) contrast(1.02);
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.wf__wire,
-.wf__spark {
-  fill: none;
-  vector-effect: non-scaling-stroke;
-  stroke-linecap: round;
-}
-
-.wf__wire {
-  stroke: rgba(255, 255, 255, 0.14);
-  stroke-width: 1.5;
-  transition: stroke 0.5s var(--ease);
-}
-
-.wf__wire.is-lit {
-  stroke: rgba(247, 132, 0, 0.42);
-}
-
-/* The travelling light: one short dash sweeping the whole path */
-.wf__spark {
-  stroke: var(--cream);
-  stroke-width: 2.5;
-  stroke-dasharray: 0.14 1;
-  stroke-dashoffset: 0.14;
-  opacity: 0;
-  filter: drop-shadow(0 0 5px var(--amber-lift));
-}
-
-.wf__spark.is-flowing {
-  opacity: 1;
-  animation: wfFlow 0.85s cubic-bezier(0.4, 0, 0.5, 1);
-}
-
-@keyframes wfFlow {
-  from {
-    stroke-dashoffset: 0.14;
-  }
-  to {
-    stroke-dashoffset: -1;
-  }
-}
-
-/* ---------------------------------------------------------------- nodes -- */
-
-/* Positioned by centre (see WorkflowCanvas.jsx); height follows content.
-   Opaque so the edges drawn centre-to-centre disappear underneath. */
-.wf__node {
+.workshop__label {
   position: absolute;
+  z-index: 3;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 11px 12px;
-  border: 1px solid var(--line-hi);
-  border-radius: 11px;
-  background: #14171a;
-  transition: border-color 0.45s var(--ease), background 0.45s var(--ease),
-    box-shadow 0.45s var(--ease);
-}
-
-.wf__node.is-on {
-  border-color: rgba(255, 163, 26, 0.55);
-  background: #201810;
-  box-shadow: 0 0 0 1px rgba(255, 163, 26, 0.12), 0 10px 30px -14px rgba(247, 132, 0, 0.85);
-}
-
-.wf__node--agent {
-  flex-direction: column;
-  justify-content: center;
-  gap: 8px;
-  padding: 14px 12px;
-  text-align: center;
-  border-radius: 14px;
-}
-
-.wf__icon {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--muted);
-  font-size: 0.875rem;
-  transition: color 0.45s var(--ease), border-color 0.45s var(--ease),
-    background 0.45s var(--ease);
-}
-
-.wf__node.is-on .wf__icon {
-  color: var(--amber-lift);
-  border-color: rgba(255, 163, 26, 0.4);
-  background: rgba(247, 132, 0, 0.14);
-}
-
-.wf__node--agent .wf__icon {
-  width: 36px;
-  height: 36px;
-  font-size: 1.0625rem;
-}
-
-.wf__text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-/* Wraps rather than truncating, node widths shift a lot between breakpoints. */
-.wf__label {
-  font-family: var(--font-display);
-  font-size: clamp(0.6875rem, 1.05vw, 0.8125rem);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  line-height: 1.22;
-  color: var(--text);
-  overflow-wrap: break-word;
-}
-
-.wf__meta {
+  gap: 6px;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(9, 10, 11, 0.9);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
   font-family: var(--font-mono);
-  font-size: 0.5938rem;
-  letter-spacing: 0.05em;
-  line-height: 1.4;
-  color: var(--muted);
+  font-size: clamp(0.42rem, 0.55vw, 0.55rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #d6d1c8;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.workshop__label i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 7px rgba(247, 132, 0, 0.75);
+}
+
+.workshop__label::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  background: rgba(255, 163, 26, 0.5);
+  transform-origin: top;
+}
+
+.workshop__label--browser { top: 3%; left: 42%; }
+.workshop__label--browser::after { top: 100%; left: 24%; height: 34px; transform: rotate(-18deg); }
+.workshop__label--arm { top: 5%; right: 3%; }
+.workshop__label--arm::after { top: 100%; left: 20%; height: 30px; transform: rotate(26deg); }
+.workshop__label--voice { top: 46%; left: 0; }
+.workshop__label--voice::after { top: 100%; left: 74%; height: 22px; transform: rotate(-23deg); }
+.workshop__label--flow { bottom: 2%; left: 39%; }
+.workshop__label--flow::after { bottom: 100%; left: 52%; height: 26px; transform: rotate(180deg); }
+.workshop__label--mobile { top: 52%; right: -1%; }
+.workshop__label--mobile::after { top: 100%; left: 28%; height: 23px; transform: rotate(20deg); }
+
+@media (max-width: 1020px) {
+  .workshop { width: min(105%, 680px); margin: -54px auto -10%; }
 }
 
 @media (max-width: 760px) {
-  .wf {
-    padding: 10px;
-  }
+  .workshop { width: 116%; margin: -42px -8% -12%; }
+  .workshop__label { padding: 4px 6px; font-size: 0.43rem; }
+}
 
-  .wf__node {
-    flex-direction: column;
-    justify-content: center;
-    gap: 6px;
-    padding: 9px 8px;
-    text-align: center;
-  }
-
-  .wf__icon {
-    width: 26px;
-    height: 26px;
-    font-size: 0.8125rem;
-  }
-
-  .wf__node--action .wf__meta {
-    display: none;
-  }
+@media (max-width: 480px) {
+  .workshop { width: 122%; margin: -28px -11% -11%; }
+  .workshop__label--browser,
+  .workshop__label--arm { display: none; }
+  .workshop__label--voice { left: 5%; }
+  .workshop__label--mobile { right: 2%; }
 }

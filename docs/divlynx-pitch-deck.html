@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Divlynx | Studio Overview</title>
+  <style>
+    @page { size: 13.333in 7.5in; margin: 0; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #080909; color: #eeeae3; font-family: Arial, Helvetica, sans-serif; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { position: relative; width: 13.333in; height: 7.5in; padding: .58in .68in .52in; overflow: hidden; page-break-after: always; background: #090a0b; }
+    .page:last-child { page-break-after: auto; }
+    .page::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px); background-size: 52px 52px; }
+    .page::after { content: ""; position: absolute; width: 5.2in; height: 5.2in; right: -2.4in; top: -2.8in; border-radius: 50%; background: rgba(247,132,0,.08); filter: blur(45px); }
+    .top { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding-bottom: .16in; border-bottom: 1px solid #27292b; }
+    .brand { display: flex; align-items: center; gap: 9px; font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
+    .brand img { width: 92px; max-height: 28px; object-fit: contain; object-position: left center; }
+    .folio,.kicker,.mono { font-family: Consolas, monospace; text-transform: uppercase; letter-spacing: .14em; }
+    .folio { font-size: 8px; color: #777b80; }
+    .content { position: relative; z-index: 2; height: calc(100% - .36in); }
+    .kicker { margin: .38in 0 .12in; font-size: 9px; color: #f58a12; }
+    h1,h2,h3,p { margin-top: 0; }
+    h1 { max-width: 8.4in; margin-bottom: .23in; font-size: 49px; line-height: .96; letter-spacing: -.052em; font-weight: 600; }
+    h2 { max-width: 8.9in; margin-bottom: .23in; font-size: 35px; line-height: 1; letter-spacing: -.045em; font-weight: 600; }
+    h3 { margin-bottom: .09in; font-size: 16px; line-height: 1.15; }
+    .accent { color: #ff9418; }
+    .lead { max-width: 7.4in; font-size: 16px; line-height: 1.52; color: #aaa8a3; }
+    .small { font-size: 11px; line-height: 1.48; color: #96989b; }
+    .rule { width: .5in; height: 3px; margin: .22in 0; background: #f78400; }
+    .cover { display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; gap: .4in; height: 100%; }
+    .cover h1 { font-size: 54px; }
+    .hero-art { width: 113%; margin-left: -7%; filter: drop-shadow(0 25px 32px rgba(0,0,0,.55)); }
+    .contact-line { display: flex; gap: .24in; margin-top: .3in; font: 9px Consolas,monospace; letter-spacing: .05em; color: #aaa8a3; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: .18in; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: .16in; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: .14in; }
+    .card { position: relative; min-height: 1.2in; padding: .19in; border: 1px solid #292c2e; border-radius: 12px; background: #111315; }
+    .card.orange { border-color: rgba(247,132,0,.52); background: linear-gradient(145deg,rgba(247,132,0,.11),#111315 46%); }
+    .num { display: block; margin-bottom: .14in; font: 9px Consolas,monospace; letter-spacing: .1em; color: #f58a12; }
+    .card p { margin-bottom: 0; font-size: 10.5px; line-height: 1.45; color: #96989b; }
+    .cap-grid .card { min-height: 1.25in; }
+    .tag { display: inline-block; margin: 3px 3px 0 0; padding: 4px 7px; border: 1px solid #343638; border-radius: 999px; font: 7px Consolas,monospace; text-transform: uppercase; letter-spacing: .06em; color: #a7a9ac; }
+    .process { display: grid; grid-template-columns: repeat(4,1fr); gap: .08in; margin-top: .35in; }
+    .step { position: relative; padding: .22in .18in; border-top: 1px solid #3c3e40; }
+    .step::before { content: ""; position: absolute; top: -5px; left: .18in; width: 9px; height: 9px; border-radius: 50%; background: #f78400; box-shadow: 0 0 0 4px rgba(247,132,0,.13); }
+    .step .when { display: block; margin-top: .16in; font: 8px Consolas,monospace; color: #f58a12; }
+    .flow { display: grid; grid-template-columns: 1fr 34px 1fr 34px 1fr; align-items: stretch; margin-top: .32in; }
+    .flow .arrow { display: grid; place-items: center; color: #f78400; font-size: 23px; }
+    .flow .card { min-height: 2.6in; }
+    .flow ul,.case ul { margin: .13in 0 0; padding-left: .16in; }
+    .flow li,.case li { margin-bottom: .07in; font-size: 10px; line-height: 1.35; color: #a3a4a5; }
+    .case-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .14in; }
+    .case { min-height: 4.55in; padding: .2in; border: 1px solid #292c2e; border-radius: 13px; background: #111315; }
+    .case .meta { margin-bottom: .13in; font: 8px Consolas,monospace; text-transform: uppercase; letter-spacing: .08em; color: #f58a12; }
+    .case h3 { min-height: .45in; font-size: 18px; }
+    .case .challenge { min-height: .72in; padding-bottom: .12in; border-bottom: 1px solid #292c2e; font-size: 10px; line-height: 1.45; color: #a1a1a0; }
+    .case h4 { margin: .14in 0 .06in; font: 8px Consolas,monospace; text-transform: uppercase; letter-spacing: .09em; color: #d8d5cf; }
+    .metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: .18in; margin-top: .35in; }
+    .metric { padding-top: .18in; border-top: 1px solid #343638; }
+    .metric strong { display: block; font-size: 30px; letter-spacing: -.04em; color: #f4efe7; }
+    .metric span { font: 8px Consolas,monospace; text-transform: uppercase; letter-spacing: .08em; color: #7f8285; }
+    .quote { padding: .25in; border-left: 3px solid #f78400; background: #111315; font-size: 19px; line-height: 1.35; color: #e2ded7; }
+    .principles { margin-top: .25in; }
+    .principles .card { min-height: 1.35in; }
+    .cta { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: .6in; height: 100%; }
+    .contact-card { padding: .3in; border: 1px solid rgba(247,132,0,.48); border-radius: 16px; background: linear-gradient(145deg,rgba(247,132,0,.13),#111315 52%); }
+    .contact-card a,.contact-card p { display: block; margin: 0 0 .13in; color: #eeeae3; text-decoration: none; font-size: 14px; }
+    .contact-card small { display: block; margin-bottom: .05in; font: 8px Consolas,monospace; text-transform: uppercase; letter-spacing: .1em; color: #f58a12; }
+    .footer-note { position: absolute; right: .68in; bottom: .3in; left: .68in; z-index: 3; display: flex; justify-content: space-between; font: 7px Consolas,monospace; letter-spacing: .07em; text-transform: uppercase; color: #5f6265; }
+  </style>
+</head>
+<body>
+  <section class="page">
+    <div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">Studio overview / 2026</span></div>
+    <div class="content cover">
+      <div><p class="kicker">Software + intelligent operations</p><h1>We build the product and the <span class="accent">systems that run it.</span></h1><p class="lead">One delivery partner for digital products, AI automation, voice agents, workflows, cloud, and measurable growth.</p><div class="contact-line"><span>divlynx.inc@gmail.com</span><span>+92 3180950005</span><span>Islamabad, Pakistan</span></div></div>
+      <img class="hero-art" src="../public/digital-workshop-hero.png" alt="Divlynx digital workshop">
+    </div>
+  </section>
+
+  <section class="page"><div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">01 / The studio</span></div><div class="content">
+    <p class="kicker">Why Divlynx</p><h2>Fewer handoffs. <span class="accent">One accountable team.</span></h2><p class="lead">Most companies coordinate a product agency, automation consultant, marketing team, and infrastructure vendor. We bring those disciplines into one operating model so the customer experience and the systems behind it are designed together.</p>
+    <div class="metrics"><div class="metric"><strong>30+</strong><span>Projects shipped</span></div><div class="metric"><strong>20+</strong><span>Clients worldwide</span></div><div class="metric"><strong>4 wks</strong><span>Typical first release</span></div></div>
+    <div class="grid-3" style="margin-top:.34in"><div class="card orange"><span class="num">01 / Product</span><h3>Customer-facing software</h3><p>Websites, platforms, mobile apps, marketplaces, commerce, memberships, and custom operational tools.</p></div><div class="card"><span class="num">02 / Intelligence</span><h3>AI and automation</h3><p>Agentic workflows, voice systems, RAG, n8n integrations, and human approval where it matters.</p></div><div class="card"><span class="num">03 / Growth</span><h3>Distribution and performance</h3><p>SEO, paid media, conversion tracking, analytics, cloud operations, and continuous improvement.</p></div></div>
+  </div></section>
+
+  <section class="page"><div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">02 / Capabilities</span></div><div class="content">
+    <p class="kicker">What we deliver</p><h2>From first interaction to <span class="accent">back-office execution.</span></h2>
+    <div class="grid-4 cap-grid"><div class="card orange"><span class="num">AI</span><h3>AI automation</h3><p>Agents, RAG, tool use, guardrails, approvals, logging, and cost controls.</p></div><div class="card"><span class="num">Voice</span><h3>Voice agents</h3><p>Inbound and outbound calls, qualification, scheduling, summaries, and handoff.</p></div><div class="card"><span class="num">Workflow</span><h3>n8n engineering</h3><p>Connected systems, retries, alerts, self-hosting, documentation, and runbooks.</p></div><div class="card"><span class="num">Product</span><h3>Full-stack platforms</h3><p>Architecture, APIs, portals, dashboards, testing, and observability.</p></div><div class="card"><span class="num">Mobile</span><h3>Mobile applications</h3><p>Cross-platform delivery, offline workflows, notifications, and store submission.</p></div><div class="card"><span class="num">Web</span><h3>Web experiences</h3><p>UX, responsive development, CMS, accessibility, and performance.</p></div><div class="card"><span class="num">Specialist</span><h3>Games + POS</h3><p>Unity, Unreal Engine, interactive systems, checkout, inventory, and reporting.</p></div><div class="card"><span class="num">Growth</span><h3>SEO + digital ads</h3><p>Technical SEO, content strategy, Meta and Google campaigns, tracking, and optimisation.</p></div></div>
+  </div></section>
+
+  <section class="page"><div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">03 / Delivery workflow</span></div><div class="content">
+    <p class="kicker">How we work</p><h2>Four steps. <span class="accent">No black boxes.</span></h2><p class="lead">Every engagement begins with the real work, moves quickly into a working slice, and stays visible through weekly demonstrations.</p>
+    <div class="process"><div class="step"><span class="num">01</span><h3>Map the work</h3><p class="small">We document each step, tool, dependency, exception, and decision with the people doing the job.</p><span class="when">Week 1</span></div><div class="step"><span class="num">02</span><h3>Prototype in your stack</h3><p class="small">A working slice runs against real data so everyone agrees on what finished means.</p><span class="when">Week 2</span></div><div class="step"><span class="num">03</span><h3>Build and demo weekly</h3><p class="small">You see working software every week. Decisions and scope changes surface while they are still inexpensive.</p><span class="when">Weeks 3-6</span></div><div class="step"><span class="num">04</span><h3>Launch and hand over</h3><p class="small">Runbooks, architecture notes, recorded walkthroughs, monitoring, and a clear support path.</p><span class="when">Launch</span></div></div>
+    <div class="quote" style="margin-top:.38in">“You always know what is being built, what it costs, and where it stands on any given Friday.”</div>
+  </div></section>
+
+  <section class="page"><div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">04 / Business flow</span></div><div class="content">
+    <p class="kicker">The engagement model</p><h2>From business problem to <span class="accent">operating system.</span></h2>
+    <div class="flow"><div class="card orange"><span class="num">Discover</span><h3>Find the highest-leverage problem</h3><ul><li>Stakeholder and operator interviews</li><li>Current systems and data audit</li><li>Customer journey review</li><li>Prioritised opportunity map</li></ul></div><div class="arrow">→</div><div class="card"><span class="num">Build</span><h3>Ship one valuable slice first</h3><ul><li>Architecture and delivery plan</li><li>Design and working prototype</li><li>Weekly production increments</li><li>Security, testing, and observability</li></ul></div><div class="arrow">→</div><div class="card"><span class="num">Operate</span><h3>Own, measure, and improve</h3><ul><li>Deployment and team training</li><li>Documentation and ownership transfer</li><li>Monitoring and support</li><li>Monthly optimisation roadmap</li></ul></div></div>
+    <p class="small" style="margin-top:.28in">Engagements are structured as fixed-scope product releases or retained delivery partnerships. In both models, scope, ownership, milestones, and acceptance criteria are explicit before build begins.</p>
+  </div></section>
+
+  <section class="page"><div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">05 / Selected work</span></div><div class="content">
+    <p class="kicker">Case studies / 01</p><h2>Live products built around <span class="accent">real customer journeys.</span></h2>
+    <div class="case-grid"><article class="case"><p class="meta">Sincere Capital · Netherlands</p><h3>Property discovery and brokerage platform</h3><p class="challenge">One credible home for live property inventory, brokerage services, and direct enquiries.</p><h4>What we built</h4><ul><li>Responsive listing discovery</li><li>Clear rent, buy, sell, and management journeys</li><li>Direct lead-capture paths</li></ul><h4>Outcome</h4><ul><li>Active digital sales channel</li><li>Inventory and services under one brand</li></ul><span class="tag">Listings</span><span class="tag">Lead capture</span></article><article class="case"><p class="meta">JobSynk AI · Global</p><h3>AI job application workspace</h3><p class="challenge">Candidates needed to move from a job description to a coherent, tailored application without disconnected tools.</p><h4>What we built</h4><ul><li>AI resume workspace</li><li>ATS analysis and guided improvements</li><li>Cover letters and interview drafts</li></ul><h4>Outcome</h4><ul><li>One role-aware application workflow</li><li>ATS risks visible before submission</li></ul><span class="tag">AI</span><span class="tag">SaaS</span></article><article class="case"><p class="meta">JeeUstaad · Pakistan</p><h3>Verified local-services marketplace</h3><p class="challenge">Local hiring needed trust, payment protection, and clear communication built into the marketplace.</p><h4>What we built</h4><ul><li>Task posting and worker matching</li><li>ID verification, escrow, wallets, and disputes</li><li>Reviews, chat, voice notes, and Android access</li></ul><h4>Outcome</h4><ul><li>Comparable verified offers</li><li>Protected funds until work completion</li></ul><span class="tag">Marketplace</span><span class="tag">Escrow</span></article></div>
+  </div></section>
+
+  <section class="page"><div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">06 / Selected work</span></div><div class="content">
+    <p class="kicker">Case studies / 02</p><h2>Complex capability made <span class="accent">clear and usable.</span></h2>
+    <div class="case-grid"><article class="case"><p class="meta">After Realism · Australia</p><h3>Geospatial consultancy and product platform</h3><p class="challenge">A technically broad offer spanning maps, spatial data, AI, cloud, and live products needed one coherent presentation.</p><h4>What we built</h4><ul><li>Service, product, and project architecture</li><li>Presentation for MapDrop and GeoChat</li><li>Clear routes into specialist engagements</li></ul><h4>Outcome</h4><ul><li>Technical capability legible to commercial buyers</li><li>Products and consulting reinforce each other</li></ul><span class="tag">SvelteKit</span><span class="tag">AWS</span><span class="tag">PostGIS</span></article><article class="case"><p class="meta">Range Fit Gym · Pakistan</p><h3>Membership and trainer platform</h3><p class="challenge">Prospective members needed to compare facilities, plans, and trainers before entering an account journey.</p><h4>What we built</h4><ul><li>Responsive, video-led experience</li><li>Membership catalogue and trainer profiles</li><li>Integrated signup and login paths</li></ul><h4>Outcome</h4><ul><li>Plans and trainers are easy to evaluate</li><li>Consistent desktop and mobile experience</li></ul><span class="tag">Next.js</span><span class="tag">Memberships</span></article><article class="case"><p class="meta">MetaStore · Pakistan</p><h3>Digital subscriptions marketplace</h3><p class="challenge">A growing catalogue across entertainment, productivity, AI tools, keys, and services needed consistent discovery.</p><h4>What we built</h4><ul><li>Category-led storefront</li><li>Reusable product presentation</li><li>Purchase and support pathways</li></ul><h4>Outcome</h4><ul><li>One destination for a broad catalogue</li><li>New categories scale consistently</li></ul><span class="tag">Commerce</span><span class="tag">Subscriptions</span></article></div>
+  </div></section>
+
+  <section class="page"><div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">07 / Working together</span></div><div class="content">
+    <p class="kicker">Our operating principles</p><h2>Designed for <span class="accent">trust after launch.</span></h2><p class="lead">A successful delivery is not just software that works in a demo. It is a system your team understands, owns, and can improve.</p>
+    <div class="grid-3 principles"><div class="card orange"><span class="num">01 / Visibility</span><h3>Working software, weekly</h3><p>Regular demonstrations, clear decisions, visible tradeoffs, and no long periods of silent development.</p></div><div class="card"><span class="num">02 / Ownership</span><h3>Your systems, your data</h3><p>Clear intellectual-property terms, accessible repositories, documented architecture, and portable infrastructure.</p></div><div class="card"><span class="num">03 / Reliability</span><h3>Built for the unhappy path</h3><p>Validation, retries, logging, monitoring, human handoff, backups, and sensible operational limits.</p></div><div class="card"><span class="num">04 / Communication</span><h3>Direct access to builders</h3><p>The people designing and engineering the work participate directly in reviews and decisions.</p></div><div class="card"><span class="num">05 / Measurement</span><h3>Outcomes before features</h3><p>We connect releases to time saved, conversion, resolution, quality, adoption, or another agreed measure.</p></div><div class="card"><span class="num">06 / Handover</span><h3>No dependency by design</h3><p>Runbooks, walkthroughs, source access, and training mean you can operate without us if you choose.</p></div></div>
+  </div></section>
+
+  <section class="page"><div class="top"><div class="brand"><img src="../public/divlynx-Logo-new.svg" alt="Divlynx"></div><span class="folio">08 / Next step</span></div><div class="content cta">
+    <div><p class="kicker">Start with the problem</p><h1>Tell us what is slow, disconnected, or <span class="accent">ready to grow.</span></h1><p class="lead">We will help frame the opportunity, identify the smallest useful first release, and tell you honestly when something is not worth building.</p></div>
+    <div class="contact-card"><small>Email</small><a href="mailto:divlynx.inc@gmail.com">divlynx.inc@gmail.com</a><small>Phone</small><p>+92 3180950005</p><small>Office</small><p>Blue Area, Islamabad, Pakistan</p><small>Website</small><p>divlynx.com</p></div>
+    <div class="footer-note"><span>Divlynx studio overview</span><span>Confidential when shared directly</span></div>
+  </div></section>
+</body>
+</html>
