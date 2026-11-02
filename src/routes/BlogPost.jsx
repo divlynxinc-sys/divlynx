@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { FiArrowLeft, FiArrowUpRight } from "react-icons/fi";
+import { FiArrowLeft, FiArrowUpRight } from "../icons.jsx";
 import PostBody from "../blog/PostBody";
 import { POSTS_BY_DATE, findPost, formatDate } from "../blog/posts";
 import { CALENDLY, EMAIL } from "../site";

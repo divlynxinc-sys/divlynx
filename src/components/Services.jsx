@@ -14,7 +14,7 @@ import {
   FiCreditCard,
   FiSearch,
   FiTrendingUp,
-} from "react-icons/fi";
+} from "../icons.jsx";
 import useMediaQuery from "../hooks/useMediaQuery";
 import "../css/services.css";
 

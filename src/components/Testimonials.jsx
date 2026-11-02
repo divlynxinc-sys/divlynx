@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FiArrowUpRight, FiChevronLeft, FiChevronRight, FiStar } from "react-icons/fi";
+import { FiArrowUpRight, FiChevronLeft, FiChevronRight } from "../icons.jsx";
 import useMediaQuery from "../hooks/useMediaQuery";
 import "../css/testimonials.css";
 
@@ -11,10 +11,6 @@ const ITEMS = [
   { label: "Latest launch", quote: "A live property platform bringing listings, services and enquiries together.", company: "Sincere Capital", meta: "Netherlands", href: "https://www.sincere-estate.nl/" },
   { label: "Live product", quote: "A complete fitness platform for memberships, trainer discovery, and member access.", company: "Range Fit Gym", meta: "Pakistan", href: "https://range-fit-gym.vercel.app/" },
 ];
-
-function Rating() {
-  return <span className="testimonial-card__rating" aria-label="5 out of 5 stars">{Array.from({ length: 5 }, (_, index) => <FiStar key={index} aria-hidden />)}</span>;
-}
 
 export default function Testimonials() {
   const [active, setActive] = useState(0);
@@ -52,7 +48,6 @@ export default function Testimonials() {
               return (
                 <Card key={item.company} className={`testimonial-card${offset === 0 ? " is-active" : ""}${distance > 2 ? " is-hidden" : ""}`} href={item.href} target={item.href ? "_blank" : undefined} rel={item.href ? "noopener noreferrer" : undefined} style={{ "--card-x": `${offset * 82}%`, "--card-scale": 1 - Math.min(distance, 2) * 0.1, zIndex: 10 - distance }} aria-hidden={offset !== 0} animate={{ opacity: distance > 2 ? 0 : 1 - distance * 0.12 }} transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}>
                   <span className={item.label ? "testimonial-card__label" : "testimonial-card__mark"} aria-hidden={!item.label}>{item.label || "“"}</span>
-                  <Rating />
                   <blockquote>{item.quote}</blockquote>
                   <footer><span className="testimonial-card__identity"><strong>{item.company}</strong><span>{item.meta}</span></span>{item.href && <FiArrowUpRight className="testimonial-card__link-icon" aria-hidden />}</footer>
                 </Card>

@@ -175,12 +175,7 @@ ol {
    like a word that changed colour halfway through. `clone` gives each wrapped
    line its own sweep. */
 .sweep {
-  background: linear-gradient(96deg, var(--cream) 0%, var(--amber-lift) 52%, var(--amber) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+  color: var(--amber-lift);
 }
 
 .lede {
@@ -230,7 +225,6 @@ ol {
 }
 
 .btn--primary:hover {
-  transform: translateY(-2px);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.34) inset, 0 16px 34px -12px rgba(247, 132, 0, 0.9);
 }
 
@@ -241,9 +235,12 @@ ol {
 }
 
 .btn--ghost:hover {
-  transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(255, 163, 26, 0.45);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .btn:disabled {

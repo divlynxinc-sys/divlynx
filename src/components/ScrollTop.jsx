@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiArrowUp } from "react-icons/fi";
+import { FiArrowUp } from "../icons.jsx";
 import "../css/scrolltop.css";
 
 export default function ScrollTop() {

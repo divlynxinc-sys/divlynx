@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiArrowUpRight, FiChevronDown, FiMenu, FiX } from "react-icons/fi";
+import { FiArrowUpRight, FiChevronDown, FiMenu, FiX } from "../icons.jsx";
 import Logo from "./Logo";
 import { NAV, scrollToId } from "../site";
 import "../css/navbar.css";

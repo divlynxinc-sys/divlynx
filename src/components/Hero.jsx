@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { animate, motion, useInView, useReducedMotion } from "framer-motion";
-import { FiArrowUpRight, FiCalendar } from "react-icons/fi";
+import { FiArrowUpRight, FiCalendar } from "../icons.jsx";
 import WorkflowCanvas from "./WorkflowCanvas";
 import { CALENDLY, EMAIL, scrollToId } from "../site";
 import "../css/hero.css";

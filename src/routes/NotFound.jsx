@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight } from "../icons.jsx";
 import "../css/blog.css";
 
 export default function NotFound() {

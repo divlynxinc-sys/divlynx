@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { FiArrowUpRight, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { FiArrowUpRight, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhone } from "../icons.jsx";
 import Logo from "./Logo";
 import { CALENDLY, EMAIL, NAV, OFFICE, PHONE, PHONE_HREF, SOCIAL, scrollToId } from "../site";
 import "../css/footer.css";

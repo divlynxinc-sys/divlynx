@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight } from "../icons.jsx";
 import { POSTS_BY_DATE, formatDate } from "../blog/posts";
 import "../css/journal-teaser.css";
 

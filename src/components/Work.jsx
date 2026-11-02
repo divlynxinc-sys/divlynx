@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiArrowUpRight } from "../icons.jsx";
 import "../css/work.css";
 
 /* Descriptions stay factual, swap in real numbers once you have them signed off. */

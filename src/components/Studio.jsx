@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiPlus } from "react-icons/fi";
+import { FiPlus } from "../icons.jsx";
 import "../css/studio.css";
 
 const PRINCIPLES = [

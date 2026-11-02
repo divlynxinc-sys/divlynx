@@ -36,26 +36,21 @@
 }
 
 .channel__icon {
-  display: grid;
-  place-items: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  border: 1px solid var(--line-hi);
-  background: rgba(255, 255, 255, 0.04);
+  width: 30px;
+  height: 30px;
   color: var(--amber-lift);
-  font-size: 1rem;
+  font-size: 1.45rem;
 }
 
 .channel--mail .channel__icon {
-  background: rgba(247, 132, 0, 0.14);
-  border-color: rgba(255, 163, 26, 0.4);
+  color: var(--amber-lift);
 }
 
 .channel--whatsapp .channel__icon {
-  border-color: rgba(37, 211, 102, .38);
-  background: rgba(37, 211, 102, .1);
   color: #50d982;
 }
 
@@ -169,7 +164,7 @@
   background: rgba(255, 255, 255, 0.025);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   transition: border-color 0.25s var(--ease), background 0.25s var(--ease),
     box-shadow 0.25s var(--ease);
 }
@@ -201,9 +196,9 @@
   color: #5f6469;
 }
 
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
   outline: none;
   border-color: rgba(255, 163, 26, 0.6);
   background: rgba(255, 255, 255, 0.045);

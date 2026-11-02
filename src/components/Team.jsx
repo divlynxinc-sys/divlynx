@@ -5,35 +5,47 @@ const EXECUTIVES = [
   {
     name: "Mustafa Irfan",
     role: "Founder & CEO",
-    image: "/assets/team/mustafa-irfan.png",
+    image: "/assets/team/mustafa-irfan-white.webp",
+    description: "Product direction, strategy and client partnerships.",
   },
   {
     name: "Abdullah Tahir",
     role: "Co-Founder & CTO",
-    image: "/assets/team/abdullah-tahir.jpeg",
+    image: "/assets/team/abdullah-tahir-white.webp",
+    description: "Technical architecture and engineering delivery.",
   },
   {
     name: "Ali Shayan",
     role: "Head of Engineering",
-    image: "/assets/team/ali-shayan.jpeg",
+    image: "/assets/team/ali-shayan-white.webp",
+    description: "Engineering standards, systems and product quality.",
   },
   {
     name: "Abdullah Omer",
-    role: "Cheif Operating Officer",
-    image: "/assets/team/abdullah-omer.jpeg",
+    role: "Chief Operating Officer",
+    image: "/assets/team/abdullah-omer-white.webp",
+    description: "Operations, delivery planning and team coordination.",
   },
 ];
 
 const ENGINEERING = [
   {
+    name: "Farheen",
+    role: "Lead Backend Engineer",
+    image: "/assets/team/farheen-white.webp",
+    description: "Backend systems, APIs and reliable data services.",
+  },
+  {
     name: "Zile Hasnain",
     role: "Software Engineer",
-    image: "/assets/team/zile-software-engineer.jpeg",
+    image: "/assets/team/zile-hasnain-white.webp",
+    description: "Web products, interfaces and application engineering.",
   },
   {
     name: "Shahroze Afaq",
     role: "Cyber Security Engineer",
-    image: "/assets/team/shahroze-afaq.jpeg",
+    image: "/assets/team/shahroze-afaq-white.webp",
+    description: "Security reviews, hardening and resilient infrastructure.",
   },
 ];
 
@@ -41,17 +53,17 @@ function Profile({ member, index = 0 }) {
   return (
     <motion.article
       className="team-card"
+      tabIndex={0}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}>
       <div className="team-card__portrait">
-        <img src={member.image} alt={member.name} loading="lazy" decoding="async" />
-      </div>
-      <div className="team-card__body">
-        <div>
+        <img className="team-card__image" src={member.image} alt={member.name} loading="lazy" decoding="async" />
+        <div className="team-card__body">
           <h3>{member.name}</h3>
           <p className="team-card__role">{member.role}</p>
+          <p className="team-card__description">{member.description}</p>
         </div>
       </div>
     </motion.article>
@@ -70,8 +82,8 @@ export default function Team() {
             </h2>
           </div>
           <p className="lede team__intro">
-            Divlynx is led by builders who stay close to every engagement, from the first
-            conversation through architecture, delivery, and launch.
+            Strategy, engineering, operations and security under one roof. The people who
+            scope the work stay close to the people who build it.
           </p>
         </header>
 

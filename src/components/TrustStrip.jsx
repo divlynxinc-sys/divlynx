@@ -8,62 +8,25 @@ const CLIENTS = [
   { src: "/assets/clients/range-fit-gym.jpeg", alt: "Range Fit Gym", place: "Pakistan", className: "is-range-fit" },
 ];
 
-const ICON = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
-
-const STACK = [
-  ["react", "react-original"],
-  ["nextjs", "nextjs-original"],
-  ["typescript", "typescript-original"],
-  ["nodejs", "nodejs-original"],
-  ["python", "python-original"],
-  ["fastapi", "fastapi-original"],
-  ["postgresql", "postgresql-original"],
-  ["mongodb", "mongodb-original"],
-  ["docker", "docker-original"],
-  ["kubernetes", "kubernetes-plain"],
-  ["amazonwebservices", "amazonwebservices-original-wordmark"],
-  ["googlecloud", "googlecloud-original"],
-  ["terraform", "terraform-original"],
-  ["tensorflow", "tensorflow-original"],
-  ["pytorch", "pytorch-original"],
-  ["flutter", "flutter-original"],
-  ["swift", "swift-original"],
-  ["kotlin", "kotlin-original"],
-  ["tailwindcss", "tailwindcss-original"],
-  ["supabase", "supabase-original"],
-  ["redis", "redis-original"],
-  ["githubactions", "githubactions-original"],
-];
-
 export default function TrustStrip() {
-  const track = [...STACK, ...STACK];
-
   return (
-    <section className="trust" aria-label="Clients and technology">
-      <div className="shell trust__clients">
+    <section className="trust" aria-label="Clients">
+      <div className="shell trust__head">
         <p className="trust__label">Trusted by teams worldwide</p>
-        <ul className="trust__logos">
-          {CLIENTS.map((c) => (
-            <li key={c.alt} className={c.className || undefined}>
-              <img src={c.src} alt={c.alt} loading="lazy" decoding="async" />
-            </li>
-          ))}
-        </ul>
       </div>
 
-      <div className="marquee" aria-hidden="true">
-        <div className="marquee__track">
-          {track.map(([dir, file], i) => (
-            <img
-              key={`${dir}-${i}`}
-              className={`marquee__icon${/nextjs|githubactions/.test(dir) ? " is-inverted" : ""}`}
-              src={`${ICON}/${dir}/${file}.svg`}
-              alt=""
-              loading="lazy"
-              decoding="async"
-              referrerPolicy="no-referrer"
-              onError={(e) => e.currentTarget.remove()}
-            />
+      <div className="trust__marquee">
+        <div className="trust__track">
+          {[0, 1].map((copy) => (
+            <ul className="trust__logos" aria-hidden={copy === 1 ? "true" : undefined} key={copy}>
+              {CLIENTS.map((c) => (
+                <li key={`${copy}-${c.alt}`} className={c.className || undefined}>
+                  <img src={c.src} alt={copy === 0 ? c.alt : ""} loading="lazy" decoding="async" />
+                  <span>{c.alt}</span>
+                  <small>{c.place}</small>
+                </li>
+              ))}
+            </ul>
           ))}
         </div>
       </div>

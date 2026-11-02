@@ -1,6 +1,7 @@
 .testimonials { overflow: hidden; }
 .testimonials__head { max-width: none; margin-bottom: clamp(32px, 4vw, 48px); }
 .testimonials__carousel { position: relative; overflow: hidden; padding: 12px 0 54px; outline: none; touch-action: pan-y; }
+.testimonials__carousel:focus-visible { outline: 2px solid var(--amber-lift); outline-offset: 5px; }
 .testimonials__stage { position: relative; height: clamp(350px, 38vw, 410px); cursor: grab; -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.18) 3%, rgba(0,0,0,.68) 8%, #000 14%, #000 86%, rgba(0,0,0,.68) 92%, rgba(0,0,0,.18) 97%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.18) 3%, rgba(0,0,0,.68) 8%, #000 14%, #000 86%, rgba(0,0,0,.68) 92%, rgba(0,0,0,.18) 97%, transparent 100%); }
 .testimonials__stage:active { cursor: grabbing; }
 .testimonial-card { position: absolute; top: 10px; left: 50%; display: flex; flex-direction: column; width: clamp(280px, 32vw, 380px); height: clamp(320px, 34vw, 370px); margin: 0; padding: clamp(22px, 2.5vw, 30px); overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ink-raised); transform: translateX(calc(-50% + var(--card-x))) scale(var(--card-scale)); transform-origin: 50% 60%; transition: transform .58s var(--ease), border-color .35s var(--ease), box-shadow .45s var(--ease); pointer-events: none; user-select: none; }
@@ -9,8 +10,6 @@
 .testimonial-card > * { position: relative; z-index: 1; }
 .testimonial-card__mark { height: 34px; font-family: var(--font-display); font-size: 3.5rem; line-height: .7; color: var(--amber); opacity: .75; }
 .testimonial-card__label { min-height: 34px; font-family: var(--font-mono); font-size: .6875rem; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); }
-.testimonial-card__rating { display: flex; gap: 4px; margin-top: 10px; color: var(--amber-lift); }
-.testimonial-card__rating svg { width: 13px; height: 13px; fill: currentColor; }
 .testimonial-card blockquote { margin: 20px 0 26px; font-family: var(--font-display); font-size: clamp(1.12rem, 1.65vw, 1.4rem); letter-spacing: -.02em; line-height: 1.4; color: var(--text); }
 .testimonial-card footer { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line); }
 .testimonial-card__identity { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }

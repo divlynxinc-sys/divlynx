@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { FiArrowUpRight, FiCalendar, FiLinkedin, FiInstagram, FiMail } from "react-icons/fi";
-import { FaWhatsapp } from "react-icons/fa";
+import { FiArrowUpRight, FiCalendar, FiLinkedin, FiInstagram, FiMail, FaWhatsapp } from "../icons.jsx";
 import { CALENDLY, EMAIL, PHONE, PHONE_HREF, SOCIAL, composeUrl } from "../site";
 import "../css/contact.css";
 
@@ -48,8 +47,6 @@ export default function Contact() {
     message: validate("message", data.message),
   });
 
-  const isValid = !Object.values(allErrors(form)).some(Boolean);
-
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -67,7 +64,12 @@ export default function Contact() {
     const next = allErrors(form);
     setErrors(next);
     setTouched({ name: true, email: true, message: true });
-    if (Object.values(next).some(Boolean)) return;
+    const firstInvalid = Object.keys(next).find((name) => next[name]);
+    if (firstInvalid) {
+      const formElement = e.currentTarget;
+      window.requestAnimationFrame(() => formElement.elements.namedItem(firstInvalid)?.focus());
+      return;
+    }
 
     setStatus({ sending: true, note: null, tone: null });
 
@@ -214,8 +216,9 @@ export default function Contact() {
                 autoComplete="name"
                 maxLength={60}
                 aria-invalid={Boolean(errors.name && touched.name)}
+                aria-describedby={errors.name && touched.name ? "name-error" : undefined}
               />
-              {errors.name && touched.name && <span className="field__error">{errors.name}</span>}
+              {errors.name && touched.name && <span className="field__error" id="name-error">{errors.name}</span>}
             </label>
 
             <label className={field("email")}>
@@ -229,8 +232,9 @@ export default function Contact() {
                 placeholder="alex@company.com"
                 autoComplete="email"
                 aria-invalid={Boolean(errors.email && touched.email)}
+                aria-describedby={errors.email && touched.email ? "email-error" : undefined}
               />
-              {errors.email && touched.email && <span className="field__error">{errors.email}</span>}
+              {errors.email && touched.email && <span className="field__error" id="email-error">{errors.email}</span>}
             </label>
           </div>
 
@@ -270,13 +274,14 @@ export default function Contact() {
               placeholder="What is happening today, who it affects, and what you wish happened instead."
               maxLength={2000}
               aria-invalid={Boolean(errors.message && touched.message)}
+              aria-describedby={errors.message && touched.message ? "message-error" : undefined}
             />
             {errors.message && touched.message && (
-              <span className="field__error">{errors.message}</span>
+              <span className="field__error" id="message-error">{errors.message}</span>
             )}
           </label>
 
-          <button type="submit" className="btn btn--primary form__submit" disabled={status.sending || !isValid}>
+          <button type="submit" className="btn btn--primary form__submit" disabled={status.sending}>
             {status.sending ? "Sending…" : "Send message"}
             {!status.sending && <FiArrowUpRight aria-hidden />}
           </button>

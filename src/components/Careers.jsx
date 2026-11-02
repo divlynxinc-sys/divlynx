@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FiArrowUpRight, FiBriefcase, FiCode, FiEdit3, FiTrendingUp } from "react-icons/fi";
+import { FiArrowUpRight, FiBriefcase, FiCode, FiEdit3, FiTrendingUp } from "../icons.jsx";
 import { EMAIL } from "../site";
 import "../css/careers.css";
 
