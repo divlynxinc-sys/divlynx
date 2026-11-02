@@ -163,8 +163,46 @@
 }
 
 @media (hover: none) {
-  .team-card__image { filter: grayscale(0); }
-  .team-card__description { max-height: 70px; margin-top: 9px; opacity: 1; transform: none; }
+  .team-card { cursor: pointer; }
+
+  .team-card__body {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity .28s var(--ease), transform .35s var(--ease);
+  }
+
+  .team-card:not(.is-active) .team-card__image { filter: grayscale(1); }
+
+  .team-card:not(.is-active) .team-card__portrait {
+    border-color: var(--line);
+    transform: none;
+  }
+
+  .team-card:not(.is-active) .team-card__description {
+    max-height: 0;
+    margin-top: 0;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .team-card.is-active .team-card__image { filter: grayscale(0); }
+
+  .team-card.is-active .team-card__portrait {
+    border-color: rgba(255, 154, 20, .7);
+  }
+
+  .team-card.is-active .team-card__body {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .team-card.is-active .team-card__description {
+    max-height: 70px;
+    margin-top: 9px;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

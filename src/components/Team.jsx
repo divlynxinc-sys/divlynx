@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import "../css/team.css";
 
@@ -50,10 +51,24 @@ const ENGINEERING = [
 ];
 
 function Profile({ member, index = 0 }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpanded = () => setExpanded((current) => !current);
+
   return (
     <motion.article
-      className="team-card"
+      className={`team-card${expanded ? " is-active" : ""}`}
       tabIndex={0}
+      role="button"
+      aria-expanded={expanded}
+      aria-label={`${member.name}, ${member.role}. Tap to ${expanded ? "hide" : "show"} details.`}
+      onClick={toggleExpanded}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          toggleExpanded();
+        }
+      }}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
