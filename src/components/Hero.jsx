@@ -52,6 +52,7 @@ function AnimatedStat({ value, suffix, label }) {
 export default function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
+      <WorkflowCanvas />
       <div className="shell hero__grid">
         <motion.div
           className="hero__copy"
@@ -102,13 +103,6 @@ export default function Hero() {
           </motion.dl>
         </motion.div>
 
-        <motion.div
-          className="hero__canvas"
-          initial={{ opacity: 0, y: 26 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
-          <WorkflowCanvas />
-        </motion.div>
       </div>
     </section>
   );

@@ -4,7 +4,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 24px;
-  margin-bottom: clamp(32px, 4vw, 48px);
+  margin-bottom: clamp(24px, 3vw, 36px);
 }
 
 .work__cta {
@@ -127,7 +127,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
-  margin-top: clamp(40px, 5vw, 60px);
+  margin-top: clamp(28px, 3.5vw, 42px);
 }
 
 .quote {
@@ -210,3 +210,7 @@
     padding-top: 14px;
   }
 }
+#work {
+  padding-top: clamp(32px, 3.5vw, 48px);
+}
+

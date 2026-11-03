@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import useMediaQuery from "../hooks/useMediaQuery";
 import "../css/process.css";
 
 /** A real sequence, so the numbering carries information rather than decorating. */
@@ -31,8 +30,6 @@ const STEPS = [
 ];
 
 export default function Process() {
-  const stacked = useMediaQuery("(max-width: 900px)");
-
   return (
     <section id="process" className="band">
       <div className="shell">
@@ -50,35 +47,34 @@ export default function Process() {
         </div>
 
         <ol className="proc__rail">
-          <motion.span
-            className="proc__line"
-            aria-hidden="true"
-            initial={stacked ? { scaleY: 0 } : { scaleX: 0 }}
-            whileInView={stacked ? { scaleY: 1 } : { scaleX: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          />
-
           {STEPS.map((s, i) => (
             <motion.li
               key={s.n}
               className="proc__step"
+              style={{
+                "--drop": `${[28, 112, 62, 138][i]}px`,
+                "--sway": `${[1.25, -1, 0.85, -1.15][i]}deg`,
+                "--duration": `${[4.8, 5.7, 5.2, 6.1][i]}s`,
+                "--delay": `${[-1.4, -3.2, -2.1, -4.4][i]}s`,
+              }}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: 0.18 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}>
-              <motion.span
-                className="proc__node"
-                aria-hidden="true"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.4, delay: 0.28 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}
-              />
-              <span className="proc__n">{s.n}</span>
-              <h3 className="h3 proc__title">{s.title}</h3>
-              <p className="proc__body">{s.body}</p>
-              <span className="chip proc__when">{s.when}</span>
+              <div className="proc__pendulum">
+                <span className="proc__thread" aria-hidden="true"><i /></span>
+                <article className="proc__card">
+                  <header className="proc__card-head">
+                    <span className="proc__n">{s.n}</span>
+                  </header>
+                  <h3 className="h3 proc__title">{s.title}</h3>
+                  <p className="proc__body">{s.body}</p>
+                  <footer className="proc__card-foot">
+                    <span>Step {s.n} / 04</span>
+                    <span>{s.when}</span>
+                  </footer>
+                </article>
+              </div>
             </motion.li>
           ))}
         </ol>

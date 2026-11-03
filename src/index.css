@@ -33,7 +33,7 @@
   /* Rhythm */
   --shell: 1200px;
   --gutter: clamp(20px, 5vw, 40px);
-  --section-y: clamp(72px, 10vw, 132px);
+  --section-y: clamp(38px, 4.75vw, 64px);
   --radius: 14px;
   --radius-lg: 20px;
 
@@ -125,10 +125,6 @@ ol {
   position: relative;
   padding-block: var(--section-y);
   scroll-margin-top: 88px;
-}
-
-.band + .band {
-  border-top: 1px solid var(--line);
 }
 
 /* Section eyebrow: mono label + hairline that runs to the edge of the column */
@@ -292,6 +288,11 @@ ol {
 .page {
   position: relative;
   z-index: 1;
+  background:
+    radial-gradient(72rem 54rem at 92% 12%, rgba(247, 132, 0, 0.055), transparent 72%),
+    radial-gradient(62rem 48rem at 4% 36%, rgba(255, 163, 26, 0.035), transparent 74%),
+    radial-gradient(76rem 56rem at 90% 64%, rgba(247, 132, 0, 0.045), transparent 74%),
+    radial-gradient(58rem 44rem at 8% 91%, rgba(255, 163, 26, 0.03), transparent 72%);
 }
 
 /* ------------------------------------------------------------ a11y / motion -- */
@@ -344,7 +345,7 @@ ol {
 @media (max-width: 380px) {
   :root {
     --gutter: 16px;
-    --section-y: 64px;
+    --section-y: 36px;
   }
 
   body { font-size: 15px; }
@@ -359,7 +360,7 @@ ol {
   :root {
     --shell: 1480px;
     --gutter: 48px;
-    --section-y: 144px;
+    --section-y: 80px;
   }
 
   body { font-size: 17px; }
