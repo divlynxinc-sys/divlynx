@@ -29,19 +29,43 @@ const FAQS = [
   },
   {
     q: "How do you price work?",
-    a: "Fixed scope for defined projects, monthly retainer for ongoing work. We quote after the mapping session rather than before it, a number given without understanding the work is just a guess.",
+    a: "We use fixed pricing for clearly defined projects and a monthly retainer for ongoing product work. You receive a written scope, delivery plan and cost after discovery, before any build commitment.",
+  },
+  {
+    q: "What kinds of projects are the best fit?",
+    a: "We are strongest where software needs to remove repetitive work or support a real operating process: AI automation, voice agents, internal tools, customer portals, web platforms and mobile products. If a simpler off-the-shelf tool is the better answer, we will say so.",
+  },
+  {
+    q: "Can you integrate with the systems we already use?",
+    a: "Usually. We regularly connect CRMs, calendars, email, telephony, payment systems, databases, cloud services and internal APIs. Discovery includes checking API access, data quality and technical constraints before we promise an integration.",
   },
   {
     q: "Can the AI run on our own infrastructure?",
-    a: "Yes. n8n, vector stores and open-weight models can all run in your cloud account or on-premise, so nothing sensitive has to leave your network.",
+    a: "Yes. n8n, vector stores and suitable open-weight models can run in your cloud account or on-premise. We design access controls, logging and data boundaries around the sensitivity of the workflow rather than treating security as an afterthought.",
+  },
+  {
+    q: "Who owns the code, accounts and intellectual property?",
+    a: "You do. Source code, workflow definitions, prompts, infrastructure configuration and project documentation are handed over to you. Wherever practical, production services are created in accounts your organisation controls.",
   },
   {
     q: "Do you work alongside our existing developers?",
     a: "Often. We join your standups, work in your repositories and follow your review process. Plenty of our work is filling one gap rather than replacing a team.",
   },
   {
+    q: "How do communication and scope changes work?",
+    a: "You get a named project lead, a shared delivery board and regular working demos. New ideas are assessed openly for impact on cost and timing, then added, exchanged for existing scope or scheduled for a later release with your approval.",
+  },
+  {
     q: "What happens after launch?",
     a: "You get runbooks, architecture notes and a recorded walkthrough so your team can operate everything without us. Support retainers are available but never required.",
+  },
+  {
+    q: "Can you maintain and improve an existing product?",
+    a: "Yes, after a short technical review. We first assess the codebase, deployment process, security risks and outstanding issues, then recommend whether to stabilise, refactor or replace specific parts instead of proposing a rewrite by default.",
+  },
+  {
+    q: "Do you work with clients outside Pakistan?",
+    a: "Yes. We work remotely with teams across time zones and organise overlap for decisions, demos and handover. Project communication, documentation and delivery are handled in English.",
   },
 ];
 
@@ -85,8 +109,19 @@ export default function Studio() {
           </ul>
         </div>
 
-        <div className="faq">
-          <h3 className="faq__heading">Questions we get asked</h3>
+        <section id="faq" className="faq" aria-labelledby="faq-title">
+          <header className="faq__head">
+            <div>
+              <p className="eyebrow">Frequently asked questions</p>
+              <h2 id="faq-title" className="display faq__title">
+                Clear answers before <span className="sweep">we start</span>.
+              </h2>
+            </div>
+            <p className="faq__intro">
+              The practical details about scope, ownership, security and delivery. If your question
+              is not covered, send it directly and we will answer without a sales script.
+            </p>
+          </header>
           <ul className="faq__list">
             {FAQS.map((f, i) => {
               const isOpen = open === i;
@@ -116,7 +151,7 @@ export default function Studio() {
               );
             })}
           </ul>
-        </div>
+        </section>
       </div>
     </section>
   );

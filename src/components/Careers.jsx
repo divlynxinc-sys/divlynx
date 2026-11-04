@@ -47,7 +47,6 @@ export default function Careers() {
               We are building a small, senior team that cares about useful software, direct
               communication, and taking responsibility from first idea through launch.
             </p>
-            <span className="careers__location"><FiBriefcase aria-hidden /> Islamabad and flexible hybrid work</span>
           </div>
         </header>
 
@@ -92,19 +91,15 @@ export default function Careers() {
                 </li>
               ))}
             </ol>
+
+            <aside className="careers__cta">
+              <h3>Do not see a listed role?</h3>
+              <a className="btn btn--primary" href={`mailto:${EMAIL}?subject=${subject}&body=${body}`}>
+                Introduce yourself <FiArrowUpRight aria-hidden />
+              </a>
+            </aside>
           </div>
         </div>
-
-        <aside className="careers__cta">
-          <div>
-            <p className="careers__status">Open applications</p>
-            <h3>Do not see a listed role?</h3>
-            <p>Send us your work and tell us where you can add value. We keep strong introductions for future openings.</p>
-          </div>
-          <a className="btn btn--primary" href={`mailto:${EMAIL}?subject=${subject}&body=${body}`}>
-            Introduce yourself <FiArrowUpRight aria-hidden />
-          </a>
-        </aside>
       </div>
     </section>
   );

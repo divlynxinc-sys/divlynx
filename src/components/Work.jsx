@@ -134,19 +134,20 @@ export default function Work() {
                   ) : p.title}
                 </h3>
                 <p className="work__note">{p.note}</p>
-                <ul className="work__tech">
-                  {p.tech.map((t) => (
-                    <li key={t} className="chip">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
+                <div className="work__scope">
+                  <span className="work__scope-label">Scope</span>
+                  <ul className="work__tech">
+                    {p.tech.map((t) => (
+                      <li key={t}>{t}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
 
               <div className="work__meta">
                 <span className="work__client">{p.client}</span>
                 <span className="work__kind">
-                  {p.kind} · {p.region}
+                  {p.kind} / {p.region}
                 </span>
               </div>
             </motion.li>

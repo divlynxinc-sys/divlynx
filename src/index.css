@@ -86,7 +86,9 @@ svg {
   filter: none;
 }
 
-.asset-icon[src$="email.png"] {
+.asset-icon[src$="email.png"],
+.asset-icon[src$="telephone.png"],
+.asset-icon[src$="location.png"] {
   filter: brightness(0) saturate(100%) invert(57%) sepia(99%) saturate(3026%) hue-rotate(2deg) brightness(102%) contrast(103%);
 }
 

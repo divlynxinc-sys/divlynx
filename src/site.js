@@ -29,6 +29,7 @@ export const NAV = [
   { label: "Journal", href: "/blog", kind: "route" },
   { label: "Team", href: "#team", kind: "hash" },
   { label: "Careers", href: "#careers", kind: "hash" },
+  { label: "FAQ", href: "#faq", kind: "hash" },
   { label: "Contact", href: "#contact", kind: "hash" },
 ];
 

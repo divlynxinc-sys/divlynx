@@ -6,8 +6,6 @@ export {
   PiCaretRight as FiChevronRight,
   PiList as FiMenu,
   PiX as FiX,
-  PiMapPin as FiMapPin,
-  PiPhone as FiPhone,
   PiPlus as FiPlus,
   PiBriefcase as FiBriefcase,
   PiRobot as FiCpu,
@@ -54,6 +52,14 @@ export function FiInstagram(props) {
 
 export function FiLinkedin(props) {
   return <AssetIcon src="/assets/icons/linkedin (1).png" {...props} />;
+}
+
+export function FiPhone(props) {
+  return <AssetIcon src="/assets/icons/telephone.png" {...props} />;
+}
+
+export function FiMapPin(props) {
+  return <AssetIcon src="/assets/icons/location.png" {...props} />;
 }
 
 export function FiArrowUpRight({ className = "", ...props }) {

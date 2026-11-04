@@ -73,8 +73,13 @@
 
 .foot__contact svg,
 .foot__contact .asset-icon {
-  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  object-fit: contain;
+  opacity: 1;
   color: var(--amber);
+  filter: brightness(0) saturate(100%) invert(57%) sepia(99%) saturate(3026%) hue-rotate(2deg) brightness(102%) contrast(103%);
 }
 
 .foot__contact a {

@@ -214,12 +214,6 @@ export default function Navbar() {
           </nav>
 
           <div className="nav__end">
-            <a
-              href={onHome ? "#contact" : "/#contact"}
-              className="btn btn--primary nav__cta"
-              onClick={(e) => goHash(e, "#contact")}>
-              Start a project <FiArrowUpRight aria-hidden />
-            </a>
             <button
               type="button"
               className="nav__burger"
@@ -283,12 +277,6 @@ export default function Navbar() {
                   </motion.a>
                 );
               })}
-              <a
-                href={onHome ? "#contact" : "/#contact"}
-                className="btn btn--primary drawer__cta"
-                onClick={(e) => goHash(e, "#contact")}>
-                Start a project <FiArrowUpRight aria-hidden />
-              </a>
             </motion.aside>
           </motion.div>
         )}
