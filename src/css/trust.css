@@ -29,8 +29,6 @@
   will-change: transform;
 }
 
-.trust__marquee:hover .trust__track { animation-play-state: paused; }
-
 .trust__logos {
   display: flex;
   align-items: center;

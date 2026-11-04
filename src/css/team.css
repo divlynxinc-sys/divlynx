@@ -21,6 +21,9 @@
 
 .team__grid {
   display: grid;
+  width: 100%;
+  max-width: 940px;
+  margin-inline: auto;
   gap: clamp(12px, 1.4vw, 20px);
 }
 
@@ -30,7 +33,6 @@
 
 .team__grid--engineering {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin-inline: auto;
 }
 
 .team-card {
@@ -151,6 +153,7 @@
 }
 
 @media (max-width: 900px) {
+  .team__grid { max-width: 660px; }
   .team__grid--executives,
   .team__grid--engineering { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 42px; }
 }
