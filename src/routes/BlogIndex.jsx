@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "../icons.jsx";
 import { POSTS_BY_DATE, formatDate } from "../blog/posts";
-import { EMAIL } from "../site";
 import "../css/blog.css";
 
 export default function BlogIndex() {
@@ -56,14 +55,6 @@ export default function BlogIndex() {
             <p className="blog-cta__sub">
               Tell us what is breaking and we will tell you honestly whether it is worth building.
             </p>
-          </div>
-          <div className="blog-cta__actions">
-            <Link to="/#contact" className="btn btn--primary">
-              Start a project <FiArrowUpRight aria-hidden />
-            </Link>
-            <a href={`mailto:${EMAIL}`} className="btn btn--ghost">
-              {EMAIL}
-            </a>
           </div>
         </aside>
       </div>

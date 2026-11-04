@@ -72,6 +72,37 @@ svg {
   max-width: 100%;
 }
 
+.asset-icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.asset-icon[src$="whatsapp.png"],
+.asset-icon[src$="instagram.png"],
+.asset-icon[src$="linkedin (1).png"] {
+  filter: none;
+}
+
+.asset-icon[src$="email.png"] {
+  filter: brightness(0) saturate(100%) invert(57%) sepia(99%) saturate(3026%) hue-rotate(2deg) brightness(102%) contrast(103%);
+}
+
+.link-open-icon {
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  object-fit: contain;
+  filter: invert(58%) sepia(97%) saturate(1937%) hue-rotate(359deg) brightness(102%) contrast(103%);
+}
+
+.btn--primary .link-open-icon,
+.nav__cta .link-open-icon {
+  filter: none;
+}
+
 button,
 input,
 textarea {

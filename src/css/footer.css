@@ -71,7 +71,8 @@
   color: var(--text-dim);
 }
 
-.foot__contact svg {
+.foot__contact svg,
+.foot__contact .asset-icon {
   flex: 0 0 auto;
   color: var(--amber);
 }

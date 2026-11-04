@@ -18,7 +18,8 @@ export default function WorkflowCanvas() {
     let lastTime = performance.now();
 
     const buildNetwork = () => {
-      const count = width < 700 ? 30 : 58;
+      const compact = width < 700;
+      const count = compact ? 22 : 58;
       nodes = Array.from({ length: count }, (_, index) => {
         const homeY = (0.06 + ((index * 0.61803398875) % 1) * 0.88) * height;
         const direction = index % 2 === 0 ? 1 : -1;
@@ -31,7 +32,9 @@ export default function WorkflowCanvas() {
           direction,
           speed: 0.78 + (index % 6) * 0.09,
           phase: index * 0.79,
-          size: index % 11 === 0 ? 2.6 : index % 4 === 0 ? 1.6 : 1.05,
+          size: compact
+            ? (index % 9 === 0 ? 1.35 : index % 4 === 0 ? 0.9 : 0.65)
+            : (index % 11 === 0 ? 2.6 : index % 4 === 0 ? 1.6 : 1.05),
           amber: index % 8 === 0,
         };
       });
@@ -40,7 +43,7 @@ export default function WorkflowCanvas() {
 
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = Math.min(window.devicePixelRatio || 1, width < 700 ? 3 : 2);
       width = rect.width;
       height = rect.height;
       canvas.width = Math.round(width * ratio);
@@ -96,15 +99,20 @@ export default function WorkflowCanvas() {
       nodes.forEach((start, startIndex) => {
         nodes.slice(startIndex + 1).forEach((end, offset) => {
           const distance = Math.hypot(end.x - start.x, end.y - start.y);
-          const connectionRadius = width < 700 ? 118 : 165;
+          const compact = width < 700;
+          const connectionRadius = compact ? 105 : 165;
           if (distance >= connectionRadius) return;
 
-          const tension = (1 - distance / connectionRadius) * 0.16;
+          const tension = (1 - distance / connectionRadius) * (compact ? 0.1 : 0.16);
+          const startX = compact ? Math.round(start.x * 2) / 2 : start.x;
+          const startY = compact ? Math.round(start.y * 2) / 2 : start.y;
+          const endX = compact ? Math.round(end.x * 2) / 2 : end.x;
+          const endY = compact ? Math.round(end.y * 2) / 2 : end.y;
           context.beginPath();
-          context.moveTo(start.x, start.y);
-          context.lineTo(end.x, end.y);
+          context.moveTo(startX, startY);
+          context.lineTo(endX, endY);
           context.strokeStyle = `rgba(211,205,196,${tension})`;
-          context.lineWidth = 0.7;
+          context.lineWidth = compact ? 0.5 : 0.7;
           context.stroke();
 
           if (!reducedMotion && linkIndex % 7 === 0) {
@@ -116,7 +124,7 @@ export default function WorkflowCanvas() {
             context.arc(signalX, signalY, 1.4, 0, Math.PI * 2);
             context.fillStyle = "rgba(255,163,26,.88)";
             context.shadowColor = "rgba(247,132,0,.75)";
-            context.shadowBlur = 7;
+            context.shadowBlur = compact ? 3 : 7;
             context.fill();
             context.shadowBlur = 0;
           }
@@ -125,12 +133,14 @@ export default function WorkflowCanvas() {
       });
 
       nodes.forEach((node) => {
-        const glow = context.createRadialGradient(node.x, node.y, 0, node.x, node.y, node.size * 5);
+        const compact = width < 700;
+        const glowRadius = node.size * (compact ? 2.6 : 5);
+        const glow = context.createRadialGradient(node.x, node.y, 0, node.x, node.y, glowRadius);
         glow.addColorStop(0, node.amber ? "rgba(255,163,26,.78)" : "rgba(237,233,227,.65)");
         glow.addColorStop(0.22, node.amber ? "rgba(247,132,0,.38)" : "rgba(237,233,227,.2)");
         glow.addColorStop(1, "rgba(0,0,0,0)");
         context.beginPath();
-        context.arc(node.x, node.y, node.size * 5, 0, Math.PI * 2);
+        context.arc(node.x, node.y, glowRadius, 0, Math.PI * 2);
         context.fillStyle = glow;
         context.fill();
         context.beginPath();

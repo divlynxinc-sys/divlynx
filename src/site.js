@@ -4,7 +4,7 @@
  */
 
 export const EMAIL = import.meta.env.VITE_CONTACT_TO_EMAIL || "divlynx.inc@gmail.com";
-export const PHONE = "+92 3180950005";
+export const PHONE = "+92 318 0950005";
 export const PHONE_HREF = "+923180950005";
 export const OFFICE = "Blue Area, Islamabad, Pakistan";
 

@@ -13,8 +13,9 @@
 .note__paper { display:grid; grid-template-rows:auto auto auto auto; align-content:space-between; height:100%; min-height:0; overflow:hidden; padding:14px 14px 12px; border-radius:6px; background:linear-gradient(145deg,var(--note-tint),rgba(255,255,255,.018) 62%); }
 .note__number { margin:0; font:500 .6rem var(--font-mono); letter-spacing:.12em; color:color-mix(in srgb,var(--pin),#fff 18%); }
 .note blockquote { margin:0; font-family:var(--font-display); font-size:clamp(.88rem,1.08vw,1.02rem); font-weight:500; letter-spacing:-.018em; line-height:1.22; color:var(--text); }
-.note__rating { display:flex; gap:4px; margin:0; color:var(--pin); font-size:.95rem; line-height:1; letter-spacing:.01em; }
+.note__rating { display:flex; align-items:center; gap:4px; margin:0; line-height:1; }
+.note__rating img { width:16px; height:16px; object-fit:contain; }
 .note footer { display:flex; align-items:end; justify-content:space-between; gap:8px; margin:0; padding:0; }
 .note footer>span { display:flex; min-width:0; flex-direction:column; gap:2px; }.note footer strong { overflow:hidden; font-family:var(--font-display); font-size:.74rem; font-weight:500; text-overflow:ellipsis; white-space:nowrap; }.note footer small { overflow:hidden; font:400 .46rem var(--font-mono); letter-spacing:.035em; color:var(--muted); text-overflow:ellipsis; white-space:nowrap; }.note footer svg { flex:0 0 auto; width:14px; color:var(--pin); }
 @media(max-width:1000px){.testimonials__head .h2{white-space:normal}.notes{margin-right:calc(var(--gutter) * -1);padding-right:var(--gutter);overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(247,132,0,.35) transparent}.notes__track{display:flex;width:max-content}.note{width:230px}.notes__connector{width:1220px;right:auto}}
-@media(max-width:520px){.testimonials__head{margin-bottom:24px}.notes{padding-top:28px}.note{width:210px}.note:nth-child(even){margin-top:36px}.note__paper{padding:12px 11px 10px}.note blockquote{font-size:.88rem}.note__rating{font-size:.9rem}}
+@media(max-width:520px){.testimonials__head{margin-bottom:24px}.notes{padding-top:28px}.note{width:210px}.note:nth-child(even){margin-top:36px}.note__paper{padding:12px 11px 10px}.note blockquote{font-size:.88rem}.note__rating img{width:15px;height:15px}}

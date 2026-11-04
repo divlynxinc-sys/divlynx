@@ -1,21 +1,21 @@
 import { motion } from "framer-motion";
-import { FiArrowUpRight, FiBriefcase, FiCode, FiEdit3, FiTrendingUp } from "../icons.jsx";
+import { FiArrowUpRight, FiBriefcase } from "../icons.jsx";
 import { EMAIL } from "../site";
 import "../css/careers.css";
 
 const PATHS = [
   {
-    icon: FiCode,
+    icon: "/assets/icons/engineering.png",
     title: "Engineering",
     text: "Frontend, backend, mobile, cloud, automation, AI, and quality engineering.",
   },
   {
-    icon: FiEdit3,
+    icon: "/assets/icons/design-and-product.png",
     title: "Design & product",
     text: "Product thinking, research, user experience, interface design, and content systems.",
   },
   {
-    icon: FiTrendingUp,
+    icon: "/assets/icons/growth-and-operations.png",
     title: "Growth & operations",
     text: "Client partnerships, sales, marketing, SEO, paid media, and studio operations.",
   },
@@ -53,7 +53,6 @@ export default function Careers() {
 
         <div className="careers__paths">
           {PATHS.map((path, index) => {
-            const Icon = path.icon;
             return (
               <motion.article
                 key={path.title}
@@ -62,7 +61,7 @@ export default function Careers() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: .5, delay: index * .08, ease: [0.22, 1, 0.36, 1] }}>
-                <Icon aria-hidden />
+              <img className="career-path__icon" src={path.icon} alt="" aria-hidden="true" />
                 <h3>{path.title}</h3>
                 <p>{path.text}</p>
               </motion.article>

@@ -40,7 +40,9 @@ export default function Testimonials() {
                       <span className="note__number">{String(index + 1).padStart(2, "0")}</span>
                       <blockquote>{item.quote}</blockquote>
                       <div className="note__rating" aria-label={`${item.rating} out of 5 stars`}>
-                        {Array.from({ length: item.rating }, (_, star) => <span key={star} aria-hidden>★</span>)}
+                        {Array.from({ length: item.rating }, (_, star) => (
+                          <img key={star} src="/assets/icons/star.png" alt="" aria-hidden />
+                        ))}
                       </div>
                       <footer>
                         <span><strong>{item.company}</strong><small>{item.meta}</small></span>

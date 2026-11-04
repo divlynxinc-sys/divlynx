@@ -1,7 +1,5 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiArrowUpRight } from "../icons.jsx";
-import { EMAIL } from "../site";
 import "../css/case-studies.css";
 
 /** Live client projects only. Outcomes remain qualitative until a client has
@@ -165,7 +163,10 @@ function CaseCard({ item, index }) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.55, delay: (index % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}>
       <header className="case__head">
-        <p className="case__service">{item.service}</p>
+        <div className="case__kicker">
+          <span className="case__index">{String(index + 1).padStart(2, "0")}</span>
+          <p className="case__service">{item.service}</p>
+        </div>
         <h2 className="case__title">{item.title}</h2>
         <p className="case__client">
           {item.client} · {item.region}
@@ -202,13 +203,6 @@ function CaseCard({ item, index }) {
 
         {item.quote && <blockquote className="case__quote">{item.quote}</blockquote>}
 
-        <ul className="case__stack">
-          {item.stack.map((t) => (
-            <li key={t} className="chip">
-              {t}
-            </li>
-          ))}
-        </ul>
       </div>
     </motion.article>
   );
@@ -241,14 +235,6 @@ export default function CaseStudies() {
             <p className="cases__cta-sub">
               Tell us what is breaking and we will tell you honestly whether it is worth building.
             </p>
-          </div>
-          <div className="cases__cta-actions">
-            <Link to="/#contact" className="btn btn--primary">
-              Start a project <FiArrowUpRight aria-hidden />
-            </Link>
-            <a href={`mailto:${EMAIL}`} className="btn btn--ghost">
-              {EMAIL}
-            </a>
           </div>
         </aside>
       </div>

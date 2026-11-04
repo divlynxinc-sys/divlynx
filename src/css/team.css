@@ -1,9 +1,10 @@
+.team {
+  padding-top: clamp(18px, 2.5vw, 34px);
+}
+
 .team__head {
-  display: grid;
-  grid-template-columns: minmax(560px, 1.35fr) minmax(250px, .65fr);
-  align-items: end;
-  gap: clamp(32px, 6vw, 80px);
-  margin-bottom: clamp(26px, 3.5vw, 42px);
+  display: block;
+  margin-bottom: clamp(24px, 3vw, 36px);
 }
 
 @media (min-width: 1101px) {
@@ -13,7 +14,10 @@
   }
 }
 
-.team__intro { justify-self: end; }
+.team__intro {
+  max-width: 66ch;
+  margin-top: 18px;
+}
 
 .team__grid {
   display: grid;
@@ -25,8 +29,7 @@
 }
 
 .team__grid--engineering {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  max-width: 900px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   margin-inline: auto;
 }
 
@@ -144,8 +147,6 @@
 }
 
 @media (max-width: 1100px) {
-  .team__head { grid-template-columns: 1fr; }
-  .team__intro { justify-self: start; }
   .team-card__body { gap: 14px; }
 }
 
@@ -156,10 +157,10 @@
 
 @media (max-width: 520px) {
   .team__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .team-card h3 { font-size: 1rem; }
-  .team-card__role { font-size: .58rem; }
-  .team-card__body { padding: 44px 12px 14px; }
-  .team-card__description { font-size: .75rem; }
+  .team-card h3 { font-size: 1.05rem; line-height: 1.15; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+  .team-card__role { margin-top: 7px; font-size: .56rem; line-height: 1.45; letter-spacing: .07em; }
+  .team-card__body { min-height: 68%; padding: 64px 13px 15px; gap: 0; background: linear-gradient(180deg, transparent 0%, rgba(4,5,6,.6) 24%, rgba(4,5,6,.96) 54%, #040506 100%); }
+  .team-card__description { font-size: .78rem; line-height: 1.45; color: rgba(255,255,255,.9); text-shadow: 0 1px 5px rgba(0,0,0,.85); }
 }
 
 @media (hover: none) {
@@ -195,11 +196,12 @@
   .team-card.is-active .team-card__body {
     opacity: 1;
     transform: translateY(0);
+    background: linear-gradient(180deg, transparent 0%, rgba(4,5,6,.7) 22%, rgba(4,5,6,.97) 50%, #040506 100%);
   }
 
   .team-card.is-active .team-card__description {
-    max-height: 70px;
-    margin-top: 9px;
+    max-height: 110px;
+    margin-top: 10px;
     opacity: 1;
     transform: none;
   }

@@ -138,14 +138,14 @@
 /* ----------------------------------------------------------------- post -- */
 
 .post__shell {
-  max-width: 760px;
+  max-width: 920px;
 }
 
 .post__back {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 30px;
+  margin-bottom: clamp(34px, 5vw, 58px);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.12em;
@@ -159,44 +159,54 @@
 }
 
 .post__head {
-  padding-bottom: clamp(28px, 3.4vw, 40px);
-  margin-bottom: clamp(28px, 3.4vw, 40px);
+  padding-bottom: clamp(38px, 5vw, 58px);
+  margin-bottom: clamp(40px, 5.5vw, 64px);
   border-bottom: 1px solid var(--line);
 }
 
+.post__meta {
+  align-items: center;
+  color: var(--amber);
+}
+
+.post__meta::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: var(--amber);
+}
+
 .post__title {
-  margin: 16px 0 18px;
-  font-size: clamp(1.875rem, 4.4vw, 2.875rem);
-  line-height: 1.08;
+  max-width: 18ch;
+  margin: 22px 0 24px;
+  font-size: clamp(2.25rem, 5.4vw, 4.35rem);
+  line-height: 1.01;
+  letter-spacing: -.045em;
 }
 
 .post__excerpt {
-  max-width: none;
-}
-
-.post__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 20px;
+  max-width: 62ch;
+  font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+  line-height: 1.65;
 }
 
 /* ---------------------------------------------------------------- prose -- */
 
 .prose {
-  font-size: 1.0625rem;
-  line-height: 1.75;
+  max-width: 700px;
+  font-size: clamp(1.0625rem, 1.35vw, 1.125rem);
+  line-height: 1.82;
   color: var(--text-dim);
 }
 
 .prose__p {
-  margin-bottom: 22px;
+  margin-bottom: 26px;
 }
 
 .prose__h2 {
-  margin: 44px 0 16px;
+  margin: clamp(48px, 7vw, 72px) 0 18px;
   font-family: var(--font-display);
-  font-size: clamp(1.25rem, 2.4vw, 1.5rem);
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.25;
@@ -204,9 +214,9 @@
 }
 
 .prose__h3 {
-  margin: 32px 0 12px;
+  margin: 38px 0 13px;
   font-family: var(--font-display);
-  font-size: 1.0625rem;
+  font-size: 1.1875rem;
   font-weight: 500;
   letter-spacing: -0.015em;
   color: var(--text);
@@ -267,10 +277,8 @@
 
 .prose__note {
   margin: 30px 0;
-  padding: 18px 20px;
-  border: 1px solid var(--line-hi);
-  border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.025);
+  padding: 4px 0 4px 20px;
+  border-left: 1px solid var(--amber);
   font-size: 0.9375rem;
   line-height: 1.65;
   color: var(--text-dim);
@@ -279,16 +287,14 @@
 /* ------------------------------------------------------------ post foot -- */
 
 .post__foot {
+  max-width: 700px;
   margin-top: clamp(48px, 6vw, 72px);
   padding-top: clamp(32px, 4vw, 48px);
   border-top: 1px solid var(--line);
 }
 
 .post__cta {
-  padding: clamp(24px, 3vw, 34px);
-  border: 1px solid var(--line-hi);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(150deg, rgba(247, 132, 0, 0.08), rgba(255, 255, 255, 0.012) 55%);
+  padding: 0;
 }
 
 .post__cta-title {
@@ -330,15 +336,13 @@
   align-items: center;
   gap: 16px;
   margin-top: 14px;
-  padding: 20px 22px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  padding: 24px 0 0;
+  border-top: 1px solid var(--line);
   transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
 
 .post__next:hover {
   border-color: rgba(255, 163, 26, 0.4);
-  background: rgba(255, 255, 255, 0.025);
 }
 
 .post__next-text {
@@ -390,6 +394,10 @@
 /* ------------------------------------------------------------ responsive -- */
 
 @media (max-width: 760px) {
+  .post__title { font-size: clamp(2.15rem, 10.5vw, 3.3rem); }
+  .post__head { margin-bottom: 38px; }
+  .prose { line-height: 1.75; }
+
   .post-row {
     grid-template-columns: minmax(0, 1fr) 24px;
     gap: 14px;

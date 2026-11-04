@@ -50,6 +50,10 @@
   color: var(--amber-lift);
 }
 
+.channel--mail .asset-icon {
+  filter: brightness(0) invert(1);
+}
+
 .channel--whatsapp .channel__icon {
   color: #50d982;
 }

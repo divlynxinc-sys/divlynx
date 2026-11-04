@@ -48,6 +48,12 @@ const ENGINEERING = [
     image: "/assets/team/shahroze-afaq-white.webp",
     description: "Security reviews, hardening and resilient infrastructure.",
   },
+  {
+    name: "Khubaib",
+    role: "Flutter Intern",
+    image: "/assets/team/khubaib-flutter-intern.png",
+    description: "Flutter development, mobile interfaces and cross-platform product delivery.",
+  },
 ];
 
 function Profile({ member, index = 0 }) {

@@ -85,7 +85,7 @@ export function jsonLdForPath(pathname) {
     },
     image: `${SITE_URL}/assets/hero/digital-workshop.png`,
     email: "divlynx.inc@gmail.com",
-    telephone: "+92 3180950005",
+    telephone: "+92 318 0950005",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Islamabad",
@@ -99,7 +99,7 @@ export function jsonLdForPath(pathname) {
       "@type": "ContactPoint",
       contactType: "sales and customer enquiries",
       email: "divlynx.inc@gmail.com",
-      telephone: "+92 3180950005",
+      telephone: "+92 318 0950005",
       availableLanguage: ["English", "Urdu"],
     },
     sameAs: [

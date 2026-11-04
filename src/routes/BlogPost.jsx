@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { FiArrowLeft, FiArrowUpRight } from "../icons.jsx";
 import PostBody from "../blog/PostBody";
 import { POSTS_BY_DATE, findPost, formatDate } from "../blog/posts";
-import { CALENDLY, EMAIL } from "../site";
+import { EMAIL } from "../site";
 import NotFound from "./NotFound";
 import "../css/blog.css";
 
@@ -29,13 +29,6 @@ export default function BlogPost() {
           </div>
           <h1 className="display post__title">{post.title}</h1>
           <p className="lede post__excerpt">{post.excerpt}</p>
-          <ul className="post__tags">
-            {post.tags.map((t) => (
-              <li key={t} className="chip">
-                {t}
-              </li>
-            ))}
-          </ul>
         </header>
 
         <PostBody blocks={post.body} />
@@ -46,14 +39,6 @@ export default function BlogPost() {
             <p className="post__cta-sub">
               We scope honestly and tell you when something is not worth automating.
             </p>
-            <div className="post__cta-actions">
-              <Link to="/#contact" className="btn btn--primary">
-                Start a project <FiArrowUpRight aria-hidden />
-              </Link>
-              <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
-                Book a 30-min call
-              </a>
-            </div>
             <p className="post__cta-mail">
               Or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </p>
@@ -61,7 +46,6 @@ export default function BlogPost() {
 
           {next && (
             <Link to={`/blog/${next.slug}`} className="post__next">
-              {/* Label and title share one grid cell; the icon takes the other. */}
               <span className="post__next-text">
                 <span className="post__next-label">Read next</span>
                 <span className="post__next-title">{next.title}</span>
