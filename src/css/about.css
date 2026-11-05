@@ -1,0 +1,14 @@
+.about-page #studio {
+  padding-top: clamp(124px, 14vw, 176px);
+}
+
+.about-page .team,
+.about-page .careers {
+  padding-top: clamp(42px, 6vw, 76px);
+}
+
+@media (max-width: 700px) {
+  .about-page #studio { padding-top: 112px; }
+  .about-page .team,
+  .about-page .careers { padding-top: 36px; }
+}

@@ -24,6 +24,36 @@ export function metaForPath(pathname) {
     };
   }
 
+  if (pathname === "/about" || pathname === "/about/") {
+    return {
+      title: "About Divlynx, our team, principles and careers",
+      description:
+        "Meet the Divlynx team, learn how we work, read practical answers about delivery and ownership, and explore careers with our software studio.",
+      canonical: `${SITE_URL}/about`,
+      type: "website",
+    };
+  }
+
+  if (pathname === "/careers" || pathname === "/careers/") {
+    return {
+      title: "Careers at Divlynx, engineering, product and operations",
+      description:
+        "Learn how hiring works at Divlynx and introduce yourself for engineering, product, design, growth or operations opportunities.",
+      canonical: `${SITE_URL}/careers`,
+      type: "website",
+    };
+  }
+
+  if (pathname === "/faq" || pathname === "/faq/") {
+    return {
+      title: "Divlynx FAQ, pricing, ownership, security and delivery",
+      description:
+        "Clear answers about Divlynx project fit, pricing, integrations, infrastructure, code ownership, communication, launch and ongoing support.",
+      canonical: `${SITE_URL}/faq`,
+      type: "website",
+    };
+  }
+
   if (pathname === "/blog" || pathname === "/blog/") {
     return {
       title: "Journal, practical notes on AI automation | Divlynx",
@@ -65,7 +95,7 @@ export function metaForPath(pathname) {
 }
 
 export function allPaths() {
-  return ["/", "/case-studies", "/blog", "/privacy", ...POSTS.map((p) => `/blog/${p.slug}`)];
+  return ["/", "/about", "/careers", "/faq", "/case-studies", "/blog", "/privacy", ...POSTS.map((p) => `/blog/${p.slug}`)];
 }
 
 /** Schema.org JSON-LD for a path, helps search engines show rich results. */

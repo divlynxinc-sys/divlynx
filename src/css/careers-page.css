@@ -1,0 +1,2 @@
+.careers-page .careers { padding-top:clamp(124px,14vw,176px); }
+@media(max-width:700px){.careers-page .careers{padding-top:112px}}

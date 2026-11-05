@@ -27,9 +27,10 @@ export const NAV = [
   { label: "Testimonials", href: "#testimonials", kind: "hash" },
   { label: "Case studies", href: "/case-studies", kind: "route" },
   { label: "Journal", href: "/blog", kind: "route" },
+  { label: "About", href: "/about", kind: "route" },
   { label: "Team", href: "#team", kind: "hash" },
-  { label: "Careers", href: "#careers", kind: "hash" },
-  { label: "FAQ", href: "#faq", kind: "hash" },
+  { label: "Careers", href: "/careers", kind: "route" },
+  { label: "FAQ", href: "/faq", kind: "route" },
   { label: "Contact", href: "#contact", kind: "hash" },
 ];
 

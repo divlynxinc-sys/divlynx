@@ -4,9 +4,7 @@ import Services from "../components/Services";
 import Process from "../components/Process";
 import Work from "../components/Work";
 import Testimonials from "../components/Testimonials";
-import Studio from "../components/Studio";
 import Team from "../components/Team";
-import Careers from "../components/Careers";
 import Contact from "../components/Contact";
 import JournalTeaser from "../components/JournalTeaser";
 
@@ -25,8 +23,6 @@ export default function Home() {
       <Work />
       <Testimonials />
       <Team />
-      <Careers />
-      <Studio />
       <JournalTeaser />
       <Contact />
     </>
