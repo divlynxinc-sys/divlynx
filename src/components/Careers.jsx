@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FiArrowUpRight, FiBriefcase } from "../icons.jsx";
+import { FiArrowUpRight } from "../icons.jsx";
 import { EMAIL } from "../site";
 import "../css/careers.css";
 

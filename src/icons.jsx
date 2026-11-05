@@ -7,7 +7,6 @@ export {
   PiList as FiMenu,
   PiX as FiX,
   PiPlus as FiPlus,
-  PiBriefcase as FiBriefcase,
   PiRobot as FiCpu,
   PiWaveform as FiPhoneCall,
   PiFlowArrow as FiGitMerge,

@@ -380,17 +380,21 @@
 
 @media (max-width: 700px) {
   .svc__carousel {
-    margin-inline: calc(var(--gutter) * -1);
+    width: 100%;
+    margin-inline: 0;
   }
 
   .svc__stage {
     height: 430px;
+    mask-image: none;
+    -webkit-mask-image: none;
   }
 
   .svc__stage .svc {
-    width: min(78vw, 340px);
+    width: calc(100% - 24px);
+    max-width: 340px;
     height: 400px;
-    padding: 22px;
+    padding: 20px;
   }
 
   .svc__arrow {
@@ -400,12 +404,17 @@
   }
 
   .svc__arrow--prev {
-    left: 12px;
+    left: 0;
   }
 
   .svc__arrow--next {
-    right: 12px;
+    right: 0;
   }
+}
+
+@media (max-width: 390px) {
+  .svc__stage .svc { width: calc(100% - 16px); padding: 18px; }
+  .svc__arrow { width: 40px; height: 40px; }
 }
 
 @media (max-width: 620px) {

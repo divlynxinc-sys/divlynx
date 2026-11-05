@@ -92,6 +92,8 @@
   color: var(--text-dim);
 }
 
+.work__main { min-width: 0; }
+
 .work__scope {
   display: flex;
   align-items: baseline;
@@ -248,6 +250,8 @@
     flex-direction: column;
     gap: 7px;
   }
+
+  .work__tech { max-width: 100%; }
 }
 #work {
   padding-top: clamp(32px, 3.5vw, 48px);

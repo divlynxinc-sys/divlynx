@@ -54,7 +54,7 @@
 }
 
 @media (max-width: 620px) {
-  .careers__cta { align-items: stretch; flex-direction: column; }
+  .careers__process .careers__cta { align-items: stretch; flex-direction: column; gap:18px; }
   .careers__cta .btn { width: 100%; }
   .careers__values li { grid-template-columns: 1fr; gap: 5px; }
 }
