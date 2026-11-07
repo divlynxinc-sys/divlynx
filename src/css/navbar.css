@@ -63,7 +63,7 @@
   padding: 6px 12px;
   border-radius: 10px 14px 9px 13px / 13px 9px 14px 10px;
   font-family: var(--font-hand);
-  font-size: 1.28rem;
+  font-size: 1.08rem;
   line-height: 1.1;
   letter-spacing: 0;
   color: var(--text-dim);
@@ -174,7 +174,7 @@
   min-width: 0;
   padding: 2px 0;
   font-family: var(--font-display);
-  font-size: .95rem;
+  font-size: .875rem;
   font-weight: 500;
   line-height: 1.25;
   color: var(--text-dim);
@@ -220,7 +220,7 @@
   align-items: center;
   gap: 6px;
   font-family: var(--font-hand);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   line-height: 1;
   color: var(--amber);
   transition: transform .3s var(--ease);
@@ -315,7 +315,7 @@
   min-height: 56px;
   padding: 4px 0;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 6.4vw, 1.9rem);
+  font-size: clamp(1.3rem, 5.5vw, 1.65rem);
   font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1.1;
@@ -354,14 +354,14 @@
 
 .drawer__reach {
   font-family: var(--font-hand);
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   line-height: 1;
   color: var(--muted);
 }
 
 .drawer__contact {
   width: fit-content;
-  font-size: 1rem;
+  font-size: .925rem;
   color: var(--text-dim);
   text-decoration: underline;
   text-decoration-color: rgba(247, 132, 0, 0.5);
@@ -379,7 +379,7 @@
 
   .nav__link {
     padding: 6px 8px;
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
 }
 
