@@ -95,21 +95,28 @@ export default function Hero() {
 
       <div className="shell hero__grid">
         <div className="hero__copy">
-          {/* Visually an edit in a notebook: a pencil strikes out "busywork."
-              and writes "autopilot." in under it. Read as one plain sentence. */}
+          {/* Visually an edit in a notebook, on three lines: a pencil strikes
+              out "you into the ground" and writes "on autopilot." in under it.
+              Read as one plain sentence. */}
           <h1 id="hero-title" className="display hero__title">
             <span className="sr-only">Your business runs on autopilot.</span>
             <span aria-hidden="true">
-              <Words text="Your business runs on" />{" "}
-              <span className="hero__struck">
-                <Words text="busywork." start={4} />
-                <Pen className="hero__pen hero__pen--strike" />
+              <span className="hero__line">
+                <Words text="Your business runs" />
+              </span>
+              <span className="hero__line">
+                <span className="hero__struck">
+                  <Words text="you into the ground" start={3} />
+                  <Pen className="hero__pen hero__pen--strike" />
+                </span>
+              </span>
+              <span className="hero__line">
                 <span className="hero__fix">
                   <span className="hero__insert">
                     <svg className="hero__caret" viewBox="0 0 30 22" focusable="false">
                       <path d="M3 20 L 15 4 L 27 20" pathLength="1" />
                     </svg>
-                    autopilot.
+                    on autopilot.
                   </span>
                   <svg className="hero__spark" viewBox="0 0 40 40" focusable="false">
                     <path d="M8 22 L 2 25" pathLength="1" />

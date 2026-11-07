@@ -13,6 +13,7 @@
 }
 
 .hero__copy {
+  container-type: inline-size;
   display: grid;
   justify-items: start;
   gap: clamp(22px, 2.6vw, 30px);
@@ -21,7 +22,10 @@
 /* ---- headline with a notebook edit ---- */
 
 .hero__title {
-  font-size: clamp(2.8rem, 6.2vw, 5.6rem);
+  /* The longest line is about 8.7em wide: size the type from the column so the
+     three lines always fit without rewrapping. */
+  font-size: clamp(2.2rem, 4.8vw, 4.6rem);
+  font-size: clamp(1.9rem, 11cqi, 4.8rem);
   line-height: 0.98;
   letter-spacing: -0.045em;
 }
@@ -46,8 +50,8 @@
   to { transform: translateY(0); }
 }
 
-/* "busywork." dims, then a marker strike wipes across it (a hand-drawn
-   stroke stretched over the full width of the word). */
+/* "you into the ground" dims, then a marker strike wipes across it (a
+   hand-drawn stroke stretched over the full width of the phrase). */
 .hero__struck {
   position: relative;
   display: inline-block;
@@ -79,17 +83,16 @@
   to { clip-path: inset(0 0 0 0); }
 }
 
-/* the correction, written under the struck word with a caret pointing up;
-   the headline keeps room for it underneath */
-.hero__title { padding-bottom: 0.72em; }
+/* three fixed lines: never rewrap, the size scales to fit instead */
+.hero__line { display: block; white-space: nowrap; }
 
+/* the correction on the third line, with a caret pointing up at the strike */
 .hero__fix {
-  position: absolute;
-  top: 100%;
-  left: 0.12em;
-  margin-top: -0.04em;
-  font-size: 0.8em;
-  transform: rotate(-3deg);
+  position: relative;
+  display: inline-block;
+  margin: 0.02em 0 0 0.12em;
+  font-size: 0.86em;
+  transform: rotate(-2.5deg);
   transform-origin: left center;
 }
 
@@ -311,7 +314,6 @@
 }
 
 @media (max-width: 520px) {
-  .hero__title { font-size: clamp(2.6rem, 12.5vw, 3.6rem); }
   .hero__copy { justify-items: stretch; }
   .hero__actions { flex-direction: column; }
   .hero__actions .btn { width: 100%; }
