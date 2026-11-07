@@ -64,7 +64,7 @@ export default function Footer() {
 
         <div className="foot__cols">
           <div className="foot__brand">
-            <Logo className="foot__logo" />
+            <Logo variant="stacked" className="foot__logo" />
             <p className="foot__blurb">
               A software studio building AI automation, voice agents and the products they run on.
             </p>

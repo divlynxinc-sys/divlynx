@@ -110,8 +110,10 @@ export function jsonLdForPath(pathname) {
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/assets/brand/divlynx-logo.svg`,
-      contentUrl: `${SITE_URL}/assets/brand/divlynx-logo.svg`,
+      url: `${SITE_URL}/assets/brand/divlynx-logo-stacked.png`,
+      contentUrl: `${SITE_URL}/assets/brand/divlynx-logo-stacked.png`,
+      width: 480,
+      height: 552,
     },
     image: `${SITE_URL}/assets/hero/digital-workshop.jpg`,
     email: "divlynx.inc@gmail.com",

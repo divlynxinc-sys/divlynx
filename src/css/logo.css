@@ -1,25 +1,19 @@
-/* Sizing is driven entirely by font-size on .logo, so callers set one value. */
+/* Brand lockups are images; callers size them with --logo-h. */
 .logo {
+  --logo-h: 30px;
   display: inline-flex;
   align-items: center;
-  gap: 0.3em;
-  font-size: 22px;
-  line-height: 1;
-  white-space: nowrap;
+  line-height: 0;
 }
 
-.logo__mark {
-  height: 1.16em;
+@media (max-width: 560px) {
+  .nav__brand .logo { --logo-h: 26px; }
+}
+
+.logo__img {
+  display: block;
   width: auto;
-  flex-shrink: 0;
-}
-
-.logo__word {
-  font-family: var(--font-display);
-  font-size: 1em;
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  color: var(--text);
-  /* Optical alignment: the mark's baseline sits slightly lower than the text's */
-  transform: translateY(0.03em);
+  height: var(--logo-h);
+  user-select: none;
+  -webkit-user-drag: none;
 }

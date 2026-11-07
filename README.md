@@ -20,15 +20,16 @@ The site is built with React and Vite, prerendered to static HTML for search eng
    - [Icons and imagery](#icons-and-imagery)
 3. [Page structure](#page-structure)
 4. [Repository structure](#repository-structure)
-5. [Static assets](#static-assets)
-6. [Performance](#performance)
-7. [Configuration](#configuration)
-8. [Routes and SEO](#routes-and-seo)
-9. [Security and privacy](#security-and-privacy)
-10. [Content ownership](#content-ownership)
-11. [Pitch deck](#pitch-deck)
-12. [Deployment](#deployment)
-13. [Quality checklist](#quality-checklist)
+5. [Brand logos](#brand-logos)
+6. [Static assets](#static-assets)
+7. [Performance](#performance)
+8. [Configuration](#configuration)
+9. [Routes and SEO](#routes-and-seo)
+10. [Security and privacy](#security-and-privacy)
+11. [Content ownership](#content-ownership)
+12. [Pitch deck](#pitch-deck)
+13. [Deployment](#deployment)
+14. [Quality checklist](#quality-checklist)
 
 ---
 
@@ -152,9 +153,9 @@ Fonts load from Google Fonts in `index.html` (`display=swap`, only the weights i
 | Body | **Funnel Sans** | 400, 500, 600 | `--font-body` | Paragraphs, UI text |
 | Hand | **Gochi Hand** | 400 | `--font-hand` | Handwritten labels, notes, captions |
 | Mono | **Geist Mono** | 400, 500 | `--font-mono` | Timestamps, data, scope lists |
-| Brand | **Space Grotesk** | 500, 700 | scoped | Navbar and logo wordmark only |
+| Brand | **Space Grotesk** | 500, 700 | scoped | Navbar only |
 
-The navbar and logo keep the original brand face. `.nav`, `.drawer` and `.logo` re-scope `--font-display` to Space Grotesk, so the rest of the site is unaffected.
+The navbar keeps the original brand face: `.nav` and `.drawer` re-scope `--font-display` to Space Grotesk, so the rest of the site is unaffected. Navbar links are set in the handwriting face. The logo is an image (see [Brand logos](#brand-logos)).
 
 #### Type scale
 
@@ -269,12 +270,13 @@ Other routes: `/case-studies`, `/about`, `/careers`, `/faq`, `/blog`, `/blog/:sl
 |-- api/
 |   `-- contact.js              # Vercel contact-form endpoint
 |-- docs/
+|   |-- brand/                  # High-resolution logo masters (not deployed)
 |   |-- Divlynx-Pitch-Deck.pdf  # Client-facing pitch deck
 |   `-- divlynx-pitch-deck.html # Editable deck source
 |-- public/
 |   |-- .well-known/security.txt
 |   |-- assets/
-|   |   |-- brand/              # Logo and touch icon
+|   |   |-- brand/              # Web logos (see Brand logos)
 |   |   |-- clients/            # Client logos (160px WebP)
 |   |   |-- hero/               # Social-share image
 |   |   |-- projects/           # Project screenshots (WebP, 1400 + 760)
@@ -307,6 +309,21 @@ Other routes: `/case-studies`, `/about`, `/careers`, `/faq`, `/blog`, `/blog/:sl
 ```
 
 ---
+
+## Brand logos
+
+| File | Use |
+| --- | --- |
+| `public/assets/brand/divlynx-logo-horizontal.webp` | Navbar and default `<Logo />` (486×96, transparent) |
+| `public/assets/brand/divlynx-logo-stacked.webp` | Footer, `<Logo variant="stacked" />` (480×552, transparent) |
+| `public/assets/brand/divlynx-logo-stacked.png` | Schema.org organization logo in `src/seo.js` |
+| `public/assets/brand/divlynx-logo-legacy.svg` | Previous logo, still used by the pitch deck |
+| `public/assets/brand/apple-touch-icon.svg` | iOS home-screen icon |
+| `docs/brand/divlynx-logo-horizontal-master.png` | 8334px horizontal master |
+| `docs/brand/divlynx-logo-stacked-on-orange-master.png` | Stacked master on the orange gradient |
+| `docs/brand/divlynx-logo-stacked-transparent-master.png` | Transparent stacked master, composed from the horizontal master |
+
+`src/components/Logo.jsx` renders these as images; size them with the `--logo-h` CSS variable (navbar 30px, 26px on phones; footer 112px). Masters live in `docs/brand/` so they are never shipped to visitors. Export new web sizes from them at about 3× the displayed height.
 
 ## Static assets
 

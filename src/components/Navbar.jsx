@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiArrowUpRight, FiChevronDown, FiMenu, FiX } from "../icons.jsx";
 import Logo from "./Logo";
@@ -100,6 +100,11 @@ export default function Navbar() {
 
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 180, damping: 32, mass: 0.3 });
+  // The marker line is revealed (not stretched) so its hand-drawn wave keeps its shape;
+  // the pencil rides the leading edge.
+  const progressClip = useTransform(progress, (v) => `inset(0 ${100 - v * 100}% 0 0)`);
+  const pencilX = useTransform(progress, (v) => `calc(${v * 100}vw - ${v * 26}px)`);
+  const pencilOpacity = useTransform(progress, [0, 0.015], [0, 1]);
 
   useEffect(() => {
     const onScroll = () => setLifted(window.scrollY > 24);
@@ -190,9 +195,6 @@ export default function Navbar() {
                   onClick={() => setOpen(false)}>
                   {item.label}
                   {drawer && <FiChevronDown className="nav__link-chevron" aria-hidden />}
-                  {isActive(item) && (
-                    <motion.span className="nav__link-dot" layoutId="nav-dot" transition={{ duration: 0.35 }} />
-                  )}
                 </Link>
               ) : (
                 <a
@@ -202,9 +204,6 @@ export default function Navbar() {
                   onClick={(e) => goHash(e, item.href)}>
                   {item.label}
                   {drawer && <FiChevronDown className="nav__link-chevron" aria-hidden />}
-                  {isActive(item) && (
-                    <motion.span className="nav__link-dot" layoutId="nav-dot" transition={{ duration: 0.35 }} />
-                  )}
                 </a>
                   )}
                   {drawer && <NavMega item={item} drawer={drawer} onHash={goHash} onClose={() => setOpen(false)} />}
@@ -225,7 +224,17 @@ export default function Navbar() {
           </div>
         </div>
 
-        <motion.div className="nav__progress" style={{ scaleX: progress }} aria-hidden="true" />
+        <div className="nav__progress" aria-hidden="true">
+          <motion.span className="nav__progress-line" style={{ clipPath: progressClip }} />
+          <motion.span className="nav__progress-pencil" style={{ x: pencilX, opacity: pencilOpacity }}>
+            <svg viewBox="0 0 28 14" focusable="false">
+              <path d="M1 7 L 7 4.2 L 24 4.2 C 26 4.2, 27 5.4, 27 7 C 27 8.6, 26 9.8, 24 9.8 L 7 9.8 Z" fill="#f78400" />
+              <path d="M1 7 L 7 4.2 L 7 9.8 Z" fill="#f6efdf" />
+              <path d="M1 7 L 3.2 6 L 3.2 8 Z" fill="#1d150c" />
+              <path d="M21 4.2 L 21 9.8" stroke="#1d150c" stroke-opacity=".45" stroke-width="1" />
+            </svg>
+          </motion.span>
+        </div>
       </motion.header>
 
       <AnimatePresence>

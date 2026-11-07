@@ -372,10 +372,9 @@ time {
   color: var(--text-dim);
 }
 
-/* The navbar and logo keep the original identity faces untouched. */
+/* The navbar keeps the original brand face. */
 .nav,
-.drawer,
-.logo {
+.drawer {
   --font-display: "Space Grotesk", system-ui, sans-serif;
 }
 
