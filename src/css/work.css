@@ -34,18 +34,13 @@
 
 .work__main { min-width:0; }
 
-.work__kicker { display:flex; flex-wrap:wrap; align-items:center; gap:7px 12px; margin-bottom:18px; font:400 .625rem var(--font-mono); letter-spacing:.09em; text-transform:uppercase; color:var(--muted); }
-.work__kicker span+span { display:inline-flex; align-items:center; gap:12px; }
-.work__kicker span+span::before { content:""; width:22px; height:1px; background:var(--line-hi); }
-.work__index { color:var(--amber); }
-
-.work__title { max-width:18ch; margin:0 0 16px; font-family:var(--font-display); font-size:clamp(1.75rem,3.4vw,3rem); font-weight:500; letter-spacing:-.04em; line-height:1.04; color:var(--text); }
+.work__title { max-width:18ch; margin:0 0 10px; font-family:var(--font-display); font-size:clamp(1.75rem,3.4vw,3rem); font-weight:500; letter-spacing:-.04em; line-height:1.04; color:var(--text); }
 .work__title a { display:inline; }
 .work__note { max-width:48ch; font-size:clamp(.9375rem,1.25vw,1.05rem); line-height:1.68; color:var(--text-dim); }
 
 .work__scope { display:flex; align-items:baseline; gap:12px; margin-top:22px; }
-.work__scope-label { flex:0 0 auto; font:500 .625rem var(--font-mono); letter-spacing:.14em; text-transform:uppercase; color:var(--amber); }
-.work__tech { display:flex; flex-wrap:wrap; align-items:center; gap:7px 0; font:400 .6875rem var(--font-mono); letter-spacing:.035em; color:var(--muted); }
+.work__scope-label { flex:0 0 auto; color:var(--amber); }
+.work__tech { display:flex; flex-wrap:wrap; align-items:center; gap:7px 0; font-size:.875rem; line-height:1.4; color:var(--muted); }
 .work__tech li { display:inline-flex; align-items:center; }
 .work__tech li+li::before { content:""; width:1px; height:11px; margin:0 10px; background:var(--line-hi); }
 
@@ -86,23 +81,30 @@
 .work__row:nth-child(even) .work__visual::before { transform: rotate(1deg); }
 .work__visual:hover::before { transform: rotate(0deg) scale(1.01); border-color: var(--amber); }
 
-/* Handwritten index and client in the kicker */
-.work__kicker { align-items: baseline; }
+/* Type follows the team cards:
+   1. title: Funnel Display    2. client line: Gochi Hand, amber
+   3. description + scope: Funnel Sans */
 .work__index {
+  display: block;
+  margin-bottom: 10px;
   font-family: var(--font-hand);
-  font-size: 1.9rem;
-  letter-spacing: 0;
-  line-height: 0.8;
-  text-transform: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--muted);
 }
 
-.work__kicker span:nth-child(2) {
+.work__last { white-space: nowrap; }
+.work__arrow { display: inline-block; width: 0.62em; height: 0.62em; vertical-align: 0.06em; }
+
+.work__client {
+  margin-bottom: 16px;
   font-family: var(--font-hand);
-  font-size: 1.35rem;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--text);
+  font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+  line-height: 1.15;
+  color: var(--amber);
 }
+
+.work__client span { color: var(--text-dim); }
 
 .work__scope-label {
   font-family: var(--font-hand);

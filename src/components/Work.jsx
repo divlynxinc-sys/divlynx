@@ -132,6 +132,19 @@ const PROJECTS = [
 // view, where there is enough room to explain them properly.
 const LIVE_PROJECTS = PROJECTS.filter((project) => Boolean(project.href));
 
+/* Keep the arrow on the same line as the last word, so it never wraps alone. */
+function lastWordWith(text, icon) {
+  const cut = text.lastIndexOf(" ");
+  return (
+    <>
+      {text.slice(0, cut + 1)}
+      <span className="work__last">
+        {text.slice(cut + 1)} {icon}
+      </span>
+    </>
+  );
+}
+
 export default function Work() {
   return (
     <section id="work" className="band">
@@ -172,18 +185,22 @@ export default function Work() {
               </a>
 
               <div className="work__main">
-                <div className="work__kicker">
-                  <span className="work__index">{String(i + 1).padStart(2, "0")}</span>
-                  <span>{p.client}</span>
-                  <span>{p.kind} / {p.region}</span>
-                </div>
+                {/* Same order as the team cards: name, handwritten role line, description */}
+                <span className="work__index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                 <h3 className="work__title">
                   {p.href ? (
                     <a href={p.href} target="_blank" rel="noopener noreferrer">
-                      {p.title} <FiArrowUpRight aria-hidden />
+                      {lastWordWith(p.title, <FiArrowUpRight aria-hidden className="work__arrow" />)}
                     </a>
                   ) : p.title}
                 </h3>
+                <p className="work__client">
+                  {p.client}
+                  <span>
+                    {" "}
+                    · {p.kind}, {p.region}
+                  </span>
+                </p>
                 <p className="work__note">{p.note}</p>
                 <div className="work__scope">
                   <span className="work__scope-label">Scope</span>

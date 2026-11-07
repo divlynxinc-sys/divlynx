@@ -210,18 +210,21 @@
   .team-card__description { font-size: .78rem; line-height: 1.45; color: rgba(255,255,255,.9); text-shadow: 0 1px 5px rgba(0,0,0,.85); }
 }
 
-/* Touch screens: nothing to hover, so the details are simply always shown. */
+/* Touch screens: same look as hovering, applied to the cards crossing the
+   middle of the screen while scrolling (Team.jsx marks them data-focus). */
 @media (hover: none) {
-  .team-card__body {
-    min-height: 62%;
-    background: linear-gradient(180deg, transparent 0%, rgba(4,5,6,.7) 22%, rgba(4,5,6,.97) 52%, #040506 100%);
+  .team-card[data-focus] .team-card__image { filter: grayscale(0); transform: scale(1.025); }
+
+  .team-card[data-focus] .team-card__portrait {
+    border-color: rgba(255, 154, 20, .7);
+    transform: translateY(-4px);
   }
 
-  .team-card__description {
-    max-height: none;
+  .team-card[data-focus] .team-card__description {
+    max-height: 90px;
     margin-top: 8px;
     opacity: 1;
-    transform: none;
+    transform: translateY(0);
   }
 }
 

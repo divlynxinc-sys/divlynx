@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Scribble from "./Scribble";
 import "../css/team.css";
 
@@ -93,8 +94,9 @@ const ENGINEERING = [
 
 const TEAM = [...EXECUTIVES, ...ENGINEERING];
 
-/* Details reveal on mouse hover (and keyboard focus inside the card on desktop);
-   on touch screens they are always shown, so there is nothing to tap open. */
+/* Details reveal on mouse hover. Touch screens have no hover, so there the
+   cards passing through the middle of the screen open by themselves as you
+   scroll (see useCentreFocus); nothing to tap open or closed. */
 function Profile({ member, index = 0 }) {
   return (
     <article className="team-card reveal" style={{ "--reveal-delay": `${index * 80}ms` }}>
@@ -110,9 +112,31 @@ function Profile({ member, index = 0 }) {
   );
 }
 
+/* Touch screens: mark the cards crossing the middle band of the viewport. */
+function useCentreFocus(ref) {
+  useEffect(() => {
+    const root = ref.current;
+    if (!root || window.matchMedia("(hover: hover)").matches) return undefined;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.dataset.focus = "";
+          else delete e.target.dataset.focus;
+        });
+      },
+      { rootMargin: "-49% 0px -49% 0px" }
+    );
+    root.querySelectorAll(".team-card").forEach((card) => io.observe(card));
+    return () => io.disconnect();
+  }, [ref]);
+}
+
 export default function Team() {
+  const ref = useRef(null);
+  useCentreFocus(ref);
+
   return (
-    <section id="team" className="band team">
+    <section id="team" ref={ref} className="band team">
       <TeamStrip />
       <div className="shell">
         <header className="sec-head team__head">
