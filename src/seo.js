@@ -113,7 +113,7 @@ export function jsonLdForPath(pathname) {
       url: `${SITE_URL}/assets/brand/divlynx-logo.svg`,
       contentUrl: `${SITE_URL}/assets/brand/divlynx-logo.svg`,
     },
-    image: `${SITE_URL}/assets/hero/digital-workshop.png`,
+    image: `${SITE_URL}/assets/hero/digital-workshop.jpg`,
     email: "divlynx.inc@gmail.com",
     telephone: "+92 318 0950005",
     address: {

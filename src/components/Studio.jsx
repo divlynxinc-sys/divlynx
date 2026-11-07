@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { FiArrowUpRight } from "../icons.jsx";
 import "../css/studio.css";
+import Scribble from "./Scribble";
 
 const PRINCIPLES = [
   {
@@ -42,9 +42,8 @@ export default function Studio() {
     <section id="studio" className="band">
       <div className="shell">
         <header className="studio__page-head">
-          <p className="eyebrow">About Divlynx</p>
           <h1 className="display h1">
-            Useful software, built around <span className="sweep">how work gets done</span>.
+            Useful software, built around <span className="sweep">how work gets <Scribble variant="underline">done</Scribble></span>.
           </h1>
           <p className="lede studio__page-lede">
             Divlynx is a software studio in Islamabad working with teams worldwide. We turn
@@ -64,9 +63,8 @@ export default function Studio() {
 
         <div className="studio__top">
           <div className="studio__intro">
-            <p className="eyebrow">How we work</p>
             <h2 className="display h2">
-              Small team. Senior people. <span className="sweep">No handoffs</span>.
+              Small team. Senior people. <Scribble variant="circle">No handoffs</Scribble>.
             </h2>
             <p className="lede studio__lede">
               We keep delivery close to the problem. The people shaping the scope also make the
@@ -79,16 +77,13 @@ export default function Studio() {
 
           <ul className="studio__principles">
             {PRINCIPLES.map((principle, index) => (
-              <motion.li
+              <li
                 key={principle.title}
-                className="principle"
-                initial={{ opacity: 0, x: 18 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: index * 0.09, ease: [0.22, 1, 0.36, 1] }}>
+                className="principle reveal"
+                style={{ "--reveal-delay": `${Math.round((index * 0.09) * 1000)}ms` }}>
                 <h3 className="h3 principle__title">{principle.title}</h3>
                 <p className="principle__body">{principle.body}</p>
-              </motion.li>
+              </li>
             ))}
           </ul>
         </div>

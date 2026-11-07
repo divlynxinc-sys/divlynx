@@ -1,0 +1,92 @@
+.solved { overflow-x: clip; }
+
+.solved__pv {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin-bottom: clamp(48px, 6vw, 72px);
+}
+
+/* pinned paper notes */
+.pv {
+  position: relative;
+  padding: 30px 24px 22px;
+  border-radius: 2px 2px 3px 16px / 2px 2px 3px 12px;
+  color: #1d150c;
+  box-shadow: 0 18px 30px -14px rgba(0, 0, 0, 0.75), inset 0 -18px 24px -20px rgba(80, 40, 0, 0.3);
+}
+
+.pv--pain {
+  background: linear-gradient(175deg, #f6efdf, #ece2cc);
+  transform: rotate(-1.8deg);
+}
+
+.pv--value {
+  background: linear-gradient(175deg, #ffb347, #f9a032);
+  transform: rotate(1.6deg);
+}
+
+.js .pv.reveal:not(.is-in) { transform: translateY(18px); }
+
+.pv__pin {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #9a9a9a 0 16%, #2a2a2a 40%, #050505 100%);
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.45);
+}
+
+.pv__label {
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #8a3a00;
+}
+
+.pv--value .pv__label { color: #1d150c; }
+
+.pv__text {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+/* hand-drawn arrow between the notes */
+.solved__arrow {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  color: var(--amber);
+}
+
+.solved__arrow-label {
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  line-height: 1;
+  transform: rotate(-3deg);
+}
+
+.solved__arrow svg {
+  width: 150px;
+  height: 40px;
+  overflow: visible;
+}
+
+.solved__arrow path { stroke-width: 2.6; }
+
+@media (max-width: 860px) {
+  .solved__pv { grid-template-columns: 1fr; gap: 6px; }
+  .solved__arrow svg { width: 44px; height: 70px; transform: rotate(90deg); }
+  .pv--pain,
+  .pv--value { max-width: 440px; }
+  .pv--value { justify-self: end; }
+}

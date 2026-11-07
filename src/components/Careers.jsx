@@ -1,21 +1,21 @@
-import { motion } from "framer-motion";
-import { FiArrowUpRight } from "../icons.jsx";
+import { FiArrowUpRight, FiCodeSimple, FiDesign, FiGrowth } from "../icons.jsx";
 import { EMAIL } from "../site";
 import "../css/careers.css";
+import Scribble from "./Scribble";
 
 const PATHS = [
   {
-    icon: "/assets/icons/engineering.png",
+    icon: FiCodeSimple,
     title: "Engineering",
     text: "Frontend, backend, mobile, cloud, automation, AI, and quality engineering.",
   },
   {
-    icon: "/assets/icons/design-and-product.png",
+    icon: FiDesign,
     title: "Design & product",
     text: "Product thinking, research, user experience, interface design, and content systems.",
   },
   {
-    icon: "/assets/icons/growth-and-operations.png",
+    icon: FiGrowth,
     title: "Growth & operations",
     text: "Client partnerships, sales, marketing, SEO, paid media, and studio operations.",
   },
@@ -37,9 +37,8 @@ export default function Careers() {
       <div className="shell">
         <header className="careers__head">
           <div>
-            <p className="eyebrow">Careers</p>
             <h2 className="display h2">
-              Do work you can <span className="sweep">point to</span>.
+              Do work you can <Scribble variant="underline">point to</Scribble>.
             </h2>
           </div>
           <div className="careers__intro">
@@ -52,18 +51,16 @@ export default function Careers() {
 
         <div className="careers__paths">
           {PATHS.map((path, index) => {
+            const Icon = path.icon;
             return (
-              <motion.article
+              <article
                 key={path.title}
-                className="career-path"
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: .5, delay: index * .08, ease: [0.22, 1, 0.36, 1] }}>
-              <img className="career-path__icon" src={path.icon} alt="" aria-hidden="true" />
+                className="career-path reveal"
+                style={{ "--reveal-delay": `${Math.round((index * .08) * 1000)}ms` }}>
+              <Icon className="career-path__icon" aria-hidden="true" />
                 <h3>{path.title}</h3>
                 <p>{path.text}</p>
-              </motion.article>
+              </article>
             );
           })}
         </div>

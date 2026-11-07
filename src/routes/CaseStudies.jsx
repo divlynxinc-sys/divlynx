@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { FiArrowUpRight } from "../icons.jsx";
 import "../css/case-studies.css";
+import Scribble from "../components/Scribble";
 
 /** Live client projects only. Outcomes remain qualitative until a client has
  * approved measurable commercial results for publication. */
@@ -196,59 +197,113 @@ const CASES = [
   },
 ];
 
-function CaseCard({ item, index }) {
-  const caseId = `case-${item.client.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
+/* Live screenshots shared with the home page's work section */
+const SHOTS = {
+  "Sincere Capital": "sincere-estate-project-v2",
+  "JobSynk AI": "jobsynk-project-v2",
+  Mise: "mise-project-v1",
+  "Divlynx Pilates": "pilates-project-v1",
+  JeeUstaad: "jeeustaad-project-v2",
+  "After Realism": "after-realism-project-v2",
+  "Range Fit Gym": "range-fit-project-v2",
+  MetaStore: "metastore-project-v2",
+};
+
+const slugFor = (client) =>
+  `case-${client.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "")}`;
+
+const TICK = "M3 12.5 C 5 14.5, 7 16.5, 8.5 19 C 11.5 12, 15.5 6.5, 21 2.5";
+const ARROW = "M2 12 C 8 10, 14 14, 20 11 M15 6 L 21 11 L 15 16";
+const RING = "M30 6 C 16 4, 5 13, 6 28 C 7 42, 20 52, 33 50 C 46 48, 54 37, 51 23 C 49 12, 40 5, 26 7";
+
+function Mark({ d }) {
   return (
-    <motion.article
-      id={caseId}
-      className={`case${item.featured ? " case--featured" : ""}`}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.55, delay: (index % 2) * 0.08, ease: [0.22, 1, 0.36, 1] }}>
+    <svg className="case__mark" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d={d} />
+    </svg>
+  );
+}
+
+function CaseCard({ item, index }) {
+  const shot = SHOTS[item.client];
+  return (
+    <article id={slugFor(item.client)} className="case reveal">
       <header className="case__head">
         <div className="case__kicker">
-          <span className="case__index">{String(index + 1).padStart(2, "0")}</span>
+          <span className="case__index" aria-hidden="true">
+            {index + 1}
+            <svg viewBox="0 0 56 56" focusable="false">
+              <path d={RING} />
+            </svg>
+          </span>
           <p className="case__service">{item.service}</p>
         </div>
         <h2 className="case__title">{item.title}</h2>
         <p className="case__client">
           {item.client} · {item.region}
         </p>
+
+        {shot && (
+          <a className="case__shot" href={item.href} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true">
+            <img
+              src={`/assets/projects/${shot}-760.webp`}
+              srcSet={`/assets/projects/${shot}-760.webp 760w, /assets/projects/${shot}.webp 1400w`}
+              sizes="(max-width: 900px) 100vw, 460px"
+              width="760"
+              height="480"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        )}
+
         {item.href && (
-          <a className="case__live" href={item.href} target="_blank" rel="noopener noreferrer">
+          <a className="btn btn--ghost case__live" href={item.href} target="_blank" rel="noopener noreferrer">
             Visit live website <FiArrowUpRight aria-hidden />
           </a>
         )}
       </header>
 
       <div className="case__body">
-        <p className="case__challenge">{item.challenge}</p>
+        <div className="case__block">
+          <h3 className="case__label">the problem</h3>
+          <p className="case__challenge">{item.challenge}</p>
+        </div>
 
         <div className="case__blocks">
           <div className="case__block">
-            <h3 className="case__block-title">What we built</h3>
+            <h3 className="case__label">what we built</h3>
             <ul className="case__list">
               {item.built.map((b) => (
-                <li key={b}>{b}</li>
+                <li key={b}><Mark d={TICK} />{b}</li>
               ))}
             </ul>
           </div>
 
           <div className="case__block">
-            <h3 className="case__block-title">Outcome</h3>
+            <h3 className="case__label">the outcome</h3>
             <ul className="case__list case__list--out">
               {item.outcome.map((o) => (
-                <li key={o}>{o}</li>
+                <li key={o}><Mark d={ARROW} />{o}</li>
               ))}
             </ul>
           </div>
         </div>
 
-        {item.quote && <blockquote className="case__quote">{item.quote}</blockquote>}
+        <ul className="case__stack" aria-label="Scope">
+          {item.stack.map((t) => <li key={t}>{t}</li>)}
+        </ul>
 
+        {item.quote && (
+          <figure className="case__quote">
+            <span className="case__pin" aria-hidden="true" />
+            <blockquote>“{item.quote}”</blockquote>
+            <figcaption>{item.client}</figcaption>
+          </figure>
+        )}
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -257,14 +312,30 @@ export default function CaseStudies() {
     <section className="band cases">
       <div className="shell">
         <header className="cases__head">
-          <p className="eyebrow">Case studies</p>
-          <h1 className="display h1">
-            What the work <span className="sweep">actually looked like</span>.
-          </h1>
-          <p className="lede cases__lede">
-            Real client projects, the product challenge, what we delivered, and the experience
-            now running in production.
-          </p>
+          <div>
+            <h1 className="display h1">
+              What the work <Scribble variant="underline">actually</Scribble> looked like.
+            </h1>
+            <p className="lede cases__lede">
+              Real client projects: the problem, what we delivered, and the product now running in
+              production.
+            </p>
+          </div>
+
+          <nav className="cases__contents" aria-label="Case studies on this page">
+            <p className="cases__contents-title">contents</p>
+            <ol>
+              {CASES.map((c, i) => (
+                <li key={c.client}>
+                  <a href={`#${slugFor(c.client)}`}>
+                    <span className="cases__contents-n">{i + 1}.</span>
+                    <span className="cases__contents-name">{c.client}</span>
+                    <span className="cases__contents-kind">{c.service}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </nav>
         </header>
 
         <div className="cases__grid">
@@ -274,12 +345,14 @@ export default function CaseStudies() {
         </div>
 
         <aside className="cases__cta">
-          <div>
-            <h2 className="display cases__cta-title">Recognise your own problem in one of these?</h2>
-            <p className="cases__cta-sub">
-              Tell us what is breaking and we will tell you honestly whether it is worth building.
-            </p>
-          </div>
+          <span className="case__pin" aria-hidden="true" />
+          <h2 className="display cases__cta-title">Recognise your own problem in one of these?</h2>
+          <p className="cases__cta-sub">
+            Tell us what is breaking and we will tell you honestly whether it is worth building.
+          </p>
+          <Link to="/#contact" className="btn btn--primary">
+            Start a project <FiArrowUpRight aria-hidden />
+          </Link>
         </aside>
       </div>
     </section>

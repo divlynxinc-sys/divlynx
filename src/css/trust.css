@@ -1,121 +1,180 @@
 .trust {
-  padding-block: clamp(26px, 3.5vw, 42px);
-  overflow: hidden;
-  background: transparent;
+  padding-block: clamp(40px, 5vw, 64px);
 }
 
-.trust__head { margin-bottom: clamp(18px, 2.2vw, 26px); }
+.trust__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px 40px;
+  margin-bottom: 18px;
+}
 
 .trust__label {
-  font-family: var(--font-mono);
-  font-size: clamp(.75rem, .9vw, .875rem);
-  font-weight: 500;
-  letter-spacing: .14em;
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--muted);
+  font-family: var(--font-hand);
+  font-size: clamp(1.45rem, 2vw, 1.75rem);
+  line-height: 1;
+  color: var(--amber);
+  transform: rotate(-1.5deg);
+  transform-origin: left;
 }
 
+/* ---- headline numbers, written on the page ---- */
+
+.trust__stats {
+  display: flex;
+  align-items: flex-end;
+  margin: 0;
+}
+
+.stat {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 0 clamp(20px, 3vw, 40px);
+}
+
+.stat:last-child { padding-right: 0; }
+
+/* hand-drawn divider between stats */
+.stat + .stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 4px;
+  width: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 100' preserveAspectRatio='none'%3E%3Cpath d='M4 2 C 2 25, 6 50, 3 75 S 5 95, 4 98' fill='none' stroke='%23efece5' stroke-opacity='.25' stroke-width='1.6' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") 0 0 / 100% 100% no-repeat;
+}
+
+.stat__value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.3rem, 4vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stat__value .scribble__svg { color: var(--amber); }
+
+.stat__unit {
+  margin-left: 0.18em;
+  font-size: 0.42em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-dim);
+}
+
+.stat__label {
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .trust__stats { width: 100%; justify-content: space-between; }
+  .stat { padding: 0 12px; }
+  .stat:first-child { padding-left: 0; }
+  .stat__value { font-size: clamp(1.9rem, 9vw, 2.4rem); }
+  .stat__label { font-size: 1.02rem; white-space: normal; }
+}
+
+/* ---- sticker row: always moving, never paused ---- */
+
 .trust__marquee {
-  width: 100%;
   overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  padding-block: 26px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
 .trust__track {
   display: flex;
   width: max-content;
-  animation: trust-scroll 32s linear infinite;
-  will-change: transform;
+  animation: trust-scroll 38s linear infinite;
 }
 
-.trust__logos {
+.trust__row {
+  display: flex;
+  gap: clamp(36px, 5vw, 72px);
+  padding-right: clamp(36px, 5vw, 72px);
+}
+
+.sticker {
   display: flex;
   align-items: center;
-  flex: none;
-  gap: 0;
+  gap: 16px;
+  white-space: nowrap;
 }
 
-.trust__logos li {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: clamp(210px, 18vw, 270px);
-  min-height: 142px;
-  padding: 12px clamp(28px, 3vw, 48px);
+/* the logo, stuck on with a white die-cut border */
+.sticker__badge {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  flex: 0 0 auto;
+  padding: 4px;
+  border-radius: 20px;
+  background: #f6f3ec;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 10px 18px -8px rgba(0, 0, 0, 0.85),
+    0 2px 3px rgba(0, 0, 0, 0.4);
+  transform: rotate(var(--tilt, 0deg));
 }
 
-.trust__logos li::after {
-  content: "";
-  position: absolute;
-  top: 24%;
-  right: 0;
-  width: 1px;
-  height: 52%;
-  background: var(--line);
+.sticker__badge img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  object-fit: cover;
 }
 
-.trust__logos img {
-  width: 82px;
-  height: 68px;
+.sticker__badge.is-contain img {
+  padding: 7px;
   object-fit: contain;
-  opacity: .95;
-  filter: none;
+  background: #fff;
 }
 
-.trust__logos span {
-  margin-top: 12px;
-  color: #f4f1eb;
-  font-size: .9375rem;
+.sticker__badge.is-dark img { background: #1a1a18; }
+
+.sticker__text { display: grid; gap: 4px; }
+
+.sticker__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.6vw, 1.4rem);
   font-weight: 600;
-  text-align: center;
-  line-height: 1.15;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text);
 }
 
-.trust__logos small {
-  margin-top: 6px;
-  color: #8f9296;
-  font-family: var(--font-mono);
-  font-size: .65rem;
-  letter-spacing: .1em;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.trust__logos .is-sincere img {
-  filter: none;
-  mix-blend-mode: normal;
-}
-
-.trust__logos .is-range-fit img {
-  filter: none;
-  mix-blend-mode: normal;
-}
-
-.trust__logos .is-cave-clan img {
-  filter: none;
-  mix-blend-mode: normal;
+.sticker__place {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  line-height: 1;
+  color: var(--amber);
 }
 
 @keyframes trust-scroll {
   to { transform: translateX(-50%); }
 }
 
-@media (max-width: 700px) {
-  .trust__marquee { mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
-  .trust__track { animation-duration: 26s; }
-  .trust__logos li {
-    width: 190px;
-    min-height: 124px;
-    padding: 10px 25px;
-  }
-  .trust__logos img { width: 68px; height: 58px; }
+@media (max-width: 560px) {
+  .sticker__badge { width: 58px; height: 58px; border-radius: 16px; }
+  .sticker__badge img { border-radius: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .trust__marquee { overflow-x: auto; mask-image: none; scrollbar-width: thin; }
-  .trust__track { animation: none; }
-  .trust__logos[aria-hidden="true"] { display: none; }
+  .trust__track { animation-duration: 120s; }
 }

@@ -1,0 +1,179 @@
+/* A notebook page: spiral binding, ruled lines, amber margin rule */
+.pains {
+  position: relative;
+  padding: 42px 26px 22px 58px;
+  border-radius: 6px 6px 16px 16px;
+  background-color: #161614;
+  background-image:
+    linear-gradient(90deg, transparent 42px, rgba(247, 132, 0, 0.35) 42px, rgba(247, 132, 0, 0.35) 43.5px, transparent 43.5px),
+    repeating-linear-gradient(180deg, transparent 0 35px, rgba(239, 236, 229, 0.06) 35px 36px);
+  background-position: 0 0, 0 30px;
+  box-shadow:
+    7px 7px 0 -1px #0d0d0c,
+    7px 7px 0 0 rgba(239, 236, 229, 0.12),
+    0 50px 90px -40px rgba(0, 0, 0, 0.95);
+  transform: rotate(1.4deg);
+}
+
+.pains__binding {
+  position: absolute;
+  top: -12px;
+  left: 26px;
+  right: 26px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.pains__binding i {
+  position: relative;
+  width: 10px;
+  height: 26px;
+  border: 2px solid #8d8a83;
+  border-bottom-color: transparent;
+  border-radius: 6px 6px 3px 3px;
+}
+
+.pains__binding i::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background: #050505;
+}
+
+.pains__sticker {
+  position: absolute;
+  top: 18px;
+  right: -16px;
+  padding: 7px 14px 8px;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--ink);
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  line-height: 1;
+  box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.7);
+  transform: rotate(8deg);
+}
+
+.pains__title {
+  margin-bottom: 14px;
+  font-family: var(--font-hand);
+  font-size: clamp(1.5rem, 2.2vw, 1.85rem);
+  line-height: 1;
+  color: var(--amber);
+}
+
+.pains__list { display: grid; gap: 10px; }
+
+.pains__item {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.pains__box {
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  overflow: visible;
+}
+
+.pains__box rect {
+  fill: none;
+  stroke: rgba(239, 236, 229, 0.45);
+  stroke-width: 1.5;
+  transition: stroke 0.3s;
+}
+
+.pains__box path,
+.pains__strike path {
+  fill: none;
+  stroke: var(--amber);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.pains__box path {
+  stroke-width: 2.6;
+  transition: stroke-dashoffset 0.35s var(--ease-in-out) 0.55s;
+}
+
+.pains__text { display: grid; min-height: 52px; }
+
+.pains__pain {
+  position: relative;
+  justify-self: start;
+  font-family: var(--font-display);
+  font-size: 1.04rem;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  transition: color 0.4s var(--ease);
+}
+
+.pains__strike {
+  position: absolute;
+  left: -2%;
+  top: 0.32em;
+  width: 104%;
+  height: 0.5em;
+  overflow: visible;
+}
+
+.pains__strike path {
+  stroke-width: 2.4;
+  vector-effect: non-scaling-stroke;
+  transition: stroke-dashoffset 0.5s var(--ease-in-out);
+}
+
+.pains__fix {
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  line-height: 1.15;
+  color: var(--amber);
+  opacity: 0;
+  transform: translateY(-4px) rotate(-1.5deg);
+  transform-origin: left;
+  transition: opacity 0.4s var(--ease) 0.4s, transform 0.5s var(--ease) 0.4s;
+}
+
+/* fixed state: strike, tick, then the fix is written in */
+.pains__item.is-fixed .pains__pain { color: var(--muted); }
+.pains__item.is-fixed .pains__strike path,
+.pains__item.is-fixed .pains__box path { stroke-dashoffset: 0; }
+.pains__item.is-fixed .pains__box rect { stroke: var(--amber); }
+.pains__item.is-fixed .pains__fix { opacity: 1; transform: rotate(-1.5deg); }
+
+.pains__foot {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1.5px dashed rgba(239, 236, 229, 0.14);
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+.pains__foot span { color: var(--amber); font-size: 1.4rem; }
+
+@media (max-width: 560px) {
+  .pains { padding: 40px 18px 18px 48px; transform: none; background-image:
+    linear-gradient(90deg, transparent 34px, rgba(247, 132, 0, 0.35) 34px, rgba(247, 132, 0, 0.35) 35.5px, transparent 35.5px),
+    repeating-linear-gradient(180deg, transparent 0 35px, rgba(239, 236, 229, 0.06) 35px 36px); }
+  .pains__sticker { right: -6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pains__box path,
+  .pains__strike path,
+  .pains__fix { transition: none; }
+}

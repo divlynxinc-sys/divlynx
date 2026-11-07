@@ -1,44 +1,68 @@
 /* ==========================================================================
-   Divlynx design system
-   Palette derived from the logo mark: white → cream → amber gradient on ink.
+   Divlynx design system: a black sketchbook.
+   Dark dot-grid page, warm off-white type, brand amber used as whole fields
+   and as the signal colour for anything active. Documented in README.md.
    ========================================================================== */
 
 :root {
-  /* Surfaces */
-  --ink: #08090a;
+  /* Ground: a black sketchbook page */
+  --paper: #0d0d0c;
+  --paper-hi: #151513;
+  --card: #181816;
+  --paper-sink: #2b2a26;
+
+  /* Ink: the darkest value, used for type on amber */
+  --ink: #0a0a09;
+  --ink-2: #121210;
+  --ink-3: #1e1e1b;
   --ink-raised: #0d0f11;
-  --surface: #111416;
-  --surface-hi: #16191d;
 
-  /* Hairlines */
-  --line: rgba(255, 255, 255, 0.08);
-  --line-hi: rgba(255, 255, 255, 0.14);
+  /* Hairlines and pencil */
+  --line: rgba(239, 236, 229, 0.12);
+  --line-hi: rgba(239, 236, 229, 0.24);
+  --line-dark: rgba(239, 236, 229, 0.12);
+  --line-dark-hi: rgba(239, 236, 229, 0.24);
+  --dot: rgba(239, 236, 229, 0.06);
 
-  /* Brand, sampled from public/assets/brand/divlynx-logo.svg gradient stops */
+  /* Brand: sampled from the logo gradient's end stop */
   --amber: #f78400;
-  --amber-lift: #ffa31a;
+  --amber-hi: #ff9a2e;
   --amber-deep: #c26700;
-  --cream: #feedda;
+  --amber-ink: #ff9a2e; /* amber that passes 4.5:1 as text on the black page */
+  --on-amber: #0a0a09;
+  --on-amber-dim: #3a1a00;
 
-  /* Type colours, warm-neutral, not cool grey */
-  --text: #ede9e3;
-  --text-dim: #a5a29d;
-  --muted: #7e8288;
+  /* Text */
+  --text: #efece5;
+  --text-dim: #a6a39b;
+  --muted: #8f8c85;
+  --text-inv: #efece5;
+  --text-inv-dim: #a6a39b;
+
+  /* Legacy aliases still referenced by long-form page styles */
+  --cream: var(--text);
+  --amber-lift: var(--amber-hi);
+  --surface: var(--card);
 
   /* Fonts */
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body: "Instrument Sans", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Funnel Display", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Funnel Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-hand: "Gochi Hand", "Comic Sans MS", cursive;
 
   /* Rhythm */
-  --shell: 1200px;
-  --gutter: clamp(20px, 5vw, 40px);
-  --section-y: clamp(38px, 4.75vw, 64px);
-  --radius: 14px;
-  --radius-lg: 20px;
+  --shell: 1240px;
+  --gutter: clamp(16px, 4.5vw, 40px);
+  --section-y: clamp(72px, 9vw, 132px);
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --grid: 26px;
 
   /* Motion */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --nav-h: 68px;
 }
 
 /* --------------------------------------------------------------- reset -- */
@@ -54,20 +78,37 @@ html {
   -webkit-text-size-adjust: 100%;
   max-width: 100%;
   overflow-x: clip;
+  scrollbar-color: #3a3934 var(--paper);
 }
 
 body {
   margin: 0;
   max-width: 100%;
   overflow-x: clip;
-  background: var(--ink);
+  background-color: var(--paper);
+  /* dot-grid sketchbook paper */
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.4px);
+  background-size: var(--grid) var(--grid);
+  background-position: calc(var(--grid) / -2) calc(var(--grid) / -2);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  caret-color: var(--amber);
 }
+
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb {
+  background: #34332e;
+  border: 3px solid var(--paper);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--amber); }
 
 #root,
 .page,
@@ -77,6 +118,7 @@ main {
 }
 
 .page {
+  position: relative;
   overflow-x: clip;
 }
 
@@ -86,42 +128,10 @@ svg {
   max-width: 100%;
 }
 
-.asset-icon {
-  width: 1.15em;
-  height: 1.15em;
-  flex: 0 0 auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
-}
-
-.asset-icon[src$="whatsapp.png"],
-.asset-icon[src$="instagram.png"],
-.asset-icon[src$="linkedin (1).png"] {
-  filter: none;
-}
-
-.asset-icon[src$="email.png"],
-.asset-icon[src$="telephone.png"],
-.asset-icon[src$="location.png"] {
-  filter: brightness(0) saturate(100%) invert(57%) sepia(99%) saturate(3026%) hue-rotate(2deg) brightness(102%) contrast(103%);
-}
-
-.link-open-icon {
-  width: 1em;
-  height: 1em;
-  flex: 0 0 auto;
-  object-fit: contain;
-  filter: invert(58%) sepia(97%) saturate(1937%) hue-rotate(359deg) brightness(102%) contrast(103%);
-}
-
-.btn--primary .link-open-icon,
-.nav__cta .link-open-icon {
-  filter: none;
-}
-
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
   color: inherit;
 }
@@ -129,6 +139,8 @@ textarea {
 a {
   color: inherit;
   text-decoration: none;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
 }
 
 h1,
@@ -137,6 +149,7 @@ h3,
 h4,
 p,
 figure,
+blockquote,
 ul,
 ol {
   margin: 0;
@@ -150,13 +163,17 @@ ol {
 
 ::selection {
   background: var(--amber);
-  color: #000;
+  color: var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--amber-lift);
+  outline: 2px solid var(--amber);
   outline-offset: 3px;
   border-radius: 4px;
+}
+
+time {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ------------------------------------------------------------ primitives -- */
@@ -171,175 +188,252 @@ ol {
 .band {
   position: relative;
   padding-block: var(--section-y);
-  scroll-margin-top: 88px;
+  scroll-margin-top: var(--nav-h);
 }
 
-/* Section eyebrow: mono label + hairline that runs to the edge of the column */
-.eyebrow {
-  display: flex;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: 22px;
+/* Amber field: process, closing CTA */
+.band--amber {
+  background-color: var(--amber);
+  background-image: radial-gradient(rgba(10, 10, 9, 0.16) 1px, transparent 1.4px);
+  background-size: var(--grid) var(--grid);
+  color: var(--on-amber);
+  --text: var(--on-amber);
+  --text-dim: var(--on-amber-dim);
+  --muted: var(--on-amber-dim);
+  --line: rgba(17, 17, 16, 0.18);
+  --line-hi: rgba(17, 17, 16, 0.34);
 }
+
+.band--amber ::selection { background: var(--ink); color: var(--amber); }
+.band--amber :focus-visible { outline-color: var(--ink); }
 
 .display {
   font-family: var(--font-display);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.98;
+  text-wrap: balance;
 }
 
 .h1 {
-  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
+  font-size: clamp(2.6rem, 6.4vw, 5.5rem);
 }
 
 .h2 {
-  font-size: clamp(2rem, 4.4vw, 3.25rem);
-  line-height: 1.04;
+  font-size: clamp(2.1rem, 4.6vw, 3.75rem);
+  line-height: 1.02;
 }
 
 .h3 {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
-  letter-spacing: -0.015em;
-  line-height: 1.25;
-  margin: 0;
+  font-weight: 600;
+  font-size: clamp(1.125rem, 1.6vw, 1.3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
-/* Cream→amber sweep echoing the logo's own gradient. Starts at cream rather
-   than white so short spans still read as one warm colour instead of looking
-   like a word that changed colour halfway through. `clone` gives each wrapped
-   line its own sweep. */
+/* Retained class from the previous system: emphasis now comes from colour
+   on a single phrase, never a gradient. */
 .sweep {
-  color: var(--amber-lift);
+  color: var(--amber-ink);
 }
+.band--amber .sweep { color: var(--ink); text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.12em; }
 
 .lede {
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  line-height: 1.55;
   color: var(--text-dim);
-  max-width: 54ch;
+  max-width: 52ch;
+  text-wrap: pretty;
 }
 
-.dim {
-  color: var(--text-dim);
+/* Section header: heading left, supporting copy right, aligned on baseline */
+.sec-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.9fr);
+  align-items: end;
+  gap: clamp(20px, 5vw, 72px);
+  margin-bottom: clamp(40px, 6vw, 80px);
 }
 
-.mono {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
+.sec-head .h2 { max-width: 16ch; }
+.sec-head .lede { justify-self: end; }
+
+@media (max-width: 820px) {
+  .sec-head { grid-template-columns: 1fr; }
+  .sec-head .lede { justify-self: start; }
 }
 
 /* ---------------------------------------------------------------- buttons -- */
 
+/* Hand-cut corners and an offset marker outline that snaps into place on
+   hover, like a shape traced twice in a sketchbook. */
 .btn {
+  --btn-bg: var(--amber);
+  --btn-fg: var(--ink);
+  --btn-line: var(--amber);
+  --btn-shape: 10px 16px 12px 18px / 16px 10px 18px 12px;
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  padding: 13px 22px;
-  border: 1px solid transparent;
-  border-radius: 10px;
+  gap: 10px;
+  min-height: 50px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: var(--btn-shape);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
   font-family: var(--font-display);
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   letter-spacing: -0.01em;
   cursor: pointer;
   white-space: nowrap;
-  transition: transform 0.25s var(--ease), background 0.25s var(--ease),
-    border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), color 0.25s var(--ease);
+  isolation: isolate;
+  transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1), background-color 0.3s var(--ease),
+    color 0.3s var(--ease);
 }
+
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1.5px solid var(--btn-line);
+  border-radius: 14px 10px 18px 12px / 10px 16px 12px 18px;
+  transform: translate(5px, 5px) rotate(-0.8deg);
+  transition: transform 0.4s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.3s;
+  pointer-events: none;
+}
+
+.btn:hover { transform: translate(-2px, -2px); }
+.btn:hover::after { transform: translate(4px, 4px) rotate(0.6deg); }
 
 .btn svg {
   flex-shrink: 0;
+  width: 1.1em;
+  height: 1.1em;
+  transition: transform 0.35s var(--ease);
 }
 
-.btn--primary {
-  background: linear-gradient(180deg, var(--amber-lift), var(--amber));
-  color: #140a00;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.28) inset, 0 8px 26px -10px rgba(247, 132, 0, 0.75);
-}
+.btn:hover svg.arrow { transform: translate(2px, -2px) rotate(8deg); }
 
-.btn--primary:hover {
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.34) inset, 0 16px 34px -12px rgba(247, 132, 0, 0.9);
-}
+.btn--primary:hover { --btn-bg: var(--amber-hi); }
 
 .btn--ghost {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: var(--line-hi);
-  color: var(--text);
+  --btn-bg: transparent;
+  --btn-fg: var(--text);
+  --btn-line: rgba(239, 236, 229, 0.35);
+  box-shadow: inset 0 0 0 1.5px rgba(239, 236, 229, 0.7);
 }
 
 .btn--ghost:hover {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 163, 26, 0.45);
+  --btn-bg: rgba(239, 236, 229, 0.06);
+  --btn-line: var(--amber);
 }
 
-.btn:active:not(:disabled) {
-  transform: scale(0.98);
-}
+.band--amber .btn--primary { --btn-bg: var(--ink); --btn-fg: var(--text); --btn-line: var(--ink); }
+.band--amber .btn--primary:hover { --btn-bg: #1d1d1a; }
+.band--amber .btn--ghost { --btn-fg: var(--ink); --btn-line: rgba(10, 10, 9, 0.4); box-shadow: inset 0 0 0 1.5px var(--ink); }
+
+.btn:active:not(:disabled) { transform: translate(3px, 3px); }
+.btn:active:not(:disabled)::after { transform: translate(0, 0); }
 
 .btn:disabled {
-  opacity: 0.45;
+  opacity: 0.55;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
 }
 
-/* Small pill used for tech tags / meta chips */
+/* Inline text link with a drawn underline */
+.tlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+  padding-bottom: 2px;
+  transition: background-size 0.4s var(--ease);
+}
+
+.tlink:hover { background-size: 0 1px; background-position: 100% 100%; }
+
+/* Small tag used for tech / meta */
 .chip {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 5px 10px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.025);
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.03em;
+  font-size: 0.8125rem;
+  line-height: 1.2;
   color: var(--text-dim);
 }
 
-/* ------------------------------------------------------------ ambient bg -- */
-
-.aurora {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(58rem 34rem at 78% -8%, rgba(247, 132, 0, 0.14), transparent 62%),
-    radial-gradient(44rem 30rem at 6% 12%, rgba(255, 163, 26, 0.07), transparent 60%);
+/* The navbar and logo keep the original identity faces untouched. */
+.nav,
+.drawer,
+.logo {
+  --font-display: "Space Grotesk", system-ui, sans-serif;
 }
 
-.grid-veil {
-  position: fixed;
-  inset: 0;
+/* ------------------------------------------------------------------- glow -- */
+
+/* Ambient amber light that drifts slowly behind a section */
+.glow {
+  position: absolute;
   z-index: 0;
+  width: var(--size, 520px);
+  height: var(--size, 520px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(247, 132, 0, var(--strength, 0.55)), rgba(247, 132, 0, 0) 68%);
+  filter: blur(30px);
   pointer-events: none;
-  opacity: 0.5;
-  background-image: linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 68px 68px;
-  mask-image: radial-gradient(100% 62% at 50% 0%, #000 0%, transparent 78%);
-  -webkit-mask-image: radial-gradient(100% 62% at 50% 0%, #000 0%, transparent 78%);
+  animation: glow-drift var(--drift, 18s) var(--ease-in-out) infinite alternate;
 }
 
-.page {
-  position: relative;
-  z-index: 1;
-  background:
-    radial-gradient(72rem 54rem at 92% 12%, rgba(247, 132, 0, 0.055), transparent 72%),
-    radial-gradient(62rem 48rem at 4% 36%, rgba(255, 163, 26, 0.035), transparent 74%),
-    radial-gradient(76rem 56rem at 90% 64%, rgba(247, 132, 0, 0.045), transparent 74%),
-    radial-gradient(58rem 44rem at 8% 91%, rgba(255, 163, 26, 0.03), transparent 72%);
+.glow--soft { --strength: 0.3; }
+.glow--warm { background: radial-gradient(circle, rgba(255, 176, 74, var(--strength, 0.45)), rgba(255, 176, 74, 0) 68%); }
+
+@keyframes glow-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(var(--dx, 60px), var(--dy, -40px), 0) scale(1.12); }
+}
+
+/* Content sits above the glow layer */
+.band > .shell,
+.hero > .shell { position: relative; z-index: 1; }
+
+/* Sections clip glows only sideways, so the light fades out softly across
+   section boundaries instead of ending in a hard edge. Each section is its own
+   stacking context, so a glow never paints over the next section's content. */
+.band,
+.hero { isolation: isolate; }
+
+.glow {
+  -webkit-mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+}
+
+/* ---------------------------------------------------------- scroll reveal -- */
+
+/* Default state is visible. Only when JS has booted (html.js) do elements
+   wait for the observer, and a timed fallback reveals them regardless. */
+.js .reveal:not(.is-in) {
+  opacity: 0;
+  transform: translateY(18px);
+  animation: reveal-fallback 0s linear 2.5s forwards;
+}
+
+.reveal {
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes reveal-fallback {
+  to { opacity: 1; transform: none; }
 }
 
 /* ------------------------------------------------------------ a11y / motion -- */
@@ -361,22 +455,18 @@ ol {
   left: 10px;
   z-index: 200;
   padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 999px;
   background: var(--amber);
-  color: #000;
+  color: var(--ink);
   font-weight: 600;
   transform: translateY(-160%);
   transition: transform 0.2s var(--ease);
 }
 
-.skip-link:focus-visible {
-  transform: translateY(0);
-}
+.skip-link:focus-visible { transform: translateY(0); }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+  html { scroll-behavior: auto; }
 
   *,
   *::before,
@@ -384,39 +474,26 @@ ol {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
+
+  .js .reveal:not(.is-in) { opacity: 1; transform: none; }
 }
 
-/* Small phones: retain readable type and comfortable touch targets without
-   forcing sections wider than the viewport. */
 @media (max-width: 380px) {
-  :root {
-    --gutter: 16px;
-    --section-y: 36px;
-  }
-
-  body { font-size: 15px; }
-  .btn { min-height: 46px; padding-inline: 17px; }
-  .h1 { font-size: 2.1rem; }
-  .h2 { font-size: 1.85rem; }
+  body { font-size: 1rem; }
+  .btn { padding-inline: 18px; }
 }
 
-/* Large desktop and TV displays: increase the content canvas rather than
-   leaving the 1200px site floating in an oversized empty viewport. */
 @media (min-width: 1800px) {
   :root {
     --shell: 1480px;
     --gutter: 48px;
-    --section-y: 80px;
   }
 
-  body { font-size: 17px; }
-  .h1 { font-size: 4rem; }
-  .h2 { font-size: 3.65rem; }
-  .lede { font-size: 1.2rem; }
+  body { font-size: 1.125rem; }
 }
 
 @media (min-width: 2400px) {
   :root { --shell: 1680px; }
-  body { font-size: 18px; }
 }

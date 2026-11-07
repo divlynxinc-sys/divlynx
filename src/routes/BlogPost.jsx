@@ -19,7 +19,7 @@ export default function BlogPost() {
     <article className="band post">
       <div className="shell post__shell">
         <Link to="/blog" className="post__back">
-          <FiArrowLeft aria-hidden /> All posts
+          <FiArrowLeft aria-hidden /> all posts
         </Link>
 
         <header className="post__head">
@@ -35,19 +35,25 @@ export default function BlogPost() {
 
         <footer className="post__foot">
           <div className="post__cta">
+            <span className="blog-pin" aria-hidden="true" />
             <h2 className="display post__cta-title">Want this built rather than read about?</h2>
             <p className="post__cta-sub">
               We scope honestly and tell you when something is not worth automating.
             </p>
-            <p className="post__cta-mail">
-              Or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-            </p>
+            <div className="post__cta-actions">
+              <Link to="/#contact" className="btn btn--primary">
+                Start a project <FiArrowUpRight aria-hidden />
+              </Link>
+              <p className="post__cta-mail">
+                or email <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              </p>
+            </div>
           </div>
 
           {next && (
             <Link to={`/blog/${next.slug}`} className="post__next">
               <span className="post__next-text">
-                <span className="post__next-label">Read next</span>
+                <span className="post__next-label">read next</span>
                 <span className="post__next-title">{next.title}</span>
               </span>
               <FiArrowUpRight className="post__next-go" aria-hidden />

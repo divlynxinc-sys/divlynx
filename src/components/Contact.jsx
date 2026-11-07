@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import { FiArrowUpRight, FiCalendar, FiLinkedin, FiInstagram, FiMail, FaWhatsapp } from "../icons.jsx";
 import { CALENDLY, EMAIL, PHONE, PHONE_HREF, SOCIAL, composeUrl } from "../site";
+import Scribble from "./Scribble";
 import "../css/contact.css";
 
 /** Same-origin, so no CORS. Backed by functions/index.js sending through Resend. */
@@ -134,76 +134,60 @@ export default function Contact() {
   const field = (name) => (errors[name] && touched[name] ? "field is-invalid" : "field");
 
   return (
-    <section id="contact" className="band contact">
+    <section id="contact" className="band band--amber contact">
       <div className="shell contact__grid">
-        <motion.div
-          className="contact__pitch"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-          <p className="eyebrow">Contact</p>
-          <h2 className="display h2">
-            Tell us what keeps <span className="sweep">breaking</span>.
-          </h2>
-          <p className="lede contact__lede">
+        <div className="contact__pitch">
+          <h2 className="display contact__title reveal">Tell us what keeps <Scribble variant="circle">breaking</Scribble>.</h2>
+          <p className="lede contact__lede reveal" style={{ "--reveal-delay": "80ms" }}>
             Send the messy version. A rough description of the problem is more useful to us than a
             polished brief, and the first call costs nothing.
           </p>
 
-          <div className="contact__channels">
-            <a className="channel channel--mail" href={`mailto:${EMAIL}`}>
-              <span className="channel__icon">
-                <FiMail aria-hidden />
-              </span>
-              <span className="channel__text">
-                <span className="channel__label">Email us</span>
-                <span className="channel__value">{EMAIL}</span>
-              </span>
-              <FiArrowUpRight className="channel__go" aria-hidden />
-            </a>
-
-            <a className="channel channel--whatsapp" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              <span className="channel__icon">
-                <FaWhatsapp aria-hidden />
-              </span>
-              <span className="channel__text">
-                <span className="channel__label">WhatsApp us</span>
-                <span className="channel__value">{PHONE}</span>
-              </span>
-              <FiArrowUpRight className="channel__go" aria-hidden />
-            </a>
-
-            <a className="channel" href={CALENDLY} target="_blank" rel="noopener noreferrer">
-              <span className="channel__icon">
-                <FiCalendar aria-hidden />
-              </span>
-              <span className="channel__text">
-                <span className="channel__label">Book a call</span>
-                <span className="channel__value">30 minutes, no pitch deck</span>
-              </span>
-              <FiArrowUpRight className="channel__go" aria-hidden />
-            </a>
-          </div>
+          <ul className="contact__channels reveal" style={{ "--reveal-delay": "140ms" }}>
+            <li>
+              <a className="channel" href={`mailto:${EMAIL}`}>
+                <FiMail className="channel__icon" aria-hidden />
+                <span className="channel__text">
+                  <span className="channel__label">Email</span>
+                  <span className="channel__value">{EMAIL}</span>
+                </span>
+                <FiArrowUpRight className="channel__go" aria-hidden />
+              </a>
+            </li>
+            <li>
+              <a className="channel" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <FaWhatsapp className="channel__icon" aria-hidden />
+                <span className="channel__text">
+                  <span className="channel__label">WhatsApp</span>
+                  <span className="channel__value">{PHONE}</span>
+                </span>
+                <FiArrowUpRight className="channel__go" aria-hidden />
+              </a>
+            </li>
+            <li>
+              <a className="channel" href={CALENDLY} target="_blank" rel="noopener noreferrer">
+                <FiCalendar className="channel__icon" aria-hidden />
+                <span className="channel__text">
+                  <span className="channel__label">Book a call</span>
+                  <span className="channel__value">30 minutes, no pitch deck</span>
+                </span>
+                <FiArrowUpRight className="channel__go" aria-hidden />
+              </a>
+            </li>
+          </ul>
 
           <div className="contact__social">
-            <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <FiLinkedin />
+            <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Divlynx on LinkedIn">
+              <FiLinkedin aria-hidden />
             </a>
-            <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FiInstagram />
+            <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Divlynx on Instagram">
+              <FiInstagram aria-hidden />
             </a>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.form
-          className="contact__form"
-          onSubmit={handleSubmit}
-          noValidate
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}>
+        <form className="contact__form reveal" style={{ "--reveal-delay": "120ms" }} onSubmit={handleSubmit} noValidate>
+          <p className="form__hint" aria-hidden="true">a few lines is plenty</p>
           <div className="form__row">
             <label className={field("name")}>
               <span className="field__label">Name</span>
@@ -252,16 +236,29 @@ export default function Contact() {
             />
           </div>
 
-          <label className="field">
-            <span className="field__label">What do you need?</span>
-            <select name="topic" value={form.topic} onChange={onChange}>
+          <fieldset className="field field--topics">
+            <legend className="field__label">What do you need?</legend>
+            <div className="topics">
               {TOPICS.map((t) => (
-                <option key={t} value={t}>
-                  {t}
-                </option>
+                <label key={t} className={`topic${form.topic === t ? " is-on" : ""}`}>
+                  <input
+                    type="radio"
+                    name="topic"
+                    value={t}
+                    checked={form.topic === t}
+                    onChange={onChange}
+                  />
+                  <span className="topic__box" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                      <path className="topic__square" d="M4 5 C 9 3.5, 15 4, 20 4.5 C 20.5 10, 20 15, 19.5 20 C 14 20.5, 9 20.2, 4.5 19.5 C 3.8 14, 4 9, 4.4 4.2" />
+                      <path className="topic__tick" pathLength="1" d="M6.5 12.5 C 8 14, 9.5 15.5, 10.5 17 C 13 11, 16.5 6.5, 22 2.5" />
+                    </svg>
+                  </span>
+                  <span className="topic__text">{t}</span>
+                </label>
               ))}
-            </select>
-          </label>
+            </div>
+          </fieldset>
 
           <label className={field("message")}>
             <span className="field__label">The problem</span>
@@ -281,21 +278,27 @@ export default function Contact() {
             )}
           </label>
 
-          <button type="submit" className="btn btn--primary form__submit" disabled={status.sending}>
-            {status.sending ? "Sending…" : "Send message"}
-            {!status.sending && <FiArrowUpRight aria-hidden />}
-          </button>
-
-          <p className="form__foot">
-            Prefer email? Write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a> directly.
-          </p>
+          <div className="form__actions">
+            <button type="submit" className="btn btn--primary form__submit" disabled={status.sending}>
+              {status.sending ? (
+                <>
+                  <span className="form__spinner" aria-hidden /> Sending…
+                </>
+              ) : (
+                <>
+                  Send message <FiArrowUpRight aria-hidden />
+                </>
+              )}
+            </button>
+            <p className="form__foot">We reply within one working day.</p>
+          </div>
 
           {status.note && (
             <p className={`form__note is-${status.tone}`} role="status">
               {status.note}
             </p>
           )}
-        </motion.form>
+        </form>
       </div>
     </section>
   );

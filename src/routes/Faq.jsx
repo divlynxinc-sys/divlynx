@@ -4,6 +4,7 @@ import { FiPlus } from "../icons.jsx";
 import { FAQS } from "../data/faqs";
 import "../css/studio.css";
 import "../css/faq-page.css";
+import Scribble from "../components/Scribble";
 
 export default function Faq() {
   const [open, setOpen] = useState(0);
@@ -13,9 +14,8 @@ export default function Faq() {
       <div className="shell">
         <header className="faq__head">
           <div>
-            <p className="eyebrow">Frequently asked questions</p>
             <h1 className="display faq__title">
-              Clear answers before <span className="sweep">we start</span>.
+              Clear answers before <Scribble variant="underline">we start</Scribble>.
             </h1>
           </div>
           <p className="faq__intro">

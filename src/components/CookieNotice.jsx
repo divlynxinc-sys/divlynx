@@ -19,8 +19,9 @@ export default function CookieNotice() {
   if (!visible) return null;
   return (
     <aside className="cookie-notice" aria-label="Privacy preferences" role="dialog" aria-live="polite">
+      <span className="cookie-notice__pin" aria-hidden="true" />
       <div>
-        <p className="cookie-notice__title">Your privacy, plainly stated.</p>
+        <p className="cookie-notice__title">your privacy, plainly stated</p>
         <p>We currently use only necessary browser storage to remember this choice. We do not set advertising or analytics cookies. <Link to="/privacy">Privacy & cookie notice</Link></p>
       </div>
       <div className="cookie-notice__actions">

@@ -1,30 +1,54 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import Scribble from "./Scribble";
 import "../css/team.css";
+
+const DISCIPLINES = ["Strategy", "Engineering", "AI & automation", "Mobile", "Security", "Operations", "Design", "DevOps"];
+
+/* Scrolling amber strip of what the team covers, set at a slight angle */
+function TeamStrip() {
+  return (
+    <div className="team-strip" aria-hidden="true">
+      <div className="team-strip__track">
+        {[0, 1].map((copy) => (
+          <ul key={copy}>
+            {DISCIPLINES.map((d) => (
+              <li key={`${copy}-${d}`}>
+                {d}
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path d="M12 3 C 11.5 8, 12.5 16, 12 21 M4 8 C 9 10, 15 14, 20 16 M20 7 C 15 10, 9 14, 4 17" />
+                </svg>
+              </li>
+            ))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 const EXECUTIVES = [
   {
     name: "Mustafa Irfan",
     role: "Founder & CEO",
-    image: "/assets/team/mustafa-irfan-white.webp",
+    image: "/assets/team/mustafa-irfan.webp",
     description: "Product direction, strategy and client partnerships.",
   },
   {
     name: "Abdullah Tahir",
     role: "Co-Founder & CTO",
-    image: "/assets/team/abdullah-tahir-white.webp",
+    image: "/assets/team/abdullah-tahir.webp",
     description: "Technical architecture and engineering delivery.",
   },
   {
     name: "Ali Shayan",
     role: "Head of Engineering",
-    image: "/assets/team/ali-shayan-white.webp",
+    image: "/assets/team/ali-shayan.webp",
     description: "Engineering standards, systems and product quality.",
   },
   {
     name: "Abdullah Omer",
     role: "Chief Operating Officer",
-    image: "/assets/team/abdullah-omer-white.webp",
+    image: "/assets/team/abdullah-omer.webp",
     description: "Operations, delivery planning and team coordination.",
   },
 ];
@@ -33,31 +57,31 @@ const ENGINEERING = [
   {
     name: "Farheen",
     role: "Lead Backend Engineer",
-    image: "/assets/team/farheen-white.webp",
+    image: "/assets/team/farheen.webp",
     description: "Backend systems, APIs and reliable data services.",
   },
   {
     name: "Zile Hasnain",
     role: "Software Engineer",
-    image: "/assets/team/zile-hasnain-white.webp",
+    image: "/assets/team/zile-hasnain.webp",
     description: "Web products, interfaces and application engineering.",
   },
   {
     name: "Shahroze Afaq",
     role: "Cyber Security Engineer",
-    image: "/assets/team/shahroze-afaq-white.webp",
+    image: "/assets/team/shahroze-afaq.webp",
     description: "Security reviews, hardening and resilient infrastructure.",
   },
   {
     name: "Khubaib",
     role: "Flutter Intern",
-    image: "/assets/team/khubaib-flutter-intern.png",
+    image: "/assets/team/khubaib.webp",
     description: "Flutter development, mobile interfaces and cross-platform product delivery.",
   },
   {
     name: "Salman Asad",
     role: "Full-stack Engineer Intern",
-    image: "/assets/team/salman-asad-full-stack-engineer-intern.png",
+    image: "/assets/team/salman-asad.webp",
     description: "Full-stack development, product interfaces and application engineering.",
   },
 ];
@@ -68,8 +92,8 @@ function Profile({ member, index = 0 }) {
   const toggleExpanded = () => setExpanded((current) => !current);
 
   return (
-    <motion.article
-      className={`team-card${expanded ? " is-active" : ""}`}
+    <article
+      className={`team-card reveal${expanded ? " is-active" : ""}`}
       tabIndex={0}
       role="button"
       aria-expanded={expanded}
@@ -81,10 +105,7 @@ function Profile({ member, index = 0 }) {
           toggleExpanded();
         }
       }}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}>
+      style={{ "--reveal-delay": `${index * 80}ms` }}>
       <div className="team-card__portrait">
         <img className="team-card__image" src={member.image} alt={member.name} loading="lazy" decoding="async" />
         <div className="team-card__body">
@@ -93,21 +114,19 @@ function Profile({ member, index = 0 }) {
           <p className="team-card__description">{member.description}</p>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
 export default function Team() {
   return (
     <section id="team" className="band team">
+      <TeamStrip />
       <div className="shell">
-        <header className="team__head">
-          <div>
-            <p className="eyebrow">Our team</p>
-            <h2 className="display h2">
-              The people behind <span className="sweep">the work</span>.
-            </h2>
-          </div>
+        <header className="sec-head team__head">
+          <h2 className="display h2">
+            The people behind <Scribble variant="underline">the work</Scribble>.
+          </h2>
           <p className="lede team__intro">
             Strategy, engineering, operations and security under one roof. The people who
             scope the work stay close to the people who build it.

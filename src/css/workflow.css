@@ -1,5 +1,0 @@
-.neural-field { position:absolute; inset:0; overflow:hidden; pointer-events:none; background:radial-gradient(ellipse at 50% 42%,rgba(247,132,0,.055),transparent 45%); mask-image:linear-gradient(180deg,#000 0%,#000 74%,rgba(0,0,0,.7) 88%,transparent 100%); -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 74%,rgba(0,0,0,.7) 88%,transparent 100%); }
-.neural-field__canvas { position:absolute; inset:0; width:100%; height:100%; }
-.neural-field__focus { position:absolute; inset:0; background:radial-gradient(ellipse 44% 54% at 50% 45%,rgba(8,9,10,.58) 0%,rgba(8,9,10,.24) 52%,transparent 82%); }
-@media(max-width:760px){.neural-field__canvas{opacity:.76}.neural-field__focus{background:radial-gradient(ellipse 76% 60% at 50% 43%,rgba(8,9,10,.72) 0%,rgba(8,9,10,.38) 58%,transparent 92%)}}
-@media(prefers-reduced-motion:reduce){.neural-field__canvas{opacity:.62}}

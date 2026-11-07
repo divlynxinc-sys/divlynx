@@ -3,6 +3,7 @@ import { FiArrowUpRight, FiInstagram, FiLinkedin, FiMail, FiMapPin, FiPhone } fr
 import Logo from "./Logo";
 import { CALENDLY, EMAIL, NAV, OFFICE, PHONE, PHONE_HREF, SOCIAL, scrollToId } from "../site";
 import "../css/footer.css";
+import Scribble from "./Scribble";
 
 const SERVICES = [
   "AI automation",
@@ -22,12 +23,11 @@ export default function Footer() {
   const onHome = pathname === "/";
 
   const goHash = (e, href) => {
-    if (!onHome) return; // Let the router handle the /#hash navigation.
+    if (!onHome) return;
     e.preventDefault();
     scrollToId(href);
   };
 
-  /** Section links become /#section when we are not on the home page. */
   const hashLink = (href, children, key) =>
     onHome ? (
       <a key={key} href={href} onClick={(e) => goHash(e, href)}>
@@ -42,30 +42,25 @@ export default function Footer() {
   return (
     <footer className="foot">
       <div className="shell">
-        <div className="foot__cta">
-          <div>
+        {/* The home page closes on the contact section, so the CTA would repeat it there. */}
+        {!onHome && (
+          <div className="foot__cta">
             <h2 className="display foot__headline">
-              Got a process that should <span className="sweep">run itself</span>?
+              Got a process that should <Scribble variant="underline">run itself</Scribble>?
             </h2>
-            <p className="foot__sub">
-              One call. We will tell you honestly whether it is worth building.
-            </p>
+            <div className="foot__cta-side">
+              <p className="foot__sub">One call. We will tell you honestly whether it is worth building.</p>
+              <div className="foot__cta-actions">
+                <Link to="/#contact" className="btn btn--primary">
+                  Start a project <FiArrowUpRight aria-hidden />
+                </Link>
+                <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
+                  Book a call
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="foot__cta-actions">
-            {onHome ? (
-              <a href="#contact" className="btn btn--primary" onClick={(e) => goHash(e, "#contact")}>
-                Start a project <FiArrowUpRight aria-hidden />
-              </a>
-            ) : (
-              <Link to="/#contact" className="btn btn--primary">
-                Start a project <FiArrowUpRight aria-hidden />
-              </Link>
-            )}
-            <a href={CALENDLY} target="_blank" rel="noopener noreferrer" className="btn btn--ghost">
-              Book a call
-            </a>
-          </div>
-        </div>
+        )}
 
         <div className="foot__cols">
           <div className="foot__brand">
@@ -80,7 +75,7 @@ export default function Footer() {
             </address>
           </div>
 
-          <nav className="foot__col foot__col--services" aria-label="Services">
+          <nav className="foot__col" aria-label="Services">
             <h3 className="foot__col-title">Services</h3>
             <ul>
               {SERVICES.map((s) => (
@@ -89,16 +84,12 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <nav className="foot__col foot__col--company" aria-label="Company">
+          <nav className="foot__col" aria-label="Company">
             <h3 className="foot__col-title">Company</h3>
             <ul>
               {NAV.map((n) => (
                 <li key={n.href}>
-                  {n.kind === "route" ? (
-                    <Link to={n.href}>{n.label}</Link>
-                  ) : (
-                    hashLink(n.href, n.label, n.href)
-                  )}
+                  {n.kind === "route" ? <Link to={n.href}>{n.label}</Link> : hashLink(n.href, n.label, n.href)}
                 </li>
               ))}
             </ul>
@@ -106,17 +97,17 @@ export default function Footer() {
         </div>
 
         <div className="foot__bar">
-          <div className="foot__legal">
-            <p>© {new Date().getFullYear()} Divlynx Inc. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Divlynx Inc. Islamabad, working worldwide.</p>
+          <div className="foot__bar-end">
             <Link to="/privacy">Privacy & cookies</Link>
-          </div>
-          <div className="foot__social">
-            <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <FiLinkedin />
-            </a>
-            <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <FiInstagram />
-            </a>
+            <div className="foot__social">
+              <a href={SOCIAL.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Divlynx on LinkedIn">
+                <FiLinkedin aria-hidden />
+              </a>
+              <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer" aria-label="Divlynx on Instagram">
+                <FiInstagram aria-hidden />
+              </a>
+            </div>
           </div>
         </div>
       </div>

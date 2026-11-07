@@ -39,9 +39,28 @@ const TRUSTED_ORIGINS = new Set([
   "https://www.divlynx.com",
 ]);
 
+const IS_PRODUCTION = process.env.VERCEL_ENV === "production" || process.env.NODE_ENV === "production";
+
+/** Browsers always send Origin on a cross-origin-capable POST; scripts that omit it are refused in production. */
 function originAllowed(origin) {
-  if (!origin || TRUSTED_ORIGINS.has(origin)) return true;
-  return process.env.NODE_ENV !== "production" && /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
+  if (origin && TRUSTED_ORIGINS.has(origin)) return true;
+  if (IS_PRODUCTION) return false;
+  return !origin || /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
+}
+
+/**
+ * The client IP as set by Vercel's edge. x-forwarded-for's first entry is
+ * whatever the caller claimed, so it is only a last resort.
+ */
+function clientIp(req) {
+  const h = req.headers;
+  return (
+    h["x-vercel-forwarded-for"]?.toString().split(",")[0].trim() ||
+    h["x-real-ip"]?.toString().trim() ||
+    h["x-forwarded-for"]?.toString().split(",").pop().trim() ||
+    req.socket?.remoteAddress ||
+    "unknown"
+  );
 }
 
 function rateLimited(ip) {
@@ -89,6 +108,12 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: "Origin not allowed." });
   }
 
+  // Fetch metadata: a browser on another site cannot post here even if it spoofs nothing else.
+  const site = req.headers["sec-fetch-site"];
+  if (site && site !== "same-origin" && site !== "none") {
+    return res.status(403).json({ error: "Cross-site requests are not allowed." });
+  }
+
   if (!req.headers["content-type"]?.toLowerCase().includes("application/json")) {
     return res.status(415).json({ error: "Content-Type must be application/json." });
   }
@@ -98,15 +123,7 @@ export default async function handler(req, res) {
     return res.status(413).json({ error: "Request is too large." });
   }
 
-  if (!process.env.RESEND_API_KEY) {
-    console.error("RESEND_API_KEY is not set on this deployment");
-    return res.status(500).json({ error: "Email is not configured yet. Please email us directly." });
-  }
-
-  const ip =
-    req.headers["x-forwarded-for"]?.toString().split(",")[0].trim() ||
-    req.socket?.remoteAddress ||
-    "unknown";
+  const ip = clientIp(req);
 
   if (rateLimited(ip)) {
     return res.status(429).json({ error: "Too many messages. Try again in a minute." });
@@ -115,6 +132,7 @@ export default async function handler(req, res) {
   // Vercel parses JSON bodies, but be defensive about a raw string.
   let body = req.body;
   if (typeof body === "string") {
+    if (body.length > MAX_BODY_BYTES) return res.status(413).json({ error: "Request is too large." });
     try {
       body = JSON.parse(body);
     } catch {
@@ -122,6 +140,10 @@ export default async function handler(req, res) {
     }
   }
   if (typeof body !== "object" || body === null || Array.isArray(body)) body = {};
+  // Content-Length can be absent (chunked uploads), so check what was actually parsed.
+  if (JSON.stringify(body).length > MAX_BODY_BYTES) {
+    return res.status(413).json({ error: "Request is too large." });
+  }
 
   // Honeypot: real people never fill a hidden field. Answer 200 so bots cannot
   // tell they were caught.
@@ -138,6 +160,11 @@ export default async function handler(req, res) {
   if (message.length < 10) problems.push("message");
   if (problems.length) {
     return res.status(400).json({ error: `Check these fields: ${problems.join(", ")}.` });
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not set on this deployment");
+    return res.status(500).json({ error: "Email is not configured yet. Please email us directly." });
   }
 
   const resend = new Resend(process.env.RESEND_API_KEY);

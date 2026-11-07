@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { FiArrowUpRight } from "../icons.jsx";
 import "../css/blog.css";
+import Scribble from "../components/Scribble";
 
 export default function NotFound() {
   return (
     <section className="band not-found">
       <div className="shell">
-        <p className="eyebrow">404</p>
         <h1 className="display h1">
-          That page has <span className="sweep">moved on</span>.
+          That page has <Scribble variant="strike">moved on</Scribble>.
         </h1>
         <p className="lede not-found__lede">
           The link is broken or the page no longer exists. The work, the journal and a way to reach

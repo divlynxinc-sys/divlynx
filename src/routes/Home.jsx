@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import TrustStrip from "../components/TrustStrip";
+import Solved from "../components/Solved";
 import Services from "../components/Services";
 import Process from "../components/Process";
 import Work from "../components/Work";
@@ -18,6 +19,7 @@ export default function Home() {
     <>
       <Hero />
       <TrustStrip />
+      <Solved />
       <Services />
       <Process />
       <Work />

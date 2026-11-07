@@ -3,7 +3,7 @@ import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiArrowUpRight, FiChevronDown, FiMenu, FiX } from "../icons.jsx";
 import Logo from "./Logo";
-import { NAV, scrollToId } from "../site";
+import { EMAIL, NAV, PHONE, PHONE_HREF, scrollToId } from "../site";
 import "../css/navbar.css";
 
 const NAV_DRAWERS = {
@@ -250,8 +250,8 @@ export default function Navbar() {
               {NAV.map((item, i) => {
                 const inner = (
                   <>
-                    <span className="drawer__index">{String(i + 1).padStart(2, "0")}</span>
-                    {item.label}
+                    <span className="drawer__index">{i + 1}.</span>
+                    <span className="drawer__label">{item.label}</span>
                   </>
                 );
                 return item.kind === "route" ? (
@@ -260,7 +260,11 @@ export default function Navbar() {
                     initial={{ opacity: 0, x: -14 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.06 + i * 0.05, duration: 0.35 }}>
-                    <Link to={item.href} className="drawer__link" onClick={() => setOpen(false)}>
+                    <Link
+                      to={item.href}
+                      className={`drawer__link${isActive(item) ? " is-active" : ""}`}
+                      aria-current={isActive(item) ? "page" : undefined}
+                      onClick={() => setOpen(false)}>
                       {inner}
                     </Link>
                   </motion.div>
@@ -268,7 +272,7 @@ export default function Navbar() {
                   <motion.a
                     key={item.href}
                     href={onHome ? item.href : `/${item.href}`}
-                    className="drawer__link"
+                    className={`drawer__link${isActive(item) ? " is-active" : ""}`}
                     onClick={(e) => goHash(e, item.href)}
                     initial={{ opacity: 0, x: -14 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -277,6 +281,22 @@ export default function Navbar() {
                   </motion.a>
                 );
               })}
+
+              <motion.div
+                className="drawer__foot"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.12 + NAV.length * 0.05, duration: 0.4 }}>
+                <a
+                  href={onHome ? "#contact" : "/#contact"}
+                  className="btn btn--primary drawer__cta"
+                  onClick={(e) => goHash(e, "#contact")}>
+                  Start a project <FiArrowUpRight aria-hidden />
+                </a>
+                <p className="drawer__reach">or reach us directly</p>
+                <a className="drawer__contact" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+                <a className="drawer__contact" href={`tel:${PHONE_HREF}`}>{PHONE}</a>
+              </motion.div>
             </motion.aside>
           </motion.div>
         )}

@@ -10,7 +10,6 @@
   margin-bottom:clamp(46px,7vw,80px);
 }
 
-.studio__page-head .eyebrow { grid-column:1/-1; margin-bottom:-18px; }
 .studio__page-head .h1 { max-width:14ch; }
 .studio__page-lede { max-width:48ch; margin-bottom:5px; }
 
@@ -39,30 +38,6 @@
 
 .studio__lede {
   margin-top: 22px;
-}
-
-.studio__quote {
-  position: relative;
-  margin: 30px 0 0;
-  padding: 22px 0 22px 24px;
-  border-left: 2px solid var(--amber);
-  font-family: var(--font-display);
-  font-size: clamp(1.0625rem, 1.9vw, 1.3125rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.4;
-  color: var(--cream);
-}
-
-.studio__cite {
-  display: block;
-  margin-top: 14px;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-style: normal;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--amber);
 }
 
 /* ----------------------------------------------------------- principles -- */
@@ -190,7 +165,6 @@
   }
 
   .studio__page-head { grid-template-columns:1fr; gap:20px; }
-  .studio__page-head .eyebrow { margin-bottom:0; }
   .studio__snapshot { grid-template-columns:1fr; }
   .studio__snapshot article,.studio__snapshot article:first-child { padding:24px 0; }
   .studio__snapshot article+article { border-top:1px solid var(--line); border-left:0; }

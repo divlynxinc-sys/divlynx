@@ -1,0 +1,176 @@
+.flow { position: relative; }
+
+.flow__cap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 24px;
+  margin-bottom: 22px;
+  font-family: var(--font-hand);
+  line-height: 1.1;
+}
+
+.flow__cap-main {
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  color: var(--amber);
+  transform: rotate(-1.2deg);
+  transform-origin: left;
+}
+
+.flow__cap-side {
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+
+.flow__steps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.flow__cell {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 52px;
+  align-items: center;
+}
+
+.flow__cell:last-child { grid-template-columns: minmax(0, 1fr); }
+
+/* ---- node: content inside a marker-drawn box ---- */
+
+.flow__node {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  min-height: 168px;
+  padding: 20px 18px 18px;
+  transition: transform 0.5s var(--ease);
+}
+
+.flow__box {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.flow__box path {
+  fill: none;
+  stroke: var(--line-hi);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke 0.4s var(--ease), stroke-dashoffset 0.9s var(--ease-in-out), fill 0.5s var(--ease);
+}
+
+.flow__node.is-live .flow__box path {
+  stroke: var(--amber);
+  stroke-width: 2.4;
+  fill: rgba(247, 132, 0, 0.08);
+}
+
+.flow__node.is-done .flow__box path { stroke: rgba(239, 236, 229, 0.55); }
+
+.flow__node.is-live { transform: translateY(-4px) rotate(-0.6deg); }
+
+.flow__icon {
+  width: 26px;
+  height: 26px;
+  margin-bottom: 10px;
+  color: var(--muted);
+  transition: color 0.4s var(--ease), transform 0.5s var(--ease);
+}
+
+.flow__node.is-live .flow__icon,
+.flow__node.is-done .flow__icon { color: var(--amber); }
+.flow__node.is-live .flow__icon { transform: scale(1.12) rotate(-6deg); }
+
+.flow__title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.flow__detail {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--text-dim);
+}
+
+.flow__time {
+  margin-top: 8px;
+  font-family: var(--font-hand);
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--muted);
+  transition: color 0.4s;
+}
+
+.flow__node.is-live .flow__time,
+.flow__node.is-done .flow__time { color: var(--amber); }
+
+/* ---- arrows the pen draws between steps ---- */
+
+.flow__link { display: grid; place-items: center; }
+
+.flow__arrow {
+  width: 46px;
+  overflow: visible;
+  color: var(--amber);
+}
+
+.flow__arrow path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.55s var(--ease-in-out);
+}
+
+.flow__arrow.is-drawn path { stroke-dashoffset: 0; }
+.flow__arrow.is-drawn .flow__arrow-head { transition-delay: 0.45s; transition-duration: 0.25s; }
+
+.flow__arrow + .flow__arrow { display: none; }
+
+/* ---- the page wipes between loops ---- */
+
+.flow.is-wiping .flow__node,
+.flow.is-wiping .flow__arrow { opacity: 0.25; }
+
+.flow__node,
+.flow__arrow { transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+
+/* ---- narrow: the sketch runs down the page ---- */
+
+@media (max-width: 900px) {
+  .flow__steps { grid-template-columns: 1fr; }
+
+  .flow__cell { grid-template-columns: 1fr; }
+
+  .flow__node {
+    min-height: 0;
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+    column-gap: 14px;
+    padding: 16px 16px 14px;
+  }
+
+  .flow__icon { grid-row: 1 / span 2; margin: 2px 0 0; }
+  .flow__title { grid-column: 2; }
+  .flow__detail { grid-column: 2; }
+  .flow__time { grid-column: 3; grid-row: 1; margin: 0; }
+
+  .flow__link { height: 44px; }
+  .flow__arrow { display: none; }
+  .flow__arrow + .flow__arrow { display: block; width: 28px; }
+}

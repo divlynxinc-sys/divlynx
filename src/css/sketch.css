@@ -1,0 +1,95 @@
+/* ==========================================================================
+   Sketchbook layer: marker strokes that draw themselves, highlighter swipe.
+   ========================================================================== */
+
+/* ---- strokes that draw themselves ---- */
+
+.draw path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.9s var(--ease-in-out);
+  transition-delay: calc(var(--draw-delay, 0ms) + var(--draw-start, 250ms));
+}
+
+.js .draw:not(.is-in) path {
+  stroke-dashoffset: 1;
+  animation: draw-fallback 0s linear 3s forwards;
+}
+
+@keyframes draw-fallback { to { stroke-dashoffset: 0; } }
+
+/* ---- scribble around a phrase ---- */
+
+.scribble {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  color: inherit;
+}
+
+.scribble__text { position: relative; z-index: 1; }
+
+.scribble__svg {
+  position: absolute;
+  z-index: 0;
+  overflow: visible;
+  color: var(--amber);
+  pointer-events: none;
+}
+
+.scribble__svg path { stroke-width: 3.2; vector-effect: non-scaling-stroke; }
+
+.scribble--underline .scribble__svg,
+.scribble--squiggle .scribble__svg {
+  left: -2%;
+  width: 104%;
+  height: 0.32em;
+  bottom: -0.16em;
+}
+
+.scribble--circle .scribble__svg {
+  left: -9%;
+  top: -18%;
+  width: 118%;
+  height: 136%;
+}
+
+.scribble--circle .scribble__svg path { stroke-width: 2.6; }
+
+.scribble--strike .scribble__svg {
+  left: -3%;
+  width: 106%;
+  height: 0.4em;
+  top: 0.38em;
+}
+
+.band--amber .scribble__svg { color: var(--ink); }
+
+/* ---- highlighter swipe ---- */
+
+.hl {
+  padding: 0 0.12em;
+  margin: 0 -0.06em;
+  border-radius: 0.2em 0.5em 0.3em 0.45em;
+  background: linear-gradient(100deg, rgba(247, 132, 0, 0.12), rgba(247, 132, 0, 0.42) 6%, rgba(255, 154, 46, 0.32) 94%, rgba(247, 132, 0, 0.12)) 0 62% / 100% 58% no-repeat;
+  color: var(--text);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 1s var(--ease-in-out) 0.9s;
+}
+
+.js .hl:not(.is-in) {
+  background-size: 0% 58%;
+  animation: hl-fallback 0s linear 3s forwards;
+}
+
+@keyframes hl-fallback { to { background-size: 100% 58%; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .draw:not(.is-in) path { stroke-dashoffset: 0; }
+  .js .hl:not(.is-in) { background-size: 100% 58%; }
+}

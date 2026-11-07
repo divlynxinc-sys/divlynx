@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { FiArrowUpRight } from "../icons.jsx";
+import Scribble from "./Scribble";
 import "../css/work.css";
 
 /* Descriptions stay factual, swap in real numbers once you have them signed off. */
@@ -12,7 +12,8 @@ const PROJECTS = [
     region: "Netherlands",
     note: "A live real-estate website that brings listings, brokerage services and enquiries into one clear customer journey.",
     tech: ["Property listings", "Lead capture", "Responsive UI"],
-    image: "/assets/projects/sincere-estate-project-v2.jpg",
+    image: "/assets/projects/sincere-estate-project-v2",
+    imageHeight: 803,
     href: "https://www.sincere-estate.nl/",
   },
   {
@@ -22,7 +23,8 @@ const PROJECTS = [
     region: "Global",
     note: "A live workspace that tailors resumes to job descriptions, checks ATS readability, and drafts the application content around each role.",
     tech: ["AI resume builder", "ATS checker", "Job tailoring"],
-    image: "/assets/projects/jobsynk-project-v2.jpg",
+    image: "/assets/projects/jobsynk-project-v2",
+    imageHeight: 844,
     href: "https://jobsynk.co/",
   },
   {
@@ -32,7 +34,8 @@ const PROJECTS = [
     region: "Pakistan",
     note: "A restaurant platform connecting branded online ordering, live kitchen tickets, delivery operations, and customer relationships in one system.",
     tech: ["Online ordering", "Kitchen rail", "Delivery tracking", "Customer CRM"],
-    image: "/assets/projects/mise-project-v1.jpg",
+    image: "/assets/projects/mise-project-v1",
+    imageHeight: 933,
     href: "https://restaurant-divlynx.vercel.app/",
   },
   {
@@ -42,7 +45,8 @@ const PROJECTS = [
     region: "Global",
     note: "A client and staff experience for class discovery, programme onboarding, live availability, bookings, packs, and day-to-day studio management.",
     tech: ["Class booking", "Timetables", "Programme onboarding", "Studio management"],
-    image: "/assets/projects/pilates-project-v1.jpg",
+    image: "/assets/projects/pilates-project-v1",
+    imageHeight: 933,
     href: "https://divlynx-pilates.vercel.app/",
   },
   {
@@ -52,7 +56,8 @@ const PROJECTS = [
     region: "Pakistan",
     note: "A responsive gym platform combining membership plans, trainer profiles, account access, and facility information in one customer journey.",
     tech: ["Next.js", "Memberships", "Authentication", "Responsive UI"],
-    image: "/assets/projects/range-fit-project-v2.jpg",
+    image: "/assets/projects/range-fit-project-v2",
+    imageHeight: 913,
     href: "https://range-fit-gym.vercel.app/",
   },
   {
@@ -62,7 +67,8 @@ const PROJECTS = [
     region: "Australia",
     note: "A live consultancy website presenting interactive maps, spatial data products, AI solutions, and cloud engineering work.",
     tech: ["SvelteKit", "AWS", "PostGIS", "Three.js"],
-    image: "/assets/projects/after-realism-project-v2.jpg",
+    image: "/assets/projects/after-realism-project-v2",
+    imageHeight: 878,
     href: "https://afterrealism.com/",
   },
   {
@@ -80,7 +86,8 @@ const PROJECTS = [
     region: "Pakistan",
     note: "A storefront for entertainment subscriptions, productivity tools, software keys, and digital services.",
     tech: ["E-commerce", "Product catalogue", "Subscriptions"],
-    image: "/assets/projects/metastore-project-v2.jpg",
+    image: "/assets/projects/metastore-project-v2",
+    imageHeight: 905,
     href: "https://metastore.pk/",
   },
   {
@@ -90,7 +97,8 @@ const PROJECTS = [
     region: "Pakistan",
     note: "A task marketplace connecting customers with ID-verified workers, protected by escrow payments, reviews, and human dispute resolution.",
     tech: ["Marketplace", "Escrow", "Worker verification", "Android"],
-    image: "/assets/projects/jeeustaad-project-v2.jpg",
+    image: "/assets/projects/jeeustaad-project-v2",
+    imageHeight: 847,
     href: "https://jeeustaad.com/",
   },
   {
@@ -130,9 +138,8 @@ export default function Work() {
       <div className="shell">
         <div className="work__head">
           <div>
-            <p className="eyebrow">Selected work</p>
             <h2 className="display h2">
-              Shipped, live, and <span className="sweep">still running</span>.
+              Shipped, live, and <Scribble variant="underline">still running</Scribble>.
             </h2>
           </div>
           <Link to="/case-studies" className="btn btn--ghost work__cta">
@@ -142,20 +149,26 @@ export default function Work() {
 
         <ul className="work__list">
           {LIVE_PROJECTS.map((p, i) => (
-            <motion.li
+            <li
               key={p.title}
-              className="work__row"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.07, ease: [0.22, 1, 0.36, 1] }}>
+              className="work__row reveal"
+              style={{ "--reveal-delay": `${(i % 2) * 80}ms` }}>
               <a
                 className="work__visual"
                 href={p.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Open ${p.client} live website`}>
-                <img src={p.image} alt={`${p.client} live product interface`} loading="lazy" decoding="async" />
+                <img
+                  src={`${p.image}.webp`}
+                  srcSet={`${p.image}-760.webp 760w, ${p.image}.webp 1400w`}
+                  sizes="(max-width: 900px) 100vw, 680px"
+                  width="1400"
+                  height={p.imageHeight}
+                  alt={`${p.client} live product interface`}
+                  loading="lazy"
+                  decoding="async"
+                />
               </a>
 
               <div className="work__main">
@@ -182,7 +195,7 @@ export default function Work() {
                 </div>
               </div>
 
-            </motion.li>
+            </li>
           ))}
         </ul>
 

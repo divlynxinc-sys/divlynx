@@ -1,28 +1,26 @@
-import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useMotionValueEvent, useScroll, useSpring } from "framer-motion";
+import Scribble from "./Scribble";
 import "../css/process.css";
 
-/** A real sequence, so the numbering carries information rather than decorating. */
+/** A real sequence, so the week markers carry information rather than decorating. */
 const STEPS = [
   {
-    n: "01",
     title: "Map the work",
     body: "We sit with the people actually doing the job and write down every step, every tool and every exception. That document is yours whether you hire us or not.",
     when: "Week 1",
   },
   {
-    n: "02",
     title: "Prototype in your stack",
     body: "You get a working slice running against your real data, not a slide deck. This is where we agree on what finished looks like.",
     when: "Week 2",
   },
   {
-    n: "03",
     title: "Build and demo weekly",
     body: "Every week you see something you can click. Scope changes are cheap here and expensive later, so we surface them early.",
-    when: "Weeks 3-6",
+    when: "Weeks 3–6",
   },
   {
-    n: "04",
     title: "Hand over the keys",
     body: "Runbooks, architecture notes and a recorded walkthrough. You can operate it without us. Most clients keep us on anyway.",
     when: "Launch",
@@ -30,52 +28,45 @@ const STEPS = [
 ];
 
 export default function Process() {
+  const railRef = useRef(null);
+  const [reached, setReached] = useState(0);
+
+  // The line advances with the reader: scroll stands in for elapsed weeks.
+  const { scrollYProgress } = useScroll({ target: railRef, offset: ["start 80%", "end 55%"] });
+  const fill = useSpring(scrollYProgress, { stiffness: 140, damping: 30, mass: 0.4 });
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setReached(Math.min(STEPS.length, Math.floor(v * STEPS.length + 0.35)));
+  });
+
   return (
-    <section id="process" className="band">
+    <section id="process" className="band band--amber proc">
       <div className="shell">
-        <div className="proc__head">
-          <div>
-            <p className="eyebrow">How we work</p>
-            <h2 className="display h2">
-              Four steps. No <span className="sweep">black boxes</span>.
-            </h2>
-          </div>
-          <p className="lede proc__note">
+        <header className="sec-head">
+          <h2 className="display h2 reveal">Four steps. No <Scribble variant="circle">black boxes</Scribble>.</h2>
+          <p className="lede reveal" style={{ "--reveal-delay": "80ms" }}>
             Fixed scope or monthly retainer, either way you know what is being built, what it
             costs, and where it is on any given Friday.
           </p>
-        </div>
+        </header>
 
-        <ol className="proc__rail">
+        <ol ref={railRef} className="proc__rail">
+          <span className="proc__line" aria-hidden="true">
+            <motion.span className="proc__line-fill" style={{ scaleX: fill }} />
+          </span>
+          <span className="proc__line proc__line--v" aria-hidden="true">
+            <motion.span className="proc__line-fill" style={{ scaleY: fill }} />
+          </span>
+
           {STEPS.map((s, i) => (
-            <motion.li
-              key={s.n}
-              className="proc__step"
-              style={{
-                "--drop": `${[28, 112, 62, 138][i]}px`,
-                "--sway": `${[1.25, -1, 0.85, -1.15][i]}deg`,
-                "--duration": `${[4.8, 5.7, 5.2, 6.1][i]}s`,
-                "--delay": `${[-1.4, -3.2, -2.1, -4.4][i]}s`,
-              }}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: 0.18 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}>
-              <div className="proc__pendulum">
-                <span className="proc__thread" aria-hidden="true"><i /></span>
-                <article className="proc__card">
-                  <header className="proc__card-head">
-                    <span className="proc__n">{s.n}</span>
-                  </header>
-                  <h3 className="h3 proc__title">{s.title}</h3>
-                  <p className="proc__body">{s.body}</p>
-                  <footer className="proc__card-foot">
-                    <span>Step {s.n} / 04</span>
-                    <span>{s.when}</span>
-                  </footer>
-                </article>
+            <li key={s.title} className={`proc__step${i < reached ? " is-reached" : ""}`}>
+              <span className="proc__node" aria-hidden="true" />
+              <div className="proc__card">
+                <p className="proc__when">{s.when}</p>
+                <h3 className="proc__title">{s.title}</h3>
+                <p className="proc__body">{s.body}</p>
               </div>
-            </motion.li>
+            </li>
           ))}
         </ol>
       </div>

@@ -1,50 +1,41 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { FiArrowUpRight } from "../icons.jsx";
 import { POSTS_BY_DATE, formatDate } from "../blog/posts";
 import "../css/journal-teaser.css";
+import Scribble from "./Scribble";
 
 /** Four most recent posts. Deliberately not the whole archive. */
 export default function JournalTeaser() {
   const recent = POSTS_BY_DATE.slice(0, 4);
 
   return (
-    <section id="journal" className="band">
+    <section id="journal" className="band jt">
       <div className="shell">
-        <div className="jt__head">
-          <div>
-            <p className="eyebrow">Journal</p>
-            <h2 className="display h2">
-              What we have <span className="sweep">learned</span> so far.
-            </h2>
+        <header className="sec-head">
+          <h2 className="display h2 reveal">What we have <Scribble variant="squiggle">learned</Scribble> so far.</h2>
+          <div className="jt__side reveal" style={{ "--reveal-delay": "80ms" }}>
+            <p className="lede">Field notes from shipping agents and automation, including what did not work.</p>
+            <Link to="/blog" className="tlink">
+              All posts <FiArrowUpRight aria-hidden />
+            </Link>
           </div>
-          <Link to="/blog" className="btn btn--ghost jt__all">
-            All posts <FiArrowUpRight aria-hidden />
-          </Link>
-        </div>
+        </header>
 
-        <div className="jt__grid">
+        <ul className="jt__list">
           {recent.map((post, i) => (
-            <motion.article
-              key={post.slug}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}>
-              <Link to={`/blog/${post.slug}`} className="jt__card">
-                <div className="jt__meta">
-                  <time dateTime={post.date}>{formatDate(post.date)}</time>
-                  <span>{post.readingMinutes} min</span>
-                </div>
-                <h3 className="h3 jt__title">{post.title}</h3>
-                <p className="jt__excerpt">{post.excerpt}</p>
-                <span className="jt__more">
-                  Read <FiArrowUpRight aria-hidden />
+            <li key={post.slug} className="reveal" style={{ "--reveal-delay": `${i * 60}ms` }}>
+              <Link to={`/blog/${post.slug}`} className="jt__row">
+                <time className="jt__date" dateTime={post.date}>{formatDate(post.date)}</time>
+                <span className="jt__main">
+                  <span className="jt__title">{post.title}</span>
+                  <span className="jt__excerpt">{post.excerpt}</span>
                 </span>
+                <span className="jt__read">{post.readingMinutes} min read</span>
+                <span className="jt__go" aria-hidden="true"><FiArrowUpRight /></span>
               </Link>
-            </motion.article>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

@@ -21,3 +21,15 @@ if (root.hasChildNodes()) {
 } else {
   createRoot(root).render(tree);
 }
+
+/* Hide the sketchbook loader (index.html) once everything has loaded. It only
+   ever became visible if loading took longer than ~0.5s. */
+const boot = document.getElementById("boot");
+if (boot) {
+  const hide = () => {
+    boot.classList.add("is-done");
+    window.setTimeout(() => boot.remove(), 500);
+  };
+  if (document.readyState === "complete") hide();
+  else window.addEventListener("load", hide, { once: true });
+}

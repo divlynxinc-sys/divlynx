@@ -41,6 +41,7 @@ export default function PostBody({ blocks }) {
           case "note":
             return (
               <aside key={i} className="prose__note">
+                <span className="prose__note-label" aria-hidden="true">note</span>
                 {block.text}
               </aside>
             );

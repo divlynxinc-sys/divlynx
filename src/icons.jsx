@@ -1,9 +1,13 @@
+/**
+ * One icon family (Phosphor, regular weight) for the whole site, so every
+ * glyph shares a stroke. The Fi* names are kept so existing imports still work.
+ */
+import { PiArrowUpRight } from "react-icons/pi";
+
 export {
   PiArrowLeft as FiArrowLeft,
   PiArrowUp as FiArrowUp,
   PiCaretDown as FiChevronDown,
-  PiCaretLeft as FiChevronLeft,
-  PiCaretRight as FiChevronRight,
   PiList as FiMenu,
   PiX as FiX,
   PiPlus as FiPlus,
@@ -18,56 +22,25 @@ export {
   PiCashRegister as FiCreditCard,
   PiMagnifyingGlass as FiSearch,
   PiMegaphone as FiTrendingUp,
-  PiCodeBlock as FiCode,
-  PiPencilLine as FiEdit3,
+  PiEnvelopeSimple as FiMail,
+  PiCalendarBlank as FiCalendar,
+  PiWhatsappLogo as FaWhatsapp,
+  PiInstagramLogo as FiInstagram,
+  PiLinkedinLogo as FiLinkedin,
+  PiPhone as FiPhone,
+  PiMapPin as FiMapPin,
+  PiStarFill as FiStar,
+  PiCheck as FiCheck,
+  PiPhoneIncoming as FiPhoneIncoming,
+  PiBrain as FiBrain,
+  PiDatabase as FiDatabase,
+  PiChatCircleText as FiChat,
+  PiCode as FiCodeSimple,
+  PiPaintBrush as FiDesign,
+  PiChartLineUp as FiGrowth,
 } from "react-icons/pi";
 
-function AssetIcon({ src, className = "", ...props }) {
-  return (
-    <img
-      src={src}
-      alt=""
-      className={`asset-icon ${className}`.trim()}
-      {...props}
-    />
-  );
-}
-
-export function FiMail(props) {
-  return <AssetIcon src="/assets/icons/email.png" {...props} />;
-}
-
-export function FiCalendar(props) {
-  return <AssetIcon src="/assets/icons/calendar.png" {...props} />;
-}
-
-export function FaWhatsapp(props) {
-  return <AssetIcon src="/assets/icons/whatsapp.png" {...props} />;
-}
-
-export function FiInstagram(props) {
-  return <AssetIcon src="/assets/icons/instagram.png" {...props} />;
-}
-
-export function FiLinkedin(props) {
-  return <AssetIcon src="/assets/icons/linkedin (1).png" {...props} />;
-}
-
-export function FiPhone(props) {
-  return <AssetIcon src="/assets/icons/telephone.png" {...props} />;
-}
-
-export function FiMapPin(props) {
-  return <AssetIcon src="/assets/icons/location.png" {...props} />;
-}
-
+/** Outbound / "go" arrow. Carries the `arrow` class so buttons can nudge it. */
 export function FiArrowUpRight({ className = "", ...props }) {
-  return (
-    <img
-      src="/assets/icons/link-open.png"
-      alt=""
-      className={`link-open-icon ${className}`.trim()}
-      {...props}
-    />
-  );
+  return <PiArrowUpRight className={`arrow ${className}`.trim()} {...props} />;
 }
