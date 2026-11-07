@@ -33,7 +33,7 @@
 
 .foot__cols {
   display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.8fr);
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.4fr) minmax(0, 1fr);
   gap: 40px clamp(32px, 5vw, 80px);
 }
 
@@ -74,7 +74,16 @@
   color: var(--amber);
 }
 
-.foot__col ul { display: grid; gap: 8px; }
+.foot__col ul {
+  columns: 2;
+  column-gap: clamp(20px, 3vw, 44px);
+}
+
+.foot__col li {
+  break-inside: avoid;
+  text-wrap: balance;
+  padding-block: 4px;
+}
 
 .foot__col a {
   font-size: 0.95rem;

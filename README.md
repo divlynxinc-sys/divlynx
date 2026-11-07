@@ -222,7 +222,7 @@ Stroke animations use `pathLength="1"` plus `stroke-dasharray: 1`, so the same "
 
 Signature moments:
 
-- **Hero:** headline words rise out of masks, "by hand." is struck out and "on autopilot." is written in, then the to-do list strikes each pain and writes its fix.
+- **Hero:** headline words rise out of masks, then a doodled pencil (`Pen.jsx`) strikes out "busywork." and writes "autopilot." under it, once. It then flies across (`usePenHandOff` in `Hero.jsx`) and lands lying still on the notebook page. The notebook list strikes each pain, ticks it and writes the fix on a loop. Under reduced motion the pencil simply rests on the notebook; the strikes and writing still play.
 - **Pain → value flow:** the pen draws each arrow as the example call moves through the agent.
 - **Process:** a scroll-linked timeline fills, and each step card flips to ink as the line reaches it.
 - **Testimonials:** sticky notes swing onto their pins.
@@ -250,7 +250,7 @@ How reveals work:
 
 Home (`src/routes/Home.jsx`), top to bottom:
 
-1. **Hero:** "Stop doing it ~~by hand~~ on autopilot", value line, CTAs, and the "things eating your week" notebook
+1. **Hero:** "Your business runs on ~~busywork.~~ autopilot.", value line, CTAs with a "free, no slides" margin note, and the "things eating your week" notebook
 2. **Trust strip:** client stickers and headline facts
 3. **Solved:** one pain point → its value, with the step-by-step agent flow
 4. **Services:** Automate / Build / Grow index with a notebook detail page

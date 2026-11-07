@@ -7,7 +7,7 @@
 
 .hero__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
   align-items: center;
   gap: clamp(40px, 6vw, 96px);
 }
@@ -21,7 +21,7 @@
 /* ---- headline with a notebook edit ---- */
 
 .hero__title {
-  font-size: clamp(2.9rem, 7.2vw, 6.2rem);
+  font-size: clamp(2.8rem, 6.2vw, 5.6rem);
   line-height: 0.98;
   letter-spacing: -0.045em;
 }
@@ -46,8 +46,8 @@
   to { transform: translateY(0); }
 }
 
-/* "by hand." dims, then a marker strike wipes across it (a hand-drawn
-   stroke stretched over the full width of the words). */
+/* "busywork." dims, then a marker strike wipes across it (a hand-drawn
+   stroke stretched over the full width of the word). */
 .hero__struck {
   position: relative;
   display: inline-block;
@@ -66,8 +66,8 @@
   pointer-events: none;
 }
 
-.js .hero__struck { animation: hero-dim 0.6s var(--ease) 1.1s both; }
-.js .hero__struck::after { animation: hero-wipe 0.6s var(--ease-in-out) 1.1s both; }
+.js .hero__struck { animation: hero-dim 0.6s var(--ease) 1.25s both; }
+.js .hero__struck::after { animation: hero-wipe 0.6s var(--ease-in-out) 1.25s both; }
 
 @keyframes hero-dim {
   from { color: var(--text); }
@@ -79,21 +79,29 @@
   to { clip-path: inset(0 0 0 0); }
 }
 
-/* the correction, written on its own line with a caret pointing up */
+/* the correction, written under the struck word with a caret pointing up;
+   the headline keeps room for it underneath */
+.hero__title { padding-bottom: 0.72em; }
+
+.hero__fix {
+  position: absolute;
+  top: 100%;
+  left: 0.12em;
+  margin-top: -0.04em;
+  font-size: 0.8em;
+  transform: rotate(-3deg);
+  transform-origin: left center;
+}
+
 .hero__insert {
   display: flex;
   align-items: flex-start;
   gap: 0.12em;
-  margin-top: 0.06em;
-  margin-left: 0.2em;
   font-family: var(--font-hand);
-  font-size: 0.78em;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
   color: var(--amber);
-  transform: rotate(-3deg);
-  transform-origin: left center;
 }
 
 .hero__caret {
@@ -104,7 +112,8 @@
   overflow: visible;
 }
 
-.hero__caret path {
+.hero__caret path,
+.hero__spark path {
   fill: none;
   stroke: var(--amber);
   stroke-width: 2.6;
@@ -114,8 +123,24 @@
   stroke-dashoffset: 0;
 }
 
-.js .hero__insert { animation: hero-write 0.8s var(--ease) 1.6s both; }
-.js .hero__caret path { animation: hero-draw 0.4s var(--ease-in-out) 1.5s both; }
+/* three quick emphasis marks once the word is written */
+.hero__spark {
+  position: absolute;
+  top: -0.32em;
+  left: 100%;
+  width: 0.5em;
+  height: 0.5em;
+  overflow: visible;
+}
+
+.hero__spark path { stroke-width: 3; }
+
+.js .hero__insert { animation: hero-write 0.85s var(--ease-in-out) 1.95s both; }
+.js .hero__caret path { animation: hero-draw 0.3s var(--ease-in-out) 1.85s both; }
+.js .hero__spark path { animation: hero-draw 0.18s var(--ease) both; }
+.js .hero__spark path:nth-child(1) { animation-delay: 2.95s; }
+.js .hero__spark path:nth-child(2) { animation-delay: 3.08s; }
+.js .hero__spark path:nth-child(3) { animation-delay: 3.21s; }
 
 @keyframes hero-draw {
   from { stroke-dashoffset: 1; }
@@ -123,8 +148,99 @@
 }
 
 @keyframes hero-write {
-  from { opacity: 0; clip-path: inset(0 100% 0 0); }
+  from { opacity: 0; clip-path: inset(-20% 100% -20% 0); }
+  1% { opacity: 1; }
   to { opacity: 1; clip-path: inset(-20% -5% -20% 0); }
+}
+
+/* ---- the pencil that makes the edit ----
+   Its tip is pinned to a point (transform-origin on the tip), then it slides
+   along with the strike, hops down, writes the fix and lifts off towards the
+   notebook, where the same pencil carries on. */
+.hero__pen {
+  position: absolute;
+  left: 0;
+  width: 1.6em;
+  height: 0.24em;
+  transform-origin: 0 50%;
+  filter: drop-shadow(0.06em 0.1em 0.06em rgba(0, 0, 0, 0.55));
+  opacity: 0;
+  z-index: 2;
+}
+
+.hero__pen--strike { top: 0.54em; }
+.hero__pen--write { top: 0.6em; width: 2em; height: 0.3em; }
+
+.js .hero__pen--strike { animation: pen-strike 1.25s linear 0.95s both; }
+.js .hero__pen--write { animation: pen-write 1.65s linear 1.75s both; }
+
+/* 0.95s → 2.2s: arrive, strike with the wipe (1.25s–1.85s), lift */
+@keyframes pen-strike {
+  0% { opacity: 0; left: -2%; transform: translate(0.5em, -0.7em) translateY(-50%) rotate(-28deg); }
+  20% { opacity: 1; left: -2%; transform: translateY(-50%) rotate(-34deg); animation-timing-function: var(--ease-in-out); }
+  70% { opacity: 1; left: 102%; transform: translateY(-50%) rotate(-36deg); }
+  100% { opacity: 0; left: 102%; transform: translate(-0.2em, -0.5em) translateY(-50%) rotate(-30deg); }
+}
+
+/* 1.75s → 3.4s: drop in, write "autopilot." (1.95s–2.8s), tap the marks and
+   lift. It holds there; Hero.jsx then flies it over to the notebook. */
+@keyframes pen-write {
+  0% { opacity: 0; left: 0; transform: translate(0.3em, -0.8em) translateY(-50%) rotate(-28deg); }
+  12% { opacity: 1; left: 0; transform: translateY(-50%) rotate(-34deg); animation-timing-function: var(--ease-in-out); }
+  24% { left: 22%; transform: translate(0, -0.12em) translateY(-50%) rotate(-33deg); }
+  35% { left: 44%; transform: translate(0, 0.06em) translateY(-50%) rotate(-36deg); }
+  46% { left: 66%; transform: translate(0, -0.1em) translateY(-50%) rotate(-33deg); }
+  65% { left: 100%; transform: translateY(-50%) rotate(-35deg); }
+  76% { left: 104%; transform: translate(0.1em, -0.55em) translateY(-50%) rotate(-32deg); }
+  86% { left: 108%; transform: translate(0.2em, -0.5em) translateY(-50%) rotate(-36deg); }
+  100% { opacity: 1; left: 110%; transform: translate(0.3em, -0.6em) translateY(-50%) rotate(-30deg); }
+}
+
+/* handed over: the notebook's pencil takes its place */
+.hero__pen.is-gone { visibility: hidden; }
+
+/* ---- side note pointing at the call button ---- */
+
+.hero__actions { position: relative; }
+
+.hero__note {
+  position: absolute;
+  left: calc(100% + 76px);
+  top: 50%;
+  margin-top: -1.1em;
+  width: max-content;
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  line-height: 1.05;
+  color: var(--text-dim);
+  transform: rotate(-4deg);
+}
+
+.hero__note svg {
+  position: absolute;
+  left: -66px;
+  top: 2px;
+  width: 58px;
+  height: 29px;
+  overflow: visible;
+}
+
+.hero__note path {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.js .hero__note { animation: hero-fade-only 0.6s var(--ease) 3.4s both; }
+.js .hero__note path { animation: hero-draw 0.5s var(--ease-in-out) 3.5s both; }
+.js .hero__note path + path { animation-delay: 3.95s; animation-duration: 0.2s; }
+
+@media (max-width: 1240px) {
+  .hero__note { display: none; }
 }
 
 /* ---- copy ---- */
@@ -207,6 +323,7 @@
   .js .hero__actions,
   .js .hero__values,
   .js .hero__visual { animation-name: hero-fade-only; }
+  .js .hero__pen { animation: none; }
 }
 
 @keyframes hero-fade-only {

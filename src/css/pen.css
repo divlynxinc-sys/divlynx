@@ -1,0 +1,19 @@
+/* Doodled pencil (Pen.jsx): flat fills with a thin cream outline, like a
+   marker sketch stuck on the page. */
+.pen { display: block; overflow: visible; pointer-events: none; }
+
+.pen path {
+  stroke: var(--text);
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.pen__body { fill: var(--amber); }
+.pen__facet { fill: none; stroke: rgba(10, 10, 9, 0.35) !important; }
+.pen__wood { fill: #ecd9b8; }
+.pen__lead { fill: #2b2a26; }
+.pen__ferrule { fill: #a6a39b; }
+.pen__band { fill: none; stroke: #5d5b55 !important; }
+.pen__eraser { fill: #efece5; }

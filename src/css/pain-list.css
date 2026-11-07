@@ -92,8 +92,7 @@
   transition: stroke 0.3s;
 }
 
-.pains__box path,
-.pains__strike path {
+.pains__box path {
   fill: none;
   stroke: var(--amber);
   stroke-linecap: round;
@@ -104,7 +103,7 @@
 
 .pains__box path {
   stroke-width: 2.6;
-  transition: stroke-dashoffset 0.35s var(--ease-in-out) 0.55s;
+  transition: stroke-dashoffset 0.3s var(--ease-in-out) 0.85s;
 }
 
 .pains__text { display: grid; min-height: 52px; }
@@ -129,29 +128,61 @@
   overflow: visible;
 }
 
+.pains__strike {
+  clip-path: inset(-50% 100% -50% 0);
+  transition: clip-path 0.45s var(--ease-in-out) 0.25s;
+}
+
 .pains__strike path {
+  fill: none;
+  stroke: var(--amber);
   stroke-width: 2.4;
+  stroke-linecap: round;
   vector-effect: non-scaling-stroke;
-  transition: stroke-dashoffset 0.5s var(--ease-in-out);
 }
 
 .pains__fix {
+  justify-self: start;
   font-family: var(--font-hand);
   font-size: 1.25rem;
   line-height: 1.15;
   color: var(--amber);
-  opacity: 0;
-  transform: translateY(-4px) rotate(-1.5deg);
+  clip-path: inset(-30% 100% -30% 0);
+  transform: rotate(-1.5deg);
   transform-origin: left;
-  transition: opacity 0.4s var(--ease) 0.4s, transform 0.5s var(--ease) 0.4s;
+  transition: clip-path 0.6s var(--ease-in-out) 1.25s;
 }
 
 /* fixed state: strike, tick, then the fix is written in */
 .pains__item.is-fixed .pains__pain { color: var(--muted); }
-.pains__item.is-fixed .pains__strike path,
+.pains__item.is-fixed .pains__strike { clip-path: inset(-50% -2% -50% 0); }
 .pains__item.is-fixed .pains__box path { stroke-dashoffset: 0; }
 .pains__item.is-fixed .pains__box rect { stroke: var(--amber); }
-.pains__item.is-fixed .pains__fix { opacity: 1; transform: rotate(-1.5deg); }
+.pains__item.is-fixed .pains__fix { clip-path: inset(-30% -4% -30% -2%); }
+
+/* clearing the page for the next loop: everything goes at once */
+.pains:not(.is-working) .pains__strike,
+.pains:not(.is-working) .pains__fix,
+.pains:not(.is-working) .pains__box path { transition-delay: 0s; }
+
+/* ---- a pencil left lying on the page (static) ---- */
+.pains__pen {
+  position: absolute;
+  left: 72px;
+  bottom: 30px;
+  width: 150px;
+  height: 22px;
+  transform: rotate(-8deg);
+  filter: drop-shadow(5px 8px 4px rgba(0, 0, 0, 0.6));
+  z-index: 3;
+}
+
+/* With JS the pencil arrives from the headline (Hero.jsx) */
+.js .pains__pen:not([data-landed]) { visibility: hidden; }
+
+@media (max-width: 560px) {
+  .pains__pen { left: 54px; width: 116px; height: 17px; bottom: 26px; }
+}
 
 .pains__foot {
   margin-top: 14px;

@@ -25,6 +25,7 @@ if (root.hasChildNodes()) {
 function replayHeroEntrance() {
   const hero = document.querySelector(".hero");
   if (!hero || !document.getAnimations) return;
+  window.dispatchEvent(new Event("hero:replay"));
   document.getAnimations().forEach((a) => {
     const el = a.effect && a.effect.target;
     if (el && el.closest && el.closest(".hero")) {
