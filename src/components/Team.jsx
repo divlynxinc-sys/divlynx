@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Scribble from "./Scribble";
 import "../css/team.css";
 
@@ -84,27 +83,20 @@ const ENGINEERING = [
     image: "/assets/team/salman-asad.webp",
     description: "Full-stack development, product interfaces and application engineering.",
   },
+  {
+    name: "Jaisha Muhammad",
+    role: "Social Media Intern",
+    image: "/assets/team/jaisha-muhammad.jpg",
+    description: "Social content, community communication and digital brand support.",
+  },
 ];
 
+const TEAM = [...EXECUTIVES, ...ENGINEERING];
+
 function Profile({ member, index = 0 }) {
-  const [expanded, setExpanded] = useState(false);
-
-  const toggleExpanded = () => setExpanded((current) => !current);
-
   return (
     <article
-      className={`team-card reveal${expanded ? " is-active" : ""}`}
-      tabIndex={0}
-      role="button"
-      aria-expanded={expanded}
-      aria-label={`${member.name}, ${member.role}. Tap to ${expanded ? "hide" : "show"} details.`}
-      onClick={toggleExpanded}
-      onKeyDown={(event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          toggleExpanded();
-        }
-      }}
+      className="team-card reveal"
       style={{ "--reveal-delay": `${index * 80}ms` }}>
       <div className="team-card__portrait">
         <img className="team-card__image" src={member.image} alt={member.name} loading="lazy" decoding="async" />
@@ -134,16 +126,9 @@ export default function Team() {
         </header>
 
         <div className="team__group team__group--first">
-          <p className="team__group-label">Leadership</p>
-          <div className="team__grid team__grid--executives">
-            {EXECUTIVES.map((member, index) => <Profile key={member.name} member={member} index={index} />)}
-          </div>
-        </div>
-
-        <div className="team__group">
-          <p className="team__group-label">Engineering</p>
+          <p className="team__group-label">Team</p>
           <div className="team__grid team__grid--engineering">
-            {ENGINEERING.map((member, index) => <Profile key={member.name} member={member} index={index} />)}
+            {TEAM.map((member, index) => <Profile key={member.name} member={member} index={index} />)}
           </div>
         </div>
       </div>
