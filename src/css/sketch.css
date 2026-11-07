@@ -15,7 +15,7 @@
   transition-delay: calc(var(--draw-delay, 0ms) + var(--draw-start, 250ms));
 }
 
-.js .draw:not(.is-in) path {
+.js .draw:not([data-in]) path {
   stroke-dashoffset: 1;
   animation: draw-fallback 0s linear 3s forwards;
 }
@@ -82,7 +82,7 @@
   transition: background-size 1s var(--ease-in-out) 0.9s;
 }
 
-.js .hl:not(.is-in) {
+.js .hl:not([data-in]) {
   background-size: 0% 58%;
   animation: hl-fallback 0s linear 3s forwards;
 }
@@ -90,6 +90,6 @@
 @keyframes hl-fallback { to { background-size: 100% 58%; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .js .draw:not(.is-in) path { stroke-dashoffset: 0; }
-  .js .hl:not(.is-in) { background-size: 100% 58%; }
+  .js .draw:not([data-in]) path { stroke-dashoffset: 0; }
+  .js .hl:not([data-in]) { background-size: 100% 58%; }
 }

@@ -15,6 +15,7 @@ import {
   FiPlus,
   FiCheck,
 } from "../icons.jsx";
+import { isAutoScrolling } from "../site";
 import "../css/services.css";
 import Scribble from "./Scribble";
 
@@ -204,8 +205,14 @@ export default function Services() {
                           aria-controls={panelId}
                           onClick={() => setActive(item.title)}
                           onPointerEnter={(e) => {
-                            // Hover previews on mouse/pen; touch relies on the tap.
-                            if (e.pointerType === "mouse" && window.matchMedia("(min-width: 901px)").matches) {
+                            // Hover previews on mouse only; touch relies on the tap. Skipped while a
+                            // nav link is scrolling the page, so the passing cursor does not
+                            // reshuffle the layout under the scroll.
+                            if (
+                              e.pointerType === "mouse" &&
+                              !isAutoScrolling() &&
+                              window.matchMedia("(min-width: 901px)").matches
+                            ) {
                               setActive(item.title);
                             }
                           }}>

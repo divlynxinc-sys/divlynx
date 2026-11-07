@@ -110,12 +110,13 @@ export function jsonLdForPath(pathname) {
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/assets/brand/divlynx-logo-stacked.png`,
-      contentUrl: `${SITE_URL}/assets/brand/divlynx-logo-stacked.png`,
-      width: 480,
-      height: 552,
+      // Dark tile: search engines show logos on white, and the artwork is white.
+      url: `${SITE_URL}/assets/brand/divlynx-logo-square-dark.png`,
+      contentUrl: `${SITE_URL}/assets/brand/divlynx-logo-square-dark.png`,
+      width: 512,
+      height: 512,
     },
-    image: `${SITE_URL}/assets/hero/digital-workshop.jpg`,
+    image: `${SITE_URL}/assets/brand/divlynx-og.jpg`,
     email: "divlynx.inc@gmail.com",
     telephone: "+92 318 0950005",
     address: {
@@ -158,6 +159,13 @@ export function jsonLdForPath(pathname) {
     inLanguage: "en",
     isPartOf: { "@id": `${SITE_URL}/#website` },
     about: { "@id": `${SITE_URL}/#organization` },
+    // Points image-picking search results at the brand share image.
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/assets/brand/divlynx-og.jpg`,
+      width: 1200,
+      height: 630,
+    },
   };
 
   if (meta.type === "article" && meta.post) {

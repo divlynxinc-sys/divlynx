@@ -27,7 +27,7 @@
   transform: rotate(1.6deg);
 }
 
-.js .pv.reveal:not(.is-in) { transform: translateY(18px); }
+.js .pv.reveal:not([data-in]) { transform: translateY(18px); }
 
 .pv__pin {
   position: absolute;

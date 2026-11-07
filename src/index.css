@@ -420,7 +420,7 @@ time {
 
 /* Default state is visible. Only when JS has booted (html.js) do elements
    wait for the observer, and a timed fallback reveals them regardless. */
-.js .reveal:not(.is-in) {
+.js .reveal:not([data-in]) {
   opacity: 0;
   transform: translateY(18px);
   animation: reveal-fallback 0s linear 2.5s forwards;
@@ -476,7 +476,7 @@ time {
     scroll-behavior: auto !important;
   }
 
-  .js .reveal:not(.is-in) { opacity: 1; transform: none; }
+  .js .reveal:not([data-in]) { opacity: 1; transform: none; }
 }
 
 @media (max-width: 380px) {

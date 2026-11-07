@@ -1,17 +1,20 @@
 import { useEffect } from "react";
 
 /**
- * Adds `is-in` to every `.reveal` element as it enters the viewport.
+ * Marks every `.reveal`, `.draw` and `.hl` element with `data-in` as it enters
+ * the viewport. A data attribute rather than a class: React rewrites className
+ * whenever a component re-renders (e.g. a card toggling `is-active`), which
+ * would silently strip a class added here and hide the element again.
  * Elements are visible by default in the prerendered HTML; CSS only holds
  * them back once `html.js` is set, with a timed fallback (see index.css).
  */
 export default function useRevealOnScroll(key) {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll(".reveal:not(.is-in), .draw:not(.is-in), .hl:not(.is-in)"));
+    const els = Array.from(document.querySelectorAll(".reveal:not([data-in]), .draw:not([data-in]), .hl:not([data-in])"));
     if (!els.length) return undefined;
 
     if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("is-in"));
+      els.forEach((el) => { el.dataset.in = ""; });
       return undefined;
     }
 
@@ -19,7 +22,7 @@ export default function useRevealOnScroll(key) {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-in");
+            entry.target.dataset.in = "";
             io.unobserve(entry.target);
           }
         });

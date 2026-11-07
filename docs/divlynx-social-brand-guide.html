@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Divlynx: The Black Sketchbook (social design guide)</title>
+<link href="fonts/fonts.css" rel="stylesheet" />
+<style>
+  @page { size: 1123px 794px; margin: 0; }
+  :root {
+    --paper: #0d0d0c; --paper-hi: #151513; --card: #181816; --ink: #0a0a09;
+    --text: #efece5; --dim: #a6a39b; --muted: #8f8c85; --line: rgba(239,236,229,.14);
+    --amber: #f78400; --amber-hi: #ff9a2e; --note-ink: #1d150c;
+    --display: "Funnel Display", sans-serif; --body: "Funnel Sans", sans-serif;
+    --hand: "Gochi Hand", cursive; --mono: "Geist Mono", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); }
+  body { font-family: var(--body); color: var(--text); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .page {
+    position: relative; width: 1123px; height: 794px; overflow: hidden;
+    padding: 56px 64px 48px;
+    background: var(--paper) radial-gradient(rgba(239,236,229,.07) 1px, transparent 1.4px) 0 0 / 22px 22px;
+    page-break-after: always; break-after: page;
+  }
+  .page:last-child { page-break-after: auto; }
+  .glow { position: absolute; border-radius: 50%; filter: blur(40px); pointer-events: none;
+    background: radial-gradient(circle, rgba(247,132,0,.42), rgba(247,132,0,0) 68%); }
+
+  /* running head / foot */
+  .head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+  .head img { height: 22px; }
+  .head .sec { font-family: var(--hand); font-size: 22px; color: var(--amber); }
+  .foot { position: absolute; left: 64px; right: 64px; bottom: 26px; display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted); }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; letter-spacing: -.035em; line-height: 1; }
+  h2 { font-size: 54px; margin-bottom: 10px; }
+  h3 { font-size: 21px; letter-spacing: -.02em; margin-bottom: 6px; }
+  p { font-size: 15px; line-height: 1.55; color: var(--dim); }
+  .lede { font-size: 18px; color: var(--dim); max-width: 60ch; }
+  .hand { font-family: var(--hand); color: var(--amber); font-weight: 400; letter-spacing: 0; }
+  .mono { font-family: var(--mono); font-size: 12px; }
+  b, strong { color: var(--text); font-weight: 600; }
+
+  /* marker marks */
+  .mk { position: relative; display: inline-block; white-space: nowrap; }
+  .mk svg { position: absolute; overflow: visible; pointer-events: none; }
+  .mk--u svg { left: -2%; width: 104%; height: .3em; bottom: -.14em; }
+  .mk--c svg { left: -9%; top: -16%; width: 118%; height: 132%; }
+  .mk--s svg { left: -3%; width: 106%; height: .3em; top: .38em; }
+  .mk path { fill: none; stroke: var(--amber); stroke-width: 3.2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  .hl { background: linear-gradient(100deg, rgba(247,132,0,.15), rgba(247,132,0,.45) 6%, rgba(255,154,46,.35) 94%, rgba(247,132,0,.15)) 0 62% / 100% 58% no-repeat;
+    padding: 0 .12em; color: var(--text); }
+
+  /* paper objects */
+  .note { position: relative; padding: 26px 20px 16px; color: var(--note-ink);
+    border-radius: 2px 2px 3px 16px / 2px 2px 3px 12px; box-shadow: 0 16px 26px -12px rgba(0,0,0,.8); }
+  .note--amber { background: linear-gradient(175deg, #ffb347, #f9a032); }
+  .note--cream { background: linear-gradient(175deg, #f6efdf, #ece2cc); }
+  .note--peach { background: linear-gradient(175deg, #ffd3a3, #f8c286); }
+  .pin { position: absolute; top: 7px; left: 50%; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #ffb366 0 18%, #f07a00 38%, #8a3a00 100%); box-shadow: 2px 3px 4px rgba(0,0,0,.45); }
+  .pin--black { background: radial-gradient(circle at 35% 30%, #9a9a9a 0 16%, #2a2a2a 40%, #050505 100%); }
+  .notebook { position: relative; padding: 30px 18px 16px 46px; border-radius: 5px 5px 12px 12px;
+    background-color: #161614;
+    background-image: linear-gradient(90deg, transparent 34px, rgba(247,132,0,.4) 34px, rgba(247,132,0,.4) 35.5px, transparent 35.5px),
+      repeating-linear-gradient(180deg, transparent 0 27px, rgba(239,236,229,.07) 27px 28px);
+    background-position: 0 0, 0 22px;
+    box-shadow: 5px 5px 0 -1px #0d0d0c, 5px 5px 0 0 rgba(239,236,229,.14), 0 20px 40px -20px rgba(0,0,0,.9); }
+  .rings { position: absolute; top: -10px; left: 18px; right: 18px; display: flex; justify-content: space-between; }
+  .rings i { width: 8px; height: 20px; border: 2px solid #8d8a83; border-bottom-color: transparent; border-radius: 5px 5px 2px 2px; }
+  .tape { position: absolute; width: 64px; height: 18px; background: rgba(247,132,0,.75); }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .label { font-family: var(--hand); font-size: 21px; color: var(--amber); margin-bottom: 6px; }
+  .rule { height: 8px; margin: 18px 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 8' preserveAspectRatio='none'%3E%3Cpath d='M2 4 C 80 1, 150 7, 220 4 S 350 2, 398 5' fill='none' stroke='%23efece5' stroke-opacity='.22' stroke-width='1.6' stroke-dasharray='7 7' stroke-linecap='round'/%3E%3C/svg%3E") 0 0/100% 100% no-repeat; }
+  ul.ticks { list-style: none; display: grid; gap: 8px; }
+  ul.ticks li { position: relative; padding-left: 26px; font-size: 15px; line-height: 1.45; color: var(--dim); }
+  ul.ticks li::before { content: ""; position: absolute; left: 2px; top: .3em; width: 11px; height: 6px;
+    border-left: 2.4px solid var(--amber); border-bottom: 2.4px solid var(--amber); transform: rotate(-48deg); }
+  ul.crosses li::before { border: 0; width: 12px; height: 12px; top: .25em; transform: none;
+    background: linear-gradient(45deg, transparent 44%, #ff6a4d 44% 56%, transparent 56%), linear-gradient(-45deg, transparent 44%, #ff6a4d 44% 56%, transparent 56%); }
+
+  /* ---------- cover ---------- */
+  .cover { display: flex; flex-direction: column; justify-content: space-between; padding: 64px 72px; }
+  .cover h1 { font-size: 112px; letter-spacing: -.05em; line-height: .95; max-width: 10ch; }
+  .cover .struck { color: var(--muted); }
+
+  /* ---------- swatches ---------- */
+  .sw { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+  .sw .chip { height: 118px; display: flex; align-items: flex-end; padding: 12px 14px; font-family: var(--hand); font-size: 20px; }
+  .sw .meta { padding: 12px 14px; background: var(--card); }
+  .sw .meta h3 { font-size: 17px; margin-bottom: 4px; }
+  .sw .meta p { font-size: 12.5px; line-height: 1.45; }
+  .sw .meta .mono { color: var(--text); }
+  .ratio { display: flex; height: 26px; border-radius: 8px; overflow: hidden; margin: 10px 0 6px; }
+
+  /* ---------- type specimens ---------- */
+  .spec { padding: 18px 20px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.02); }
+  .spec .big { font-size: 46px; line-height: 1; color: var(--text); margin: 8px 0 10px; }
+
+  /* ---------- instagram mocks ---------- */
+  .ig { position: relative; width: 186px; height: 232px; border-radius: 10px; overflow: hidden; flex: 0 0 auto;
+    background: var(--paper) radial-gradient(rgba(239,236,229,.08) .8px, transparent 1.1px) 0 0 / 12px 12px;
+    box-shadow: 0 18px 30px -16px rgba(0,0,0,.9), 0 0 0 1px var(--line); padding: 16px 14px; }
+  .ig--sq { height: 186px; }
+  .ig .lg { position: absolute; left: 14px; bottom: 11px; height: 11px; }
+  .ig .hd { font-family: var(--display); font-weight: 600; letter-spacing: -.04em; line-height: .98; color: var(--text); }
+  .hn { font-family: var(--hand); color: var(--amber); font-weight: 400; letter-spacing: 0; }
+  .ig .sw2 { position: absolute; right: 12px; bottom: 9px; font-family: var(--hand); font-size: 11px; color: var(--muted); }
+  .mocks { display: flex; gap: 18px; align-items: flex-start; }
+  .mockcap { width: 186px; margin-top: 10px; }
+  .mockcap h3 { font-size: 15px; }
+  .mockcap p { font-size: 12px; line-height: 1.45; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ 1. COVER -->
+<section class="page cover">
+  <span class="glow" style="width:760px;height:760px;right:-240px;top:120px"></span>
+  <span class="glow" style="width:420px;height:420px;left:-180px;top:-160px;opacity:.6"></span>
+  <div style="position:relative;display:flex;justify-content:space-between;align-items:center">
+    <img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="Divlynx" style="height:34px" />
+    <span class="hand" style="font-size:24px">social design guide · v1</span>
+  </div>
+
+  <div style="position:relative">
+    <p class="hand" style="font-size:30px;margin-bottom:14px">the design is called</p>
+    <h1>The Black <span class="mk mk--u">Sketchbook.<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/><path d="M24 19 C 70 15, 122 14, 176 17"/></svg></span></h1>
+    <p class="lede" style="margin-top:28px;max-width:52ch">How to design Divlynx posts for Instagram so they look like they came from the same hands as the website: what the idea is, which colours and fonts to use, the hand-drawn elements, and ready-made post layouts.</p>
+  </div>
+
+  <div style="position:relative;display:flex;gap:28px;align-items:flex-end">
+    <div class="note note--amber" style="width:260px;transform:rotate(-2deg)"><span class="pin pin--black"></span>
+      <p class="hand" style="font-size:22px;color:var(--note-ink)">in one line</p>
+      <p style="font-family:var(--display);font-weight:600;font-size:17px;color:var(--note-ink);line-height:1.3;margin-top:4px">A black page, clean type, annotated by hand in orange marker.</p>
+    </div>
+    <p style="font-size:12px;color:var(--muted)">For the social media team · Matches divlynx.com · Fonts free on Google Fonts</p>
+  </div>
+</section>
+
+<!-- ============================================================ 2. THE IDEA -->
+<section class="page">
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">01 · the idea</span></div>
+  <div class="grid2" style="grid-template-columns:1.1fr .9fr;gap:48px">
+    <div>
+      <h2>Why a <span class="mk mk--c">sketchbook<svg viewBox="0 0 200 80" preserveAspectRatio="none"><path d="M158 12 C 118 1, 42 3, 15 24 C -7 43, 22 72, 92 75 C 162 78, 197 58, 193 34 C 189 13, 148 5, 96 9"/></svg></span>?</h2>
+      <p class="lede" style="margin:18px 0 22px">Divlynx finds the busywork draining a team and replaces it with AI automation. A sketchbook is where that thinking happens: you <b>write down the problem</b>, <b>cross it out</b>, and <b>sketch the fix</b>. Every post should feel like a page from that book.</p>
+      <div class="rule"></div>
+      <p class="label">the three ingredients</p>
+      <div style="display:grid;gap:14px">
+        <div><h3>1. A black page</h3><p>Near-black background with a faint dot grid, like a dotted sketchbook page. Never a white background.</p></div>
+        <div><h3>2. Clean, confident type</h3><p>Big, tight headlines in Funnel Display. The type does the serious work and looks professional.</p></div>
+        <div><h3>3. Notes by hand in orange</h3><p>Orange marker strokes, handwritten labels, sticky notes. These add the human, "we thought about this" feel.</p></div>
+      </div>
+    </div>
+    <div style="display:grid;gap:22px;align-content:start;padding-top:10px">
+      <div class="notebook" style="transform:rotate(1.2deg)">
+        <div class="rings"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <p class="hand" style="font-size:22px;margin-bottom:6px">the story every post tells</p>
+        <p style="color:var(--muted);font-size:15px;text-decoration:line-through;text-decoration-color:var(--amber);text-decoration-thickness:2px">The pain: something done by hand</p>
+        <p class="hand" style="font-size:20px;margin-bottom:10px">→ the fix: automated</p>
+        <p style="color:var(--text);font-size:15px">The value: hours back, no missed leads</p>
+      </div>
+      <div class="note note--cream" style="transform:rotate(-1.5deg)"><span class="pin"></span>
+        <p class="hand" style="font-size:20px;color:#8a3a00">the feeling we want</p>
+        <p style="color:var(--note-ink);font-size:15px;margin-top:4px;line-height:1.45"><b style="color:var(--note-ink)">Smart, human, a little playful.</b> Like a senior engineer explaining your problem on a whiteboard. Not corporate. Not "AI robots and blue glow".</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>2</span></div>
+</section>
+
+<!-- ============================================================ 3. COLOUR -->
+<section class="page">
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">02 · colour</span></div>
+  <h2>Black and <span class="mk mk--u">orange<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/></svg></span>. That's it.</h2>
+  <p class="lede" style="margin:12px 0 18px">Orange is the logo's colour. Use it like a marker: for the one thing you want people to notice. Everything else is black and warm white.</p>
+
+  <div class="grid3" style="grid-template-columns:repeat(5,1fr);gap:14px">
+    <div class="sw"><div class="chip" style="background:#0d0d0c;color:var(--dim)">page</div><div class="meta"><h3>Sketchbook Black</h3><p><span class="mono">#0D0D0C</span><br>RGB 13 13 12<br>Every background</p></div></div>
+    <div class="sw"><div class="chip" style="background:#151513;color:var(--dim)">cards</div><div class="meta"><h3>Raised Black</h3><p><span class="mono">#151513</span><br>RGB 21 21 19<br>Notebook pages, panels</p></div></div>
+    <div class="sw"><div class="chip" style="background:#efece5;color:#0d0d0c">text</div><div class="meta"><h3>Warm White</h3><p><span class="mono">#EFECE5</span><br>RGB 239 236 229<br>Headlines, main text</p></div></div>
+    <div class="sw"><div class="chip" style="background:#a6a39b;color:#0d0d0c">support</div><div class="meta"><h3>Pencil Grey</h3><p><span class="mono">#A6A39B</span><br>RGB 166 163 155<br>Smaller supporting text</p></div></div>
+    <div class="sw"><div class="chip" style="background:#f78400;color:#0a0a09">marker</div><div class="meta"><h3>Divlynx Orange</h3><p><span class="mono">#F78400</span><br>RGB 247 132 0<br>Marks, notes, buttons</p></div></div>
+  </div>
+
+  <div class="grid2" style="margin-top:20px;gap:32px">
+    <div>
+      <p class="label">how much of each</p>
+      <div class="ratio"><span style="width:65%;background:#0d0d0c;border:1px solid var(--line)"></span><span style="width:23%;background:#efece5"></span><span style="width:12%;background:#f78400"></span></div>
+      <p style="font-size:13px">About <b>65% black</b> · <b>23% white text</b> · <b>12% orange</b>. If a post looks mostly orange, flip it to an orange "field" post (black text on orange), but never mix big orange areas with lots of orange text.</p>
+    </div>
+    <div>
+      <p class="label">sticky-note papers</p>
+      <div style="display:flex;gap:10px">
+        <div class="note note--amber" style="flex:1;padding:14px 12px 10px"><p class="mono" style="color:var(--note-ink)">#FFB347</p><p style="font-size:12px;color:var(--note-ink)">Amber note</p></div>
+        <div class="note note--cream" style="flex:1;padding:14px 12px 10px"><p class="mono" style="color:var(--note-ink)">#F6EFDF</p><p style="font-size:12px;color:var(--note-ink)">Cream note</p></div>
+        <div class="note note--peach" style="flex:1;padding:14px 12px 10px"><p class="mono" style="color:var(--note-ink)">#FFD3A3</p><p style="font-size:12px;color:var(--note-ink)">Peach note</p></div>
+      </div>
+      <p style="font-size:13px;margin-top:10px">Text on notes is always dark ink <span class="mono" style="color:var(--text)">#1D150C</span>, never white.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>3</span></div>
+</section>
+
+<!-- ============================================================ 4. TYPE -->
+<section class="page">
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">03 · typography</span></div>
+  <h2>Three fonts, three <span class="mk mk--u">jobs<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/></svg></span>.</h2>
+  <p class="lede" style="margin:12px 0 20px">All free on Google Fonts (fonts.google.com). Install them in Canva or Figma before designing.</p>
+
+  <div class="grid3" style="gap:18px">
+    <div class="spec">
+      <p class="label">headlines</p>
+      <h3 style="font-size:24px">Funnel Display</h3>
+      <p class="big" style="font-family:var(--display);font-weight:600;letter-spacing:-.04em">Stop doing it by hand.</p>
+      <p style="font-size:13px"><b>SemiBold (600)</b>. Big and tight: letter spacing −3 to −4%, line height 95–100%. Max 8 words.</p>
+    </div>
+    <div class="spec">
+      <p class="label">body text</p>
+      <h3 style="font-size:24px">Funnel Sans</h3>
+      <p class="big" style="font-family:var(--body);font-size:22px;line-height:1.45;color:var(--dim);margin-top:14px">We find the tasks draining your team and hand them to AI agents.</p>
+      <p style="font-size:13px"><b>Regular (400)</b> and <b>Medium (500)</b>. For sentences and explanations. Line height 140–150%.</p>
+    </div>
+    <div class="spec">
+      <p class="label">handwritten notes</p>
+      <h3 style="font-size:24px">Gochi Hand</h3>
+      <p class="big" style="font-family:var(--hand);color:var(--amber);font-size:40px;margin-top:12px">on autopilot.</p>
+      <p style="font-size:13px"><b>Regular</b>, in orange (or dark ink on sticky notes). Only for <b>short notes of 1–5 words</b>: labels, dates, captions, arrows' text.</p>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:20px;gap:28px">
+    <div>
+      <p class="label">sizes on a 1080 × 1350 post</p>
+      <table style="width:100%;border-collapse:collapse;font-size:13.5px;color:var(--dim)">
+        <tr><td style="padding:5px 0"><b>Headline</b></td><td>Funnel Display 600</td><td style="text-align:right" class="mono">110–150 px</td></tr>
+        <tr><td style="padding:5px 0"><b>Sub-headline</b></td><td>Funnel Display 600</td><td style="text-align:right" class="mono">56–72 px</td></tr>
+        <tr><td style="padding:5px 0"><b>Body</b></td><td>Funnel Sans 400</td><td style="text-align:right" class="mono">34–40 px</td></tr>
+        <tr><td style="padding:5px 0"><b>Hand note</b></td><td>Gochi Hand</td><td style="text-align:right" class="mono">44–70 px</td></tr>
+        <tr><td style="padding:5px 0"><b>Small print</b></td><td>Geist Mono 400 (optional)</td><td style="text-align:right" class="mono">24–28 px</td></tr>
+      </table>
+    </div>
+    <div>
+      <p class="label">rules</p>
+      <ul class="ticks">
+        <li>One headline per post. Everything else is clearly smaller.</li>
+        <li>Never write a paragraph in the handwriting font.</li>
+        <li>Never use gradient text, outlines or drop shadows on type.</li>
+        <li>Nothing smaller than 24 px on a 1080 px post. People read on phones.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>4</span></div>
+</section>
+
+<!-- ============================================================ 5. TOOLKIT -->
+<section class="page">
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">04 · the sketchbook toolkit</span></div>
+  <h2>The hand-drawn <span class="mk mk--u">elements<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/></svg></span></h2>
+  <p class="lede" style="margin:10px 0 20px">Draw them by hand (iPad + Procreate, or a brush tool) so the lines wobble a little. Perfect vector shapes look fake.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px 20px">
+    <div class="spec"><p class="label">marker underline</p><p style="font-family:var(--display);font-weight:600;font-size:30px;letter-spacing:-.03em;padding:6px 0 14px"><span class="mk mk--u">run it<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/><path d="M24 19 C 70 15, 122 14, 176 17"/></svg></span></p><p style="font-size:12.5px">Under the key word of a headline.</p></div>
+    <div class="spec"><p class="label">marker circle</p><p style="font-family:var(--display);font-weight:600;font-size:30px;letter-spacing:-.03em;padding:6px 0 14px">No <span class="mk mk--c">black boxes<svg viewBox="0 0 200 80" preserveAspectRatio="none"><path d="M158 12 C 118 1, 42 3, 15 24 C -7 43, 22 72, 92 75 C 162 78, 197 58, 193 34 C 189 13, 148 5, 96 9"/></svg></span></p><p style="font-size:12.5px">Around a word you want to stress. Loose, overlapping ends.</p></div>
+    <div class="spec"><p class="label">strike + correction</p><p style="font-family:var(--display);font-weight:600;font-size:30px;letter-spacing:-.03em;padding:6px 0 2px"><span class="mk mk--s" style="color:var(--muted)">by hand<svg viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M2 12 C 40 7, 90 14, 140 9 S 188 12, 198 7"/></svg></span></p><p class="hand" style="font-size:24px;margin-bottom:4px">^ on autopilot</p><p style="font-size:12.5px">Cross out the pain, write the fix.</p></div>
+    <div class="spec"><p class="label">highlighter</p><p style="font-size:20px;padding:10px 0 16px;color:var(--dim)">tasks <span class="hl">draining your team</span></p><p style="font-size:12.5px">For a phrase inside body text. Once per post.</p></div>
+
+    <div class="spec" style="display:grid;place-items:start"><p class="label">sticky note + pin</p><div class="note note--amber" style="width:150px;padding:22px 12px 10px;transform:rotate(-3deg)"><span class="pin pin--black"></span><p class="hand" style="font-size:18px;color:var(--note-ink)">client quote</p></div><p style="font-size:12.5px;margin-top:12px">Quotes, tips, the "value" message.</p></div>
+    <div class="spec"><p class="label">notebook page</p><div class="notebook" style="padding:22px 10px 8px 34px;margin-top:6px"><div class="rings"><i></i><i></i><i></i><i></i><i></i></div><p class="hand" style="font-size:17px">to-do</p><p style="font-size:12px;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--amber)">Copy leads to CRM</p></div><p style="font-size:12.5px;margin-top:12px">Lists, checklists, steps.</p></div>
+    <div class="spec"><p class="label">ticks &amp; arrows</p><div style="display:flex;gap:18px;align-items:center;padding:14px 0 12px">
+      <svg width="34" height="30" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="15" height="15" rx="2.5" fill="none" stroke="#f78400" stroke-width="1.6"/><path d="M3 12.5 C 5 14.5, 7 16.5, 8.5 19 C 11.5 12, 15.5 6.5, 21 2.5" fill="none" stroke="#f78400" stroke-width="2.6" stroke-linecap="round"/></svg>
+      <svg width="70" height="30" viewBox="0 0 110 50"><path d="M4 30 C 30 8, 66 44, 100 22" fill="none" stroke="#f78400" stroke-width="3" stroke-linecap="round"/><path d="M86 14 L 102 21 L 92 36" fill="none" stroke="#f78400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="28" height="28" viewBox="0 0 24 24"><path d="M12 3 C 11.5 8, 12.5 16, 12 21 M4 8 C 9 10, 15 14, 20 16 M20 7 C 15 10, 9 14, 4 17" fill="none" stroke="#f78400" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </div><p style="font-size:12.5px">Checked boxes, arrows from problem to fix, asterisk separators.</p></div>
+    <div class="spec"><p class="label">dot-grid page</p><div style="height:62px;border-radius:8px;margin:6px 0 10px;background:#0d0d0c radial-gradient(rgba(239,236,229,.22) 1px, transparent 1.6px) 0 0/12px 12px;border:1px solid var(--line)"></div><p style="font-size:12.5px">Every background. Dots very faint (6–8% white).</p></div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>5</span></div>
+</section>
+
+<!-- ============================================================ 6. RULES -->
+<section class="page">
+  <span class="glow" style="width:560px;height:560px;right:-200px;bottom:-200px;opacity:.7"></span>
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">05 · how much is enough</span></div>
+  <h2>Sketch with <span class="mk mk--c">restraint<svg viewBox="0 0 200 80" preserveAspectRatio="none"><path d="M158 12 C 118 1, 42 3, 15 24 C -7 43, 22 72, 92 75 C 162 78, 197 58, 193 34 C 189 13, 148 5, 96 9"/></svg></span></h2>
+  <p class="lede" style="margin:14px 0 24px">The hand-drawn layer is the seasoning, not the meal. Too many doodles and it looks cluttered and childish.</p>
+  <div class="grid2" style="gap:44px;position:relative">
+    <div>
+      <p class="label">do</p>
+      <ul class="ticks">
+        <li><b>One</b> marker stroke per headline (underline, circle <i>or</i> strike).</li>
+        <li><b>Max 3</b> hand-drawn elements per post (e.g. one underline + one note + one arrow).</li>
+        <li>Keep lots of empty black space. Let the headline breathe.</li>
+        <li>Tilt notes and stickers slightly (1–4°). Never more than 5°.</li>
+        <li>Use orange for marks and notes; keep headlines warm white.</li>
+        <li>Put the logo small in a corner on every post.</li>
+        <li>Always follow the story: <b>pain → fix → value</b>.</li>
+      </ul>
+    </div>
+    <div>
+      <p class="label">don't</p>
+      <ul class="ticks crosses">
+        <li>No white or light backgrounds, no other brand colours (blue, purple, green).</li>
+        <li>No gradients on text, no glows around text, no neon "AI" effects.</li>
+        <li>No stock photos of robots, circuit brains or handshakes.</li>
+        <li>No emoji as decoration. Use the hand-drawn marks instead.</li>
+        <li>No paragraphs in handwriting; no more than 2 fonts besides the hand font.</li>
+        <li>Don't stretch, recolour or add effects to the logo.</li>
+        <li>Don't invent numbers. Only use stats we can prove (30+ projects, 20+ clients).</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>6</span></div>
+</section>
+
+<!-- ============================================================ 7. LOGO -->
+<section class="page">
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">06 · logo</span></div>
+  <h2>Two <span class="mk mk--u">logos<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/></svg></span>, both on black</h2>
+  <p class="lede" style="margin:12px 0 24px">Files are in the website repo under <span class="mono" style="color:var(--text)">docs/brand/</span> (full size, transparent).</p>
+  <div class="grid2" style="gap:30px">
+    <div class="spec" style="display:grid;gap:14px">
+      <p class="label">horizontal · default</p>
+      <div style="height:170px;display:grid;place-items:center;border-radius:10px;background:#0d0d0c;border:1px dashed var(--line)"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" style="height:46px" alt="" /></div>
+      <p style="font-size:13.5px">Corner of every post (top-left or bottom-left), headers, stories. File: <span class="mono" style="color:var(--text)">divlynx-logo-horizontal-master.png</span></p>
+    </div>
+    <div class="spec" style="display:grid;gap:14px">
+      <p class="label">stacked · for square spaces</p>
+      <div style="height:170px;display:grid;place-items:center;border-radius:10px;background:#0d0d0c;border:1px dashed var(--line)"><img src="../public/assets/brand/divlynx-logo-stacked.webp" style="height:120px" alt="" /></div>
+      <p style="font-size:13.5px">Profile picture, highlight covers, end slide of a carousel. File: <span class="mono" style="color:var(--text)">divlynx-logo-stacked-transparent-master.png</span></p>
+    </div>
+  </div>
+  <div class="grid3" style="margin-top:22px;gap:20px">
+    <div><h3>Clear space</h3><p style="font-size:13.5px">Keep empty space around the logo at least the height of the "d" in divlynx.</p></div>
+    <div><h3>Size on posts</h3><p style="font-size:13.5px">Horizontal logo about 180–220 px wide on a 1080 px post. Small and calm, never the hero.</p></div>
+    <div><h3>Profile picture</h3><p style="font-size:13.5px">Stacked logo centred on Sketchbook Black (#0D0D0C), or the mark alone on the orange gradient master.</p></div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>7</span></div>
+</section>
+
+<!-- ============================================================ 8. POST LAYOUTS -->
+<section class="page">
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">07 · instagram post layouts</span></div>
+  <h2>Five posts to <span class="mk mk--u">start with<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/></svg></span></h2>
+  <p class="lede" style="margin:10px 0 22px">Feed posts at <b>1080 × 1350</b> (4:5). Each one tells the pain → fix → value story in its own way.</p>
+
+  <div class="mocks">
+    <!-- 1. pain/fix -->
+    <div>
+      <div class="ig">
+        <p class="hd" style="font-size:27px;margin-top:22px">Stop doing it <span class="mk mk--s" style="color:var(--muted)">by hand.<svg viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M2 12 C 40 7, 90 14, 140 9 S 188 12, 198 7"/></svg></span></p>
+        <p class="hn" style="font-size:19px;transform:rotate(-3deg);margin:2px 0 0 6px">^ on autopilot.</p>
+        <p style="font-size:9.5px;line-height:1.4;margin-top:16px;color:var(--dim)">We hand your repetitive work to AI agents.</p>
+        <img class="lg" src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" />
+      </div>
+      <div class="mockcap"><h3>1 · The edit</h3><p>Pain struck out, fix written in. Best for bold statements.</p></div>
+    </div>
+    <!-- 2. checklist carousel -->
+    <div>
+      <div class="ig">
+        <div class="notebook" style="padding:18px 8px 8px 26px;margin-top:6px;box-shadow:none;background-image:linear-gradient(90deg,transparent 20px,rgba(247,132,0,.4) 20px,rgba(247,132,0,.4) 21px,transparent 21px),repeating-linear-gradient(180deg,transparent 0 21px,rgba(239,236,229,.07) 21px 22px)">
+          <div class="rings" style="top:-7px"><i style="width:6px;height:14px"></i><i style="width:6px;height:14px"></i><i style="width:6px;height:14px"></i><i style="width:6px;height:14px"></i><i style="width:6px;height:14px"></i></div>
+          <p class="hn" style="font-size:14px;margin-bottom:4px">things eating your week</p>
+          <p style="font-size:9px;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--amber)">Answering the same calls</p>
+          <p class="hn" style="font-size:11px;margin-bottom:5px">voice agent, 24/7</p>
+          <p style="font-size:9px;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--amber)">Copying leads to the CRM</p>
+          <p class="hn" style="font-size:11px;margin-bottom:5px">synced automatically</p>
+          <p style="font-size:9px;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--amber)">Building the Monday report</p>
+          <p class="hn" style="font-size:11px">in your inbox at 9am</p>
+        </div>
+        <span class="sw2">swipe →</span>
+        <img class="lg" src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" />
+      </div>
+      <div class="mockcap"><h3>2 · The checklist</h3><p>Carousel: one pain per slide, crossed out, fix in handwriting.</p></div>
+    </div>
+    <!-- 3. testimonial -->
+    <div>
+      <div class="ig">
+        <p class="hd" style="font-size:18px">What clients say <span class="mk mk--c">once it's live<svg viewBox="0 0 200 80" preserveAspectRatio="none"><path d="M158 12 C 118 1, 42 3, 15 24 C -7 43, 22 72, 92 75 C 162 78, 197 58, 193 34 C 189 13, 148 5, 96 9"/></svg></span></p>
+        <div class="note note--amber" style="margin-top:20px;padding:20px 12px 10px;transform:rotate(-3deg)"><span class="pin pin--black" style="width:12px;height:12px;margin-left:-6px"></span>
+          <p style="font-family:var(--hand);font-size:13.5px;line-height:1.2;color:var(--note-ink)">"Execution was swift and outcomes exceeded expectations."</p>
+          <p style="font-family:var(--display);font-weight:700;font-size:9px;margin-top:6px;color:var(--note-ink)">MetaStore · Pakistan</p>
+        </div>
+        <img class="lg" src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" />
+      </div>
+      <div class="mockcap"><h3>3 · The pinned note</h3><p>Real client quotes only, on a sticky note with a pin.</p></div>
+    </div>
+    <!-- 4. stat -->
+    <div>
+      <div class="ig" style="display:grid;align-content:center;justify-items:start">
+        <p class="hn" style="font-size:15px">shipped so far</p>
+        <p class="hd" style="font-size:70px"><span class="mk mk--u">30+<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/><path d="M24 19 C 70 15, 122 14, 176 17"/></svg></span></p>
+        <p style="font-size:10px;color:var(--dim);margin-top:12px;line-height:1.4">projects for 20+ clients, first release in about 4 weeks.</p>
+        <img class="lg" src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" />
+      </div>
+      <div class="mockcap"><h3>4 · The number</h3><p>One proven stat, huge, with one marker stroke.</p></div>
+    </div>
+    <!-- 5. orange field -->
+    <div>
+      <div class="ig" style="background:#f78400 radial-gradient(rgba(10,10,9,.16) .8px, transparent 1.1px) 0 0/12px 12px">
+        <p class="hn" style="font-size:15px;color:var(--note-ink)">quick tip</p>
+        <p class="hd" style="font-size:22px;color:var(--note-ink);margin-top:6px">Automate the boring step first, not the clever one.</p>
+        <p style="font-size:9.5px;line-height:1.4;margin-top:12px;color:#3a1a00">Frequent, rule-based, copy-paste work pays back fastest.</p>
+        <img class="lg" src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" style="filter:brightness(0)" />
+      </div>
+      <div class="mockcap"><h3>5 · The orange field</h3><p>Tips and journal posts. Black text on orange; use sparingly (1 in 4 posts).</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>8</span></div>
+</section>
+
+<!-- ============================================================ 9. VOICE + ANATOMY -->
+<section class="page">
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">08 · words &amp; post anatomy</span></div>
+  <div class="grid2" style="grid-template-columns:1fr 1fr;gap:48px">
+    <div>
+      <h2 style="font-size:46px">How we <span class="mk mk--u">sound<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/></svg></span></h2>
+      <p class="lede" style="margin:12px 0 18px;font-size:16px">Short, plain and specific. Name the pain the reader feels, then the value they get. No hype words.</p>
+      <p class="label">say</p>
+      <ul class="ticks" style="margin-bottom:16px">
+        <li>"Calls after 6pm go to voicemail. Not anymore."</li>
+        <li>"Stop copying leads into your CRM."</li>
+        <li>"Your Monday report, in your inbox at 9am."</li>
+      </ul>
+      <p class="label">avoid</p>
+      <ul class="ticks crosses">
+        <li>"Revolutionary AI-powered synergy solutions"</li>
+        <li>"Unlock the future of work 🚀🤖"</li>
+        <li>Claims or numbers we can't prove</li>
+      </ul>
+    </div>
+    <div>
+      <p class="label">anatomy of a 1080 × 1350 post</p>
+      <div style="position:relative;width:300px;height:375px;border-radius:12px;padding:30px 24px;background:#0d0d0c radial-gradient(rgba(239,236,229,.1) 1px, transparent 1.4px) 0 0/16px 16px;box-shadow:0 0 0 1px var(--line)">
+        <p class="hn" style="font-size:20px;color:var(--amber)">1 · hand label</p>
+        <p style="font-family:var(--display);font-weight:600;font-size:38px;letter-spacing:-.04em;line-height:.98;margin-top:6px">2 · Headline <span class="mk mk--u">here<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/></svg></span></p>
+        <p style="font-size:13px;color:var(--dim);margin-top:16px;line-height:1.45">3 · One or two lines of body text that explain the value.</p>
+        <div class="note note--cream" style="margin-top:18px;width:150px;padding:18px 10px 8px;transform:rotate(-2deg)"><span class="pin" style="width:12px;height:12px;margin-left:-6px"></span><p style="font-family:var(--hand);font-size:14px;color:var(--note-ink)">4 · one paper object</p></div>
+        <img src="../public/assets/brand/divlynx-logo-horizontal.webp" style="position:absolute;left:24px;bottom:20px;height:16px" alt="" />
+        <span class="hn" style="position:absolute;right:20px;bottom:16px;font-size:15px;color:var(--muted)">5 · logo + swipe</span>
+      </div>
+      <p style="font-size:13px;margin-top:14px">Margins: <b>at least 80 px</b> on every side. Keep text out of the bottom 150 px of Reels covers.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>9</span></div>
+</section>
+
+<!-- ============================================================ 10. CHECKLIST -->
+<section class="page">
+  <span class="glow" style="width:620px;height:620px;left:-220px;bottom:-260px;opacity:.7"></span>
+  <div class="head"><img src="../public/assets/brand/divlynx-logo-horizontal.webp" alt="" /><span class="sec">09 · before you post</span></div>
+  <div class="grid2" style="grid-template-columns:1.05fr .95fr;gap:48px;position:relative">
+    <div>
+      <h2>The <span class="mk mk--u">checklist<svg viewBox="0 0 200 24" preserveAspectRatio="none"><path d="M3 14 C 40 8, 92 6, 132 9 S 186 15, 197 9"/><path d="M24 19 C 70 15, 122 14, 176 17"/></svg></span></h2>
+      <div class="notebook" style="margin-top:28px;padding:34px 22px 18px 52px;transform:rotate(-.6deg)">
+        <div class="rings"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <ul class="ticks" style="gap:9px">
+          <li>Black dotted background (#0D0D0C)</li>
+          <li>Headline in Funnel Display, warm white, 8 words or fewer</li>
+          <li>Exactly one marker stroke on the headline</li>
+          <li>Handwriting only for short orange notes</li>
+          <li>3 hand-drawn elements or fewer</li>
+          <li>Tells the story: pain → fix → value</li>
+          <li>Logo small in a corner</li>
+          <li>Text at least 24 px and readable on a phone</li>
+          <li>Any number or quote is real and approved</li>
+        </ul>
+      </div>
+    </div>
+    <div style="display:grid;gap:18px;align-content:start;padding-top:8px">
+      <p class="label">quick reference</p>
+      <div class="spec" style="display:grid;gap:8px">
+        <p style="font-size:14px"><b>Name:</b> The Black Sketchbook</p>
+        <p style="font-size:14px"><b>Idea:</b> a black page, clean type, annotated by hand in orange marker</p>
+        <p style="font-size:14px"><b>Colours:</b> <span class="mono" style="color:var(--text)">#0D0D0C</span> · <span class="mono" style="color:var(--text)">#EFECE5</span> · <span class="mono" style="color:var(--text)">#F78400</span></p>
+        <p style="font-size:14px"><b>Fonts:</b> Funnel Display · Funnel Sans · Gochi Hand</p>
+        <p style="font-size:14px"><b>Story:</b> pain → fix → value</p>
+        <p style="font-size:14px"><b>Website:</b> divlynx.com, open it when in doubt</p>
+      </div>
+      <div class="note note--amber" style="transform:rotate(2deg);margin-top:6px"><span class="pin pin--black"></span>
+        <p class="hand" style="font-size:22px;color:var(--note-ink)">when in doubt</p>
+        <p style="font-family:var(--display);font-weight:600;font-size:17px;color:var(--note-ink);line-height:1.3;margin-top:4px">Remove one thing. A calm black page with one orange mark beats a busy one every time.</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Divlynx · The Black Sketchbook</span><span>10</span></div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,10 @@
+/* Local copies of the brand fonts (Google Fonts, OFL) so the guide prints offline. */
+@font-face { font-family: 'Funnel Display'; font-style: normal; font-weight: 500; font-display: block; src: url('funnel-display-500.woff2') format('woff2'); }
+@font-face { font-family: 'Funnel Display'; font-style: normal; font-weight: 600; font-display: block; src: url('funnel-display-600.woff2') format('woff2'); }
+@font-face { font-family: 'Funnel Display'; font-style: normal; font-weight: 700; font-display: block; src: url('funnel-display-700.woff2') format('woff2'); }
+@font-face { font-family: 'Funnel Sans'; font-style: normal; font-weight: 400; font-display: block; src: url('funnel-sans-400.woff2') format('woff2'); }
+@font-face { font-family: 'Funnel Sans'; font-style: normal; font-weight: 500; font-display: block; src: url('funnel-sans-500.woff2') format('woff2'); }
+@font-face { font-family: 'Funnel Sans'; font-style: normal; font-weight: 600; font-display: block; src: url('funnel-sans-600.woff2') format('woff2'); }
+@font-face { font-family: 'Geist Mono'; font-style: normal; font-weight: 400; font-display: block; src: url('geist-mono-400.woff2') format('woff2'); }
+@font-face { font-family: 'Geist Mono'; font-style: normal; font-weight: 500; font-display: block; src: url('geist-mono-500.woff2') format('woff2'); }
+@font-face { font-family: 'Gochi Hand'; font-style: normal; font-weight: 400; font-display: block; src: url('gochi-hand-400.woff2') format('woff2'); }

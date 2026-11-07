@@ -230,7 +230,7 @@ Signature moments:
 
 How reveals work:
 
-- Elements with `.reveal` (fade/rise) and `.draw` (stroke) are observed by `src/hooks/useRevealOnScroll.js`, which adds `is-in`.
+- Elements with `.reveal` (fade/rise) and `.draw` (stroke) are observed by `src/hooks/useRevealOnScroll.js`, which sets a `data-in` attribute (a data attribute, not a class, so React re-renders can never strip it and re-hide content).
 - Content is **visible by default** in the prerendered HTML. CSS only holds it back once the inline script in `index.html` sets `html.js`, and a timed CSS fallback reveals everything regardless. Do not use Framer Motion `initial={{ opacity: 0 }}` for section content: it ships invisible HTML.
 - Stagger with the `--reveal-delay` custom property.
 - Every animation has a `prefers-reduced-motion` path (`MotionConfig reducedMotion="user"` for Framer Motion, plus CSS overrides). Looping visuals pause when off-screen.
@@ -271,6 +271,8 @@ Other routes: `/case-studies`, `/about`, `/careers`, `/faq`, `/blog`, `/blog/:sl
 |   `-- contact.js              # Vercel contact-form endpoint
 |-- docs/
 |   |-- brand/                  # High-resolution logo masters (not deployed)
+|   |-- Divlynx-Social-Brand-Guide.pdf   # "The Black Sketchbook" guide for social media design
+|   |-- divlynx-social-brand-guide.html  # Editable source of that guide (fonts in docs/fonts/)
 |   |-- Divlynx-Pitch-Deck.pdf  # Client-facing pitch deck
 |   `-- divlynx-pitch-deck.html # Editable deck source
 |-- public/
@@ -281,7 +283,8 @@ Other routes: `/case-studies`, `/about`, `/careers`, `/faq`, `/blog`, `/blog/:sl
 |   |   |-- hero/               # Social-share image
 |   |   |-- projects/           # Project screenshots (WebP, 1400 + 760)
 |   |   `-- team/               # Team portraits (600px WebP)
-|   |-- favicon.svg
+|   |-- favicon.ico, favicon-48x48.png    # Browser tab + Google results icon
+|   |-- icon-192.png, icon-512.png, apple-touch-icon.png, site.webmanifest
 |   `-- googled90c3df1f28b3400.html   # Search Console verification
 |-- scripts/
 |   `-- prerender.mjs           # Static route, 404, sitemap and robots generation
@@ -316,9 +319,10 @@ Other routes: `/case-studies`, `/about`, `/careers`, `/faq`, `/blog`, `/blog/:sl
 | --- | --- |
 | `public/assets/brand/divlynx-logo-horizontal.webp` | Navbar and default `<Logo />` (486×96, transparent) |
 | `public/assets/brand/divlynx-logo-stacked.webp` | Footer, `<Logo variant="stacked" />` (480×552, transparent) |
-| `public/assets/brand/divlynx-logo-stacked.png` | Schema.org organization logo in `src/seo.js` |
+| `public/assets/brand/divlynx-logo-square-dark.png` | Organization logo for Google (512×512, white logo on #0D0D0C) in `src/seo.js` |
+| `public/assets/brand/divlynx-og.jpg` | Share image for Google, LinkedIn, WhatsApp and X (1200×630). Source: `docs/brand/og-image.html` |
 | `public/assets/brand/divlynx-logo-legacy.svg` | Previous logo, still used by the pitch deck |
-| `public/assets/brand/apple-touch-icon.svg` | iOS home-screen icon |
+| `public/favicon.ico` · `favicon-48x48.png` · `icon-192.png` · `icon-512.png` · `apple-touch-icon.png` | Favicons and app icons: the mark on a dark rounded tile |
 | `docs/brand/divlynx-logo-horizontal-master.png` | 8334px horizontal master |
 | `docs/brand/divlynx-logo-stacked-on-orange-master.png` | Stacked master on the orange gradient |
 | `docs/brand/divlynx-logo-stacked-transparent-master.png` | Transparent stacked master, composed from the horizontal master |
@@ -449,6 +453,10 @@ The editable deck is `docs/divlynx-pitch-deck.html`; it uses the logo and social
 ```
 
 ---
+
+## Social media brand guide
+
+`docs/Divlynx-Social-Brand-Guide.pdf` explains the design ("The Black Sketchbook") to whoever designs social posts: the idea, colours, fonts, hand-drawn elements, logo use, five Instagram layouts, tone of voice and a pre-post checklist. Edit `docs/divlynx-social-brand-guide.html` and re-export it the same way as the pitch deck (Chrome or Edge `--print-to-pdf`). Its fonts are stored locally in `docs/fonts/`, so it prints correctly offline.
 
 ## Deployment
 
