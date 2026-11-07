@@ -7,6 +7,7 @@ const ITEMS = [
   { quote: "Execution was swift and outcomes exceeded expectations. Strong recommendation.", company: "MetaStore", meta: "Pakistan · Nov 2023", href: "https://metastore.pk/", tone: "violet", rating: 5 },
   { quote: "A live property platform bringing listings, services and enquiries together.", company: "Sincere Capital", meta: "Netherlands", href: "https://www.sincere-estate.nl/", tone: "coral", rating: 5 },
   { quote: "A complete fitness platform for memberships, trainer discovery, and member access.", company: "Range Fit Gym", meta: "Pakistan", href: "https://range-fit-gym.vercel.app/", tone: "green", rating: 5 },
+  { quote: "Divlynx gave us a clear, responsive web solution that presents our studio and work with confidence.", company: "Cave Clan Studios", meta: "Web solutions", tone: "red", rating: 5 },
 ];
 
 export default function Testimonials() {

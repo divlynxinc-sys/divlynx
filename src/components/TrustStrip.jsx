@@ -6,6 +6,7 @@ const CLIENTS = [
   { src: "/assets/clients/el-club.png", alt: "El Club", place: "USA", className: "is-elclub" },
   { src: "/assets/clients/sincere-capital.png", alt: "Sincere Capital", place: "Netherlands", className: "is-sincere" },
   { src: "/assets/clients/range-fit-gym.jpeg", alt: "Range Fit Gym", place: "Pakistan", className: "is-range-fit" },
+  { src: "/assets/clients/cave-clan.jpeg", alt: "Cave Clan Studios", place: "Pakistan", className: "is-cave-clan" },
 ];
 
 export default function TrustStrip() {

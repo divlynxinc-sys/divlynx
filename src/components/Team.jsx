@@ -54,6 +54,12 @@ const ENGINEERING = [
     image: "/assets/team/khubaib-flutter-intern.png",
     description: "Flutter development, mobile interfaces and cross-platform product delivery.",
   },
+  {
+    name: "Salman Asad",
+    role: "Full-stack Engineer Intern",
+    image: "/assets/team/salman-asad-full-stack-engineer-intern.png",
+    description: "Full-stack development, product interfaces and application engineering.",
+  },
 ];
 
 function Profile({ member, index = 0 }) {

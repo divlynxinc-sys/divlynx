@@ -61,8 +61,8 @@
   width: 82px;
   height: 68px;
   object-fit: contain;
-  opacity: .82;
-  filter: grayscale(1) contrast(1.25) brightness(1.45);
+  opacity: .95;
+  filter: none;
 }
 
 .trust__logos span {
@@ -85,13 +85,18 @@
 }
 
 .trust__logos .is-sincere img {
-  filter: grayscale(1) invert(1) brightness(1.25);
-  mix-blend-mode: screen;
+  filter: none;
+  mix-blend-mode: normal;
 }
 
 .trust__logos .is-range-fit img {
-  filter: grayscale(1) contrast(2.2) brightness(1.4);
-  mix-blend-mode: screen;
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+.trust__logos .is-cave-clan img {
+  filter: none;
+  mix-blend-mode: normal;
 }
 
 @keyframes trust-scroll {

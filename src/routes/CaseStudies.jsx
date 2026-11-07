@@ -49,6 +49,50 @@ const CASES = [
     href: "https://jobsynk.co/",
   },
   {
+    service: "Restaurant product development",
+    client: "Mise",
+    region: "Pakistan",
+    title: "Restaurant orders, kitchen tickets, and delivery in one flow",
+    challenge:
+      "Independent restaurants need direct online ordering without losing their customer relationship to an aggregator. Mise had to connect the guest storefront, kitchen workflow, delivery status, and customer history without adding operational friction.",
+    built: [
+      "Branded storefronts for dine-in, takeaway, and delivery ordering",
+      "A live kitchen rail that moves tickets through new, preparing, and ready states",
+      "Order totals, GST, service charges, cash handling, and local delivery rules",
+      "Customer profiles, repeat-order context, reviews, and promotion workflows",
+      "Rider assignment and delivery progress for the restaurant and guest",
+    ],
+    outcome: [
+      "Restaurants can own the complete ordering experience and customer relationship",
+      "Kitchen teams receive every order in one clear operational queue",
+      "Guests can move from menu to delivery updates without switching platforms",
+    ],
+    stack: ["Online ordering", "Kitchen operations", "Delivery tracking", "Customer CRM"],
+    href: "https://restaurant-divlynx.vercel.app/",
+  },
+  {
+    service: "Booking & operations platform",
+    client: "Divlynx Pilates",
+    region: "Global",
+    title: "A Pilates booking journey connected to studio operations",
+    challenge:
+      "A Pilates studio needs to make the first visit approachable while keeping classes, capacity, instructors, packs, and client information organised behind the scenes. The product needed one coherent experience for both clients and staff.",
+    built: [
+      "Beginner programme onboarding with a clear first-class journey",
+      "Live class timetable with instructors, levels, capacity, and availability",
+      "Class packs, introductory offers, ordering, and booking actions",
+      "Client intake and studio information designed around first-visit questions",
+      "A connected staff view for schedule and day-to-day studio management",
+    ],
+    outcome: [
+      "New clients can understand the programme and reserve an appropriate class quickly",
+      "Availability, instructor details, and pricing stay visible in one booking flow",
+      "The studio can manage the client-facing schedule and operational view together",
+    ],
+    stack: ["Class booking", "Timetables", "Client onboarding", "Studio management"],
+    href: "https://divlynx-pilates.vercel.app/",
+  },
+  {
     service: "Marketplace development",
     client: "JeeUstaad",
     region: "Pakistan",
