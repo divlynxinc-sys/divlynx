@@ -89,7 +89,3 @@
 
 @keyframes hl-fallback { to { background-size: 100% 58%; } }
 
-@media (prefers-reduced-motion: reduce) {
-  .js .draw:not([data-in]) path { stroke-dashoffset: 0; }
-  .js .hl:not([data-in]) { background-size: 100% 58%; }
-}

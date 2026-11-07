@@ -233,7 +233,9 @@ How reveals work:
 - Elements with `.reveal` (fade/rise) and `.draw` (stroke) are observed by `src/hooks/useRevealOnScroll.js`, which sets a `data-in` attribute (a data attribute, not a class, so React re-renders can never strip it and re-hide content).
 - Content is **visible by default** in the prerendered HTML. CSS only holds it back once the inline script in `index.html` sets `html.js`, and a timed CSS fallback reveals everything regardless. Do not use Framer Motion `initial={{ opacity: 0 }}` for section content: it ships invisible HTML.
 - Stagger with the `--reveal-delay` custom property.
-- Every animation has a `prefers-reduced-motion` path (`MotionConfig reducedMotion="user"` for Framer Motion, plus CSS overrides). Looping visuals pause when off-screen.
+- **Reduced motion means calmer, not off.** Many Windows laptops ship with "Animation effects" disabled (Settings → Accessibility → Visual effects), which Chrome reports as `prefers-reduced-motion: reduce`. In that mode fades, drawn strokes, the to-do list, the agent flow and the stat count-up still play; travel and loops are removed (rising headline words, note swings, glow drift, the team strip, smooth scrolling). Framer Motion follows the same rule through `MotionConfig reducedMotion="user"`. Never reintroduce a global "kill every animation" rule.
+- If the loader was visible (slow connection), `src/main.jsx` replays the hero entrance once it fades, so it is never spent behind the loader.
+- Looping visuals pause when off-screen.
 
 ### Icons and imagery
 
@@ -479,7 +481,7 @@ Then check:
 - Hero animation, to-do list loop and the pain → value flow
 - Contact submission and the webmail fallback
 - Cookie notice dismissal and the privacy page
-- Reduced-motion behaviour (OS setting)
+- Reduced-motion behaviour: turn off Windows "Animation effects" (or emulate it in Chrome DevTools → Rendering) and confirm the page still fades and draws
 - `robots.txt`, `sitemap.xml`, canonical tags and structured data
 - Production security headers and `.well-known/security.txt`
 - No unreferenced files in `public/assets`

@@ -174,3 +174,7 @@
   .flow__arrow { display: none; }
   .flow__arrow + .flow__arrow { display: block; width: 28px; }
 }
+
+/* reduced motion: no lift or tilt on the live node, everything else still plays */
+.flow.is-calm .flow__node.is-live,
+.flow.is-calm .flow__node.is-live .flow__icon { transform: none; }

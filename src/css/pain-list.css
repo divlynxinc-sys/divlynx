@@ -172,8 +172,3 @@
   .pains__sticker { right: -6px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pains__box path,
-  .pains__strike path,
-  .pains__fix { transition: none; }
-}

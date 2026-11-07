@@ -13,7 +13,8 @@ export default function Stat({ value, prefix = "", suffix = "", unit = "", label
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    // Counting up is not movement, so it also plays under reduced motion.
+    if (!el) return undefined;
 
     let frame;
     const io = new IntersectionObserver(

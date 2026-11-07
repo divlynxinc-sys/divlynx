@@ -68,3 +68,12 @@
   60% { opacity: 1; transform: rotate(-3deg); }
   100% { opacity: 1; transform: rotate(-1.5deg); }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .cookie-notice { animation-name: cookie-fade; }
+}
+
+@keyframes cookie-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

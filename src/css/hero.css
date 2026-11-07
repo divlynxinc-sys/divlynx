@@ -202,11 +202,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .js .hero__w > span { animation-name: hero-fade-only; animation-duration: 0.7s; }
   .js .hero__lede,
   .js .hero__actions,
   .js .hero__values,
-  .js .hero__visual,
-  .js .hero__insert,
-  .js .hero__struck,
-  .js .hero__struck::after { animation: none; }
+  .js .hero__visual { animation-name: hero-fade-only; }
+}
+
+@keyframes hero-fade-only {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

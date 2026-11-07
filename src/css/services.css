@@ -258,12 +258,6 @@
   animation-delay: calc(0.45s + var(--i, 0) * 0.14s);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .svc-detail__ring path,
-  .svc-detail__underline path,
-  .svc-detail__check path { animation: none; stroke-dashoffset: 0; }
-}
-
 /* inline accordion body only exists on narrow screens */
 .svc__inline { display: none; overflow: hidden; }
 

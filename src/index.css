@@ -464,19 +464,14 @@ time {
 
 .skip-link:focus-visible { transform: translateY(0); }
 
+/* Reduced motion (OS "animation effects" off) means calmer, not none:
+   fades, drawn strokes and colour changes still play; things that travel,
+   swing or loop are removed. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .js .reveal:not([data-in]) { opacity: 1; transform: none; }
+  .js .reveal:not([data-in]) { transform: none; }
+  .reveal { transition-property: opacity; }
+  .glow { animation: none; }
 }
 
 @media (max-width: 380px) {

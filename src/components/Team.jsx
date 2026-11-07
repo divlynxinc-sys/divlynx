@@ -93,11 +93,11 @@ const ENGINEERING = [
 
 const TEAM = [...EXECUTIVES, ...ENGINEERING];
 
+/* Details reveal on mouse hover (and keyboard focus inside the card on desktop);
+   on touch screens they are always shown, so there is nothing to tap open. */
 function Profile({ member, index = 0 }) {
   return (
-    <article
-      className="team-card reveal"
-      style={{ "--reveal-delay": `${index * 80}ms` }}>
+    <article className="team-card reveal" style={{ "--reveal-delay": `${index * 80}ms` }}>
       <div className="team-card__portrait">
         <img className="team-card__image" src={member.image} alt={member.name} loading="lazy" decoding="async" />
         <div className="team-card__body">

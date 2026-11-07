@@ -23,26 +23,25 @@ export default function PainList() {
   const ref = useRef(null);
   const [done, setDone] = useState(ITEMS.length);
   const [visible, setVisible] = useState(false);
-  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    if (!mq.matches) setDone(0);
+    // Striking and writing are drawing, not movement, so this also plays
+    // when the OS asks for reduced motion.
+    setDone(0);
     const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.3 });
     if (ref.current) io.observe(ref.current);
     return () => io.disconnect();
   }, []);
 
   useEffect(() => {
-    if (reduced || !visible) return undefined;
+    if (!visible) return undefined;
     const finished = done >= ITEMS.length;
     const t = window.setTimeout(
       () => setDone(finished ? 0 : done + 1),
       finished ? HOLD_MS : done === 0 ? 900 : STEP_MS
     );
     return () => window.clearTimeout(t);
-  }, [done, visible, reduced]);
+  }, [done, visible]);
 
   return (
     <figure ref={ref} className="pains" aria-label="Examples of busywork we automate">

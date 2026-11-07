@@ -42,31 +42,32 @@ export default function SketchFlow() {
   // -1: blank page. 0..n-1: step being worked. n: finished, held before the wipe.
   const [step, setStep] = useState(STEPS.length);
   const [visible, setVisible] = useState(false);
+  // Under reduced motion it still runs: arrows drawing and boxes lighting up are
+  // not travel; the small lift on the live node is dropped in CSS instead.
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    if (!mq.matches) setStep(-1);
+    setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    setStep(-1);
     const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.3 });
     if (ref.current) io.observe(ref.current);
     return () => io.disconnect();
   }, []);
 
   useEffect(() => {
-    if (reduced || !visible) return undefined;
+    if (!visible) return undefined;
     const done = step >= STEPS.length;
     const delay = step === -1 ? 600 : done ? HOLD_MS : STEP_MS;
     const t = window.setTimeout(() => setStep(done ? -1 : step + 1), delay);
     return () => window.clearTimeout(t);
-  }, [step, visible, reduced]);
+  }, [step, visible]);
 
   const wiping = step === -1;
 
   return (
     <figure
       ref={ref}
-      className={`flow${wiping ? " is-wiping" : ""}`}
+      className={`flow${wiping ? " is-wiping" : ""}${reduced ? " is-calm" : ""}`}
       aria-label="Example flow: a call comes in, the agent listens, the CRM is updated, a slot is booked and the team is notified, all within 44 seconds.">
       <figcaption className="flow__cap">
         <span className="flow__cap-main">how the agent does it</span>
