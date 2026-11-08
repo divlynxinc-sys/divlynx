@@ -103,7 +103,7 @@
 
 /* Hover reveals colour and details; only on devices that can actually hover,
    so a tap on a phone never leaves a card stuck open. */
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .team-card:hover .team-card__image { filter: grayscale(0); transform: scale(1.025); }
 
   .team-card:hover .team-card__portrait {
@@ -152,7 +152,7 @@
   transition: max-height .35s var(--ease), margin-top .35s var(--ease), opacity .25s var(--ease), transform .35s var(--ease);
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .team-card:hover .team-card__description {
     max-height: 70px;
     margin-top: 12px;
@@ -204,28 +204,12 @@
 
 @media (max-width: 520px) {
   .team__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .team-card h3 { font-size: 1.05rem; line-height: 1.15; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+  .team-card__portrait { aspect-ratio: auto; overflow: visible; border: 0; border-radius: 0; background: transparent; }
+  .team-card__image { position: relative; inset: auto; display: block; aspect-ratio: 4 / 5; border: 1px solid var(--line); border-radius: 10px; object-position: center top; }
+  .team-card__body { position: static; min-height: 0; padding: 11px 3px 7px; background: none; }
+  .team-card h3 { font-size: 1rem; line-height: 1.15; text-shadow: none; }
   .team-card__role { margin-top: 5px; font-size: 1rem; }
-  .team-card__body { min-height: 68%; padding: 64px 13px 15px; gap: 0; background: linear-gradient(180deg, transparent 0%, rgba(4,5,6,.6) 24%, rgba(4,5,6,.96) 54%, #040506 100%); }
-  .team-card__description { font-size: .78rem; line-height: 1.45; color: rgba(255,255,255,.9); text-shadow: 0 1px 5px rgba(0,0,0,.85); }
-}
-
-/* Touch screens: same look as hovering, applied to the cards crossing the
-   middle of the screen while scrolling (Team.jsx marks them data-focus). */
-@media (hover: none) {
-  .team-card[data-focus] .team-card__image { filter: grayscale(0); transform: scale(1.025); }
-
-  .team-card[data-focus] .team-card__portrait {
-    border-color: rgba(255, 154, 20, .7);
-    transform: translateY(-4px);
-  }
-
-  .team-card[data-focus] .team-card__description {
-    max-height: 90px;
-    margin-top: 8px;
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .team-card__description { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

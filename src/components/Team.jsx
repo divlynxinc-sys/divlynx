@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import Scribble from "./Scribble";
 import "../css/team.css";
 
@@ -90,13 +89,24 @@ const ENGINEERING = [
     image: "/assets/team/jaisha-muhammad.jpg",
     description: "Social content, community communication and digital brand support.",
   },
+  {
+    name: "Zarnab",
+    role: "Software Engineer Intern",
+    image: "/assets/team/zarnab-software-engineer-intern.jpeg",
+    description: "Application development, interface implementation and engineering support.",
+  },
+  {
+    name: "Faryal",
+    role: "React Native & Flutter Intern",
+    image: "/assets/team/faryal-software-engineer-intern.jpeg",
+    description: "React Native and Flutter development for cross-platform mobile products.",
+  },
 ];
 
 const TEAM = [...EXECUTIVES, ...ENGINEERING];
 
-/* Details reveal on mouse hover. Touch screens have no hover, so there the
-   cards passing through the middle of the screen open by themselves as you
-   scroll (see useCentreFocus); nothing to tap open or closed. */
+/* Details reveal on mouse hover. Mobile keeps the portrait unobstructed and
+   places the name and role beneath it. */
 function Profile({ member, index = 0 }) {
   return (
     <article className="team-card reveal" style={{ "--reveal-delay": `${index * 80}ms` }}>
@@ -112,31 +122,9 @@ function Profile({ member, index = 0 }) {
   );
 }
 
-/* Touch screens: mark the cards crossing the middle band of the viewport. */
-function useCentreFocus(ref) {
-  useEffect(() => {
-    const root = ref.current;
-    if (!root || window.matchMedia("(hover: hover)").matches) return undefined;
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) e.target.dataset.focus = "";
-          else delete e.target.dataset.focus;
-        });
-      },
-      { rootMargin: "-49% 0px -49% 0px" }
-    );
-    root.querySelectorAll(".team-card").forEach((card) => io.observe(card));
-    return () => io.disconnect();
-  }, [ref]);
-}
-
 export default function Team() {
-  const ref = useRef(null);
-  useCentreFocus(ref);
-
   return (
-    <section id="team" ref={ref} className="band team">
+    <section id="team" className="band team">
       <TeamStrip />
       <div className="shell">
         <header className="sec-head team__head">
