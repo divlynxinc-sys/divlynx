@@ -89,7 +89,7 @@ export default function Hero() {
   usePenHandOff(ref);
 
   return (
-    <section ref={ref} className="hero" aria-labelledby="hero-title">
+    <section id="hero" ref={ref} className="hero" aria-labelledby="hero-title">
       <span className="glow" style={{ "--size": "760px", right: "-220px", top: "20%", "--dx": "-80px", "--dy": "40px" }} aria-hidden="true" />
       <span className="glow glow--warm glow--soft" style={{ "--size": "520px", left: "-200px", top: "-120px", "--drift": "22s" }} aria-hidden="true" />
 

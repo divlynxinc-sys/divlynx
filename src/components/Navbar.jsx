@@ -178,9 +178,13 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
         <div className="nav__inner">
-          <Link to="/" className="nav__brand" aria-label="Divlynx, home">
+          <a
+            href={onHome ? "#hero" : "/#hero"}
+            className="nav__brand"
+            aria-label="Divlynx, home"
+            onClick={(event) => goHash(event, "#hero")}>
             <Logo />
-          </Link>
+          </a>
 
           <nav className="nav__links" aria-label="Primary">
             {NAV.map((item) => {
