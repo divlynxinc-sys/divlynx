@@ -60,6 +60,12 @@ const ENGINEERING = [
     description: "Backend systems, APIs and reliable data services.",
   },
   {
+    name: "Shahmeer Ali",
+    role: "AI/ML Engineer",
+    image: "/assets/team/color/shahmeer-ali.webp",
+    description: "Machine learning systems, intelligent automation and applied AI solutions.",
+  },
+  {
     name: "Zile Hasnain",
     role: "Software Engineer",
     image: "/assets/team/color/zile-hasnain.webp",
