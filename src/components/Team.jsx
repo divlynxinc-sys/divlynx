@@ -107,12 +107,6 @@ const ENGINEERING = [
     image: "/assets/team/color/faryal.webp",
     description: "React Native and Flutter development for cross-platform mobile products.",
   },
-  {
-    name: "Muneeb",
-    role: "React Native Intern",
-    image: "/assets/team/color/muneeb.webp",
-    description: "React Native development, mobile interfaces and cross-platform product support.",
-  },
 ];
 
 const TEAM = [...EXECUTIVES, ...ENGINEERING];
