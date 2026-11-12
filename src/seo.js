@@ -124,7 +124,6 @@ export function jsonLdForPath(pathname) {
       addressLocality: "Islamabad",
       addressRegion: "Islamabad Capital Territory",
       addressCountry: "PK",
-      streetAddress: "Blue Area",
     },
     description: HOME_DESC,
     areaServed: "Worldwide",

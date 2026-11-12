@@ -6,7 +6,7 @@
 export const EMAIL = import.meta.env.VITE_CONTACT_TO_EMAIL || "divlynx.inc@gmail.com";
 export const PHONE = "+92 309 5222648";
 export const PHONE_HREF = "+923095222648";
-export const OFFICE = "Blue Area, Islamabad, Pakistan";
+export const OFFICE = "Islamabad, Pakistan";
 
 export const CALENDLY =
   import.meta.env.VITE_CALENDLY_URL ||
